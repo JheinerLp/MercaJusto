@@ -1,0 +1,108 @@
+.contenedor {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centrar contenido */
+    gap: 20px;
+    flex-wrap: wrap;
+    width: 90%;
+    margin: auto; /* Centrar en la pantalla */
+}
+
+/* Ajustar la imagen para que sea más grande y centrada */
+.Mapa {
+    flex: 1;
+    display: flex;
+    justify-content: center; /* Centra la imagen horizontalmente */
+}
+
+.Mapa img {
+    max-width: 1500px; /* Agrandar la imagen */
+    height: auto;
+    border-radius: 10px;
+}
+
+
+
+.tooltip-area {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+}
+
+.tooltip-area .tooltip {
+    visibility: hidden;
+    opacity: 0;
+    width: max-content;
+    background-color: #b71c1c;
+    color: #fff;
+    text-align: center;
+    padding: 8px 12px;
+    border-radius: 6px;
+    position: absolute;
+    top: -50px; /* Aparece arriba */
+    left: 50%;
+    transform: translateX(-50%);
+    transition: opacity 0.3s ease;
+    z-index: 10;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    pointer-events: none;
+}
+
+.tooltip-area:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+
+
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 100;
+    padding-top: 80px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5);
+}
+.modal-content {
+    background-color: white;
+    margin: auto;
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 400px;
+    font-family: Arial, sans-serif;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+.close {
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #aaa;
+}
+.close:hover {
+    color: red;
+}
+
+
+/* 📱 Diseño para pantallas pequeñas */
+@media (max-width: 768px) {
+    .contenedor {
+        flex-direction: column; 
+        text-align: center;
+    }
+    
+    .Mapa img {
+        max-width: 80%; /* Ajustar tamaño en móviles */
+    }
+
+    
+}

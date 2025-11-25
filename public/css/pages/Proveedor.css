@@ -1,0 +1,315 @@
+.contenido-principal {
+    display: flex;
+    justify-content: flex-start; /* Alinea el contenedor a la izquierda */
+    align-items: flex-start;
+    padding: 30px;
+    width: 100%; /* Asegura que ocupe el 100% del ancho disponible */
+    box-sizing: border-box; /* Para que el padding no afecte el tamaño */
+}
+
+.informacion-proveedor {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Todo alineado a la izquierda */
+    width: 100%; /* Ocupa todo el ancho disponible */
+    max-width: 400px; /* Asegura que no se agrande más de este ancho */
+    position: relative;
+    text-align: left; /* Texto alineado a la izquierda */
+    margin-right: 20px; /* Separación a la derecha */
+}
+
+.letrero-proveedor {
+    background-color: rgb(255, 208, 0);
+    padding: 8px 16px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.foto-proveedor {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 10px;
+    border: 4px solid rgb(255, 208, 0);;
+}
+
+.nombre-proveedor {
+    margin-top: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.texto-informacion {
+    font-size: 16px;
+    color: #333;
+}
+
+/* --- Estilo para cuando la pantalla es pequeña (máximo 768px) --- */
+@media screen and (max-width: 768px) {
+    .informacion-proveedor {
+        flex-direction: column;
+        align-items: center; /* Centra el contenido en pantallas pequeñas */
+        width: 90%; /* Asegura que no ocupe más del 90% del ancho */
+    }
+
+    .texto-informacion, .imagen-proveedor {
+        flex: unset;
+        width: 100%; /* Ajusta al 100% del ancho disponible */
+        text-align: center; /* Centra el texto */
+    }
+
+    .letrero-proveedor {
+        top: -10px;
+    }
+}
+
+.btn-info {
+    background-color: black;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-info:hover {
+    background-color: #444;
+}
+
+/* Estilo de la información del proveedor */
+.texto-informacion {
+    margin-top: 10px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: none; /* Inicialmente oculta */
+}
+
+/* 1) Caja padre, sin ocultar nada */
+.contenedor-carrusel-proveedor {
+    position: relative;
+    width: 300px; /* Más pequeño, parecido al tamaño en tu foto */
+    margin: 50px auto; /* centrado */
+    /* NO overflow: hidden; */
+}
+
+/* 2) Sólo aquí ocultamos el sobrante de las imágenes */
+.carousel-proveedor {
+    width: 100%;
+    overflow: hidden;
+    border-radius: 12px; /* Opcional: un toque redondeado como en la imagen */
+}
+
+/* 3) La “fila” de imágenes que se mueve */
+.carousel-proveedor-images {
+    display: flex;
+    transition: transform 0.5s ease;
+}
+
+/* 4) Cada imagen ocupa todo el ancho de la caja */
+.carousel-proveedor-images img {
+    width: 100%;
+    flex-shrink: 0;
+    object-fit: cover;
+}
+
+/* 5) Botones */
+.carousel-proveedor-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.4);
+    border: none;
+    color: white;
+    font-size: 20px; /* Un poco más pequeño para este tamaño */
+    padding: 6px 10px;
+    cursor: pointer;
+    z-index: 10;
+    border-radius: 50%;
+}
+
+.carousel-proveedor-btn.prev {
+    left: -18px; 
+}
+
+.carousel-proveedor-btn.next {
+    right: -18px; 
+}
+
+
+/* Estilo responsivo */
+@media (max-width: 768px) {
+    .btn-info {
+        font-size: 14px; 
+        padding: 8px 15px; 
+    }
+
+    .texto-informacion {
+        padding: 10px; 
+    }
+}
+
+@media (max-width: 480px) {
+    .btn-info {
+        font-size: 12px; 
+        padding: 6px 12px; 
+    }
+
+    .texto-informacion {
+        padding: 8px; 
+    }
+}
+
+.producto {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    width: 257px;
+    height: auto;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    
+
+}
+
+/* Estilo del precio */
+.precio {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.etiqueta-precio {
+    font-size: 16px;
+    color: #555;
+    margin-right: 5px;
+}
+
+.precio-actual {
+    font-size: 18px;
+    font-weight: bold;
+    color: green;
+}
+
+/* Estilo de la unidad */
+.unidad {
+    font-size: 14px;
+    margin-bottom: 20px;
+    color: #666;
+}
+
+/* Estilo del peso */
+.peso {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Estilo del botón Comprar */
+.btn-comprar {
+    display: inline-block;
+    background-color: black;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-comprar:hover {
+    background-color: #444;
+}
+
+/* --- Estilos Responsivos --- */
+
+/* Pantallas medianas (tablets, entre 768px y 1024px) */
+@media (max-width: 1024px) {
+    .producto {
+        width: 90%; /* Ocupa más espacio en pantallas medianas */
+        padding: 15px; /* Menos padding */
+    }
+
+    .precio-actual {
+        font-size: 16px; /* Ajusta el tamaño del precio */
+    }
+
+    .unidad {
+        font-size: 12px; /* Ajusta el tamaño de la unidad */
+    }
+
+    .peso {
+        font-size: 12px; /* Ajusta el tamaño del peso */
+    }
+
+    .btn-comprar {
+        font-size: 14px; /* Reduce el tamaño del texto en el botón */
+        padding: 8px 16px; /* Ajusta el padding en el botón */
+    }
+}
+
+/* Pantallas pequeñas (móviles, menos de 768px) */
+@media (max-width: 768px) {
+    .producto {
+        width: 95%; /* Ocupa más espacio en móviles */
+        padding: 10px; /* Menos padding */
+    }
+
+    .precio-actual {
+        font-size: 14px; /* Ajusta el tamaño del precio */
+    }
+
+    .unidad {
+        font-size: 12px; /* Ajusta el tamaño de la unidad */
+    }
+
+    .peso {
+        font-size: 12px; /* Ajusta el tamaño del peso */
+    }
+
+    .btn-comprar {
+        font-size: 14px; /* Reduce el tamaño del texto en el botón */
+        padding: 6px 12px; /* Reduce el padding en el botón */
+    }
+}
+
+/* Pantallas muy pequeñas (móviles pequeños, menos de 480px) */
+@media (max-width: 480px) {
+    .producto {
+        width: 100%; /* Ocupa todo el ancho en pantallas pequeñas */
+        padding: 8px; /* Aumenta el padding para mayor espacio */
+    }
+
+    .precio-actual {
+        font-size: 14px; /* Ajusta el tamaño del precio */
+    }
+
+    .unidad {
+        font-size: 12px; /* Ajusta el tamaño de la unidad */
+    }
+
+    .peso {
+        font-size: 12px; /* Ajusta el tamaño del peso */
+    }
+
+    .btn-comprar {
+        font-size: 12px; /* Ajusta el tamaño del texto en el botón */
+        padding: 5px 10px; /* Ajusta el padding en el botón */
+    }
+}
+

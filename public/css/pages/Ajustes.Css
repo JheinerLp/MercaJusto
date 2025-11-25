@@ -1,0 +1,170 @@
+
+  
+  .letrero-perfil {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+  margin-top: 20px;
+}
+
+.letrero-perfil img {
+  width: 200px;
+  height: auto;
+}
+
+.texto-letrero {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 24px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.contenedor-perfil {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  border: 3px solid #000000;
+  border-radius: 10px;
+  padding: 30px;
+  width: 600px;
+  margin: 0 auto;
+  background-color: #f9f9f9;
+  min-height: 450px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Imagen de perfil */
+.imagen-perfil {
+  margin-right: 30px;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.img-perfil {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid #3399ff;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Botón para cambiar foto */
+.btn-cambiar-foto {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 6px 14px;
+  background-color: #444;
+  color: white;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-align: center;
+}
+
+.btn-cambiar-foto:hover {
+  background-color: #222;
+}
+
+/* Campos del perfil */
+.info-perfil {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+}
+
+.info-perfil label {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.info-perfil input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-top: 5px;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.info-perfil input:focus {
+  outline: none;
+  border-color: #3399ff;
+  box-shadow: 0 0 4px rgba(51, 153, 255, 0.5);
+}
+
+/* Botón de guardar */
+.guardar-btn {
+  margin-top: 20px;
+  padding: 12px 24px;
+  background-color: #3399ff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  align-self: flex-start;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.guardar-btn:hover {
+  background-color: #267acc;
+  transform: scale(1.03);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .contenedor-perfil {
+    flex-direction: column;
+    width: 90%;
+    padding: 20px;
+    min-height: auto;
+  }
+
+  .imagen-perfil {
+    margin-right: 0;
+    margin-bottom: 15px;
+    align-self: center;
+  }
+
+  .info-perfil label {
+    text-align: center;
+  }
+
+  .guardar-btn {
+    align-self: center;
+  }
+}
+
+/* Alertas para mensajes de éxito o error */
+.alert {
+  padding: 12px;
+  margin: 10px auto;
+  width: 90%;
+  border-radius: 8px;
+  font-size: 15px;
+  text-align: center;
+}
+
+.alert-success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.alert-danger {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+  

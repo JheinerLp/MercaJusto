@@ -1,0 +1,167 @@
+/* 🧱 Contenedor principal que agrupa carrusel + menú */
+.contenedor-carrusel-menu {
+    display: flex;
+    flex-wrap: wrap; /* 🔁 Permite que los elementos bajen si no caben */
+    justify-content: center; 
+    align-items: flex-start;
+    gap: 30px; /* 🧱 Espacio entre carrusel y menú */
+    margin-top: 10px;
+}
+
+/* 📦 Contenedor del carrusel + menú */
+.carousel-container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 50px; /* más separación entre carrusel y menu */
+    flex-wrap: nowrap; /* ❗ importante: evita que baje en pantallas grandes */
+    width: 100%;
+
+    
+}
+
+
+
+
+/* Contenedor del carrusel */
+.carousel {
+    width: 90%; /* Se ajusta al ancho del dispositivo */
+    max-width: 630px; /* Máximo tamaño en pantallas grandes */
+    height: auto; /* Altura adaptable */
+    aspect-ratio: 3/2; /* Mantiene la proporción 630x420 */
+    margin: 20px auto 25px auto;
+    overflow: hidden;
+    position: relative;
+    border-radius: 15px; /* Bordes redondeados */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.carousel-images {
+    display: flex;
+    width: 400%; /* 4 imágenes en fila */
+    transition: transform 0.5s ease-in-out;
+}
+
+.carousel-images img {
+    width: 100%; /* Se ajusta al tamaño del contenedor */
+    height: 100%;
+    object-fit: cover; /* Ajusta la imagen sin distorsionarla */
+    border-radius: 15px;
+}
+
+/* Media Query para pantallas pequeñas */
+@media (max-width: 768px) {
+    .carousel {
+        width: 95%; /* Se adapta mejor a móviles */
+        border-radius: 10px; /* Bordes menos pronunciados */
+    }
+}
+
+
+
+/* Estilo base del menú circular */
+.circle-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    /* 🔧 Puedes controlar su posición aquí */
+    margin-top: 30px;
+    margin-left: -350px;
+    padding-right: 60px; /* 🔁 Esto aleja .circle-menu del borde derecho */
+
+    align-self: flex-start;
+}
+
+/* MODO RESPONSIVE - móviles */
+@media (max-width: 768px) {
+    .carousel-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+    }
+
+    .circle-menu {
+        width: 100%;
+        margin-top: 20px;
+        margin-left: 0;
+        align-items: center;
+        align-self: center; /* ✅ Ahora se centra al bajar */
+    }
+}
+
+/* Estilos de cada ítem del menú */
+.circle-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 2px solid red;
+    background-color: transparent;
+    color: red;
+    padding: 10px 15px;
+    border-radius: 50px;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Flecha dentro del círculo */
+.circle-item .arrow {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid red;
+    color: red;
+    font-weight: bold;
+    border-radius: 50%;
+    background-color: transparent;
+}
+
+/* Enlaces dentro del menú */
+.circle-item a {
+    text-decoration: none;
+    color: red;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+/* Efecto al pasar el mouse */
+.circle-item:hover {
+    background-color: rgba(255, 0, 0, 0.1);
+    transform: scale(1.1);
+}
+
+/* Efecto en los enlaces al hacer hover */
+.circle-item a:hover {
+    color: darkred;
+}
+
+
+
+
+@media (max-width: 768px) {
+    .carousel-container {
+        flex-direction: column; /* 🔁 Uno debajo del otro */
+        align-items: center;
+    }
+
+    .circle-item {
+        padding: 8px 12px;
+        font-size: 14px;
+    }
+
+    .circle-item .arrow {
+        width: 25px;
+        height: 25px;
+    }
+}
+
+
+
+
+
+

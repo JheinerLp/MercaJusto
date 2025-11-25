@@ -1,0 +1,151 @@
+/* Letrero del perfil */
+.letrero-perfil {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin: 20px auto 10px;
+}
+
+.letrero-perfil img {
+  width: 200px;
+  height: auto;
+}
+
+.texto-letrero {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 24px;
+  font-weight: bold;
+  color: #fff;
+}
+
+/* Contenedor general */
+.contenedor-perfil {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  border: 3px solid #000000;
+  border-radius: 10px;
+  padding: 30px;
+  width: 600px;
+  margin: 0 auto 40px;
+  background-color: #f9f9f9;
+  min-height: 450px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Imagen de perfil */
+.imagen-perfil {
+  margin-right: 30px;
+  text-align: center;
+}
+
+.img-perfil {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid #3399ff;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Botón para cambiar foto */
+.btn-cambiar-foto {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 6px 14px;
+  background-color: #444;
+  color: white;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-cambiar-foto:hover {
+  background-color: #222;
+}
+
+/* Sección de datos */
+.info-perfil {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.dato-perfil {
+  margin-bottom: 20px;
+}
+
+.dato-perfil label {
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.dato-perfil p {
+  margin: 0;
+  padding: 8px 12px;
+  font-size: 15px;
+  background-color: #f0f0f0;
+  border-radius: 6px;
+  color: #333;
+  word-break: break-word;
+}
+
+/* Botón para cambiar información */
+.guardar-btn {
+  margin-top: 10px;
+  padding: 12px 24px;
+  background-color: #3399ff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  align-self: flex-start;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.guardar-btn:hover {
+  background-color: #267acc;
+  transform: scale(1.03);
+}
+
+/* Responsive para móviles */
+@media (max-width: 768px) {
+  .contenedor-perfil {
+    flex-direction: column;
+    width: 90%;
+    padding: 20px;
+  }
+
+  .imagen-perfil {
+    margin: 0 auto 20px;
+  }
+
+  .guardar-btn {
+    align-self: center;
+  }
+
+  .info-perfil {
+    align-items: center;
+  }
+
+  .dato-perfil {
+    width: 100%;
+    text-align: center;
+  }
+
+  .dato-perfil label {
+    font-size: 15px;
+  }
+
+  .dato-perfil p {
+    font-size: 14px;
+  }
+}

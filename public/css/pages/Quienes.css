@@ -1,0 +1,136 @@
+/* Contenedor principal */
+.contenedor {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    width: 90%;
+    margin: 40px auto;
+    color: white;
+}
+
+/* Imagen principal centrada */
+.imagen_que_somos {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    transition: transform 0.4s ease-in-out;
+}
+
+.imagen_que_somos img {
+    max-width: 500px;
+    height: auto;
+    border-radius: 12px;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.imagen_que_somos img:hover {
+    transform: scale(1.03);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Descripción textual */
+.descripcion {
+    flex: 1;
+    max-width: 50%;
+}
+
+.descripcion h1 {
+    color: #C8102E;
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.descripcion p {
+    font-size: 1.2em;
+    line-height: 1.6;
+    color: #333;
+}
+
+/* Estilo general para secciones informativas */
+.info-section {
+    background-color: white;
+    padding: 60px 20px;
+}
+
+.info-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.info-content.reverse {
+    flex-direction: row-reverse;
+}
+
+.info-content img {
+    max-width: 450px;
+    height: auto;
+    border-radius: 12px;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.info-content img:hover {
+    transform: scale(1.03);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.info-text {
+    flex: 1;
+    max-width: 500px;
+}
+
+.info-text h2 {
+    color: #C8102E;
+    font-size: 1.8em;
+    margin-bottom: 10px;
+}
+
+.info-text p {
+    font-size: 1.2em;
+    line-height: 1.6;
+    color: #333;
+}
+
+/* Responsive para tablets y móviles */
+@media (max-width: 768px) {
+    .contenedor,
+    .info-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .descripcion,
+    .info-text {
+        max-width: 90%;
+    }
+
+    .imagen_que_somos img,
+    .info-content img {
+        max-width: 90%;
+    }
+}
+.boton-centro {
+    text-align: center;
+    margin: 30px 0;
+}
+
+.boton-rojo {
+    background-color: #dc3545;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 18px;
+    transition: background-color 0.3s ease;
+}
+
+.boton-rojo:hover {
+    background-color: #c82333;
+}

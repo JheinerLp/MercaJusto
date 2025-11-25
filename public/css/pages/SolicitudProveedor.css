@@ -1,0 +1,118 @@
+/* ======== Contenedor principal ======== */
+section {
+    max-width: 800px;
+    margin: 3rem auto;
+    background: #ffffff;
+    padding: 2.5rem;
+    border-radius: 1.2rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    font-family: "Poppins", "Segoe UI", sans-serif;
+}
+
+/* ======== Título ======== */
+h1 {
+    text-align: center;
+    color: #c62828;
+    font-size: 2.2rem;
+    margin-bottom: 2rem;
+    letter-spacing: 0.5px;
+    font-weight: 700;
+}
+
+/* ======== Campos del formulario ======== */
+.mb-3 {
+    margin-bottom: 1.5rem;
+}
+
+label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: .5rem;
+    color: #2f3640;
+}
+
+input.form-control,
+select.form-select,
+textarea.form-control {
+    width: 100%;
+    padding: .8rem 1rem;
+    border-radius: .6rem;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    background: #fafafa;
+    transition: all 0.25s ease;
+}
+
+/* ======== Enfoque en inputs ======== */
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: #1976d2;
+    background: #fff;
+    box-shadow: 0 0 6px rgba(25,118,210,0.2);
+    outline: none;
+}
+
+/* ======== Botón de envío ======== */
+button.btn-primary {
+    display: block;
+    width: 100%;
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    border-radius: .6rem;
+    padding: .9rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s;
+}
+
+button.btn-primary:hover {
+    background-color: #219150;
+    transform: translateY(-2px);
+}
+
+/* ======== Ajustes responsivos ======== */
+@media (max-width: 768px) {
+    section {
+        padding: 1.5rem;
+        margin: 1.5rem;
+    }
+
+    h1 {
+        font-size: 1.7rem;
+    }
+
+    button.btn-primary {
+        font-size: 1rem;
+        padding: .8rem;
+    }
+}
+
+/* ======== Estilos de placeholders ======== */
+::placeholder {
+    color: #aaa;
+    font-style: italic;
+}
+
+/* ======== Efecto de aparición suave ======== */
+section, h1, form {
+    animation: fadeIn 0.6s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ======== Mensajes de validación o éxito ======== */
+.alert-success {
+    background: #e8f5e9;
+    color: #2e7d32;
+    padding: 1rem;
+    border-radius: .5rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid #a5d6a7;
+    text-align: center;
+}

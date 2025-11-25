@@ -1,0 +1,138 @@
+.forma-pago {
+    padding: 40px 20px;
+    background-color: #fff;
+    border-top: 3px solid #df0f0f;
+    border-bottom: 3px solid #df0f0f;
+}
+
+.forma-pago h2 {
+    color: #df0f0f;
+    font-size: 2em;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.pago-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.pago-img img {
+    max-width: 500px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    animation: palpitar 2s infinite ease-in-out;
+    transition: transform 0.3s ease-in-out;
+}
+
+.pago-img img:hover {
+    transform: scale(1.05);
+}
+
+.pago-info {
+    max-width: 500px;
+    font-size: 1.1em;
+    line-height: 1.6;
+}
+
+.pago-info ul {
+    padding-left: 20px;
+    margin-top: 10px;
+}
+
+.pago-info a {
+    color: #0066cc;
+    text-decoration: none;
+}
+
+.pago-info a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .pago-content {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+
+
+.problemas-comprobacion {
+    padding: 50px 20px;
+    background-color: #f9f9f9;
+    text-align: center;
+}
+
+.problemas-comprobacion h2 {
+    color: #df0f0f;
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+.problemas-comprobacion p {
+    font-size: 1.1em;
+    margin-bottom: 30px;
+}
+
+.guia-comprobacion {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.paso {
+    max-width: 250px;
+    text-align: center;
+}
+
+.paso img {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.paso img:hover {
+    transform: scale(1.05);
+}
+
+.paso p {
+    font-size: 1em;
+    line-height: 1.4;
+}
+
+.whatsapp-soporte {
+    margin-top: 25px;
+}
+
+.whatsapp-soporte a {
+    background-color: #25D366;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.whatsapp-soporte a:hover {
+    background-color: #1ebd59;
+}
+
+@keyframes palpitar {
+    0% { transform: scale(1); }
+    10% { transform: scale(1.05); }
+    20% { transform: scale(1); }
+    30% { transform: scale(1.05); }
+    40% { transform: scale(1); }
+}
+
+

@@ -1,0 +1,22 @@
+.tab-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #db1010; /* Rojo fuerte */
+    color: white;
+    text-decoration: none;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.tab-button:hover {
+    background-color: #a30d0d; /* Rojo más oscuro al pasar el mouse */
+    transform: scale(1.03);
+}
+
+.tab-button:active {
+    background-color: #750a0a;
+    transform: scale(0.97);
+}

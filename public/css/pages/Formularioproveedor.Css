@@ -1,0 +1,109 @@
+#previewProducto img {
+  border-radius: 8px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.2);
+}
+
+/* Contenedor general del formulario */
+.formulario-producto {
+  max-width: 500px;
+  margin: 40px auto;
+  background: #fff;
+  border-radius: 12px;
+  padding: 30px 40px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Título del formulario */
+.formulario-producto h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 2.2rem;
+  color: #2c3e50;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+}
+
+/* Estilos de etiquetas */
+.formulario-producto label {
+  display: block;
+  margin-bottom: 8px;
+  color: #34495e;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+/* Inputs y textarea estilos */
+.formulario-producto input[type="text"],
+.formulario-producto input[type="number"],
+.formulario-producto select,
+.formulario-producto textarea,
+.formulario-producto input[type="file"] {
+  width: 100%;
+  padding: 12px 15px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  color: #2c3e50;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  box-sizing: border-box;
+  font-family: inherit;
+  resize: vertical;
+}
+
+/* Input y textarea focus */
+.formulario-producto input[type="text"]:focus,
+.formulario-producto input[type="number"]:focus,
+.formulario-producto select:focus,
+.formulario-producto textarea:focus,
+.formulario-producto input[type="file"]:focus {
+  border-color: #2980b9;
+  box-shadow: 0 0 8px rgba(41, 128, 185, 0.3);
+  outline: none;
+}
+
+/* Textarea altura */
+.formulario-producto textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+/* Botón de enviar */
+.formulario-producto button[type="submit"] {
+  margin-top: 20px;
+  width: 100%;
+  background-color: #2980b9;
+  color: white;
+  padding: 14px 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  letter-spacing: 1px;
+  box-shadow: 0 5px 15px rgba(41, 128, 185, 0.4);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Hover del botón */
+.formulario-producto button[type="submit"]:hover {
+  background-color: #1c5980;
+  box-shadow: 0 7px 20px rgba(28, 89, 128, 0.6);
+}
+
+/* Para inputs tipo file, un poco mejor el estilo */
+.formulario-producto input[type="file"] {
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 8px;
+  border: 2px solid #ddd;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .formulario-producto {
+    padding: 25px 20px;
+    margin: 20px 15px;
+  }
+}

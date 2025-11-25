@@ -1,0 +1,105 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #F5F5F5;
+    margin: 0;
+}
+
+/* 🧾 Contenedor centrado del login */
+.register-section {
+    position: absolute;
+    top: 50%; /* Centrado vertical */
+    left: 50%; /* Centrado horizontal */
+    transform: translate(-50%, -50%);
+    z-index: 10; /* Asegura que esté sobre la imagen */
+}
+
+/* 🧱 Caja del formulario */
+.login-box {
+    background-color: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 300px;
+}
+
+/* 🎓 Logo dentro del formulario */
+.form-logo {
+    width: 80px;
+    margin-bottom: 10px;
+}
+
+/* 🏷 Etiquetas */
+label {
+    display: block;
+    font-weight: bold;
+    text-align: left;
+    margin: 8px 0 4px;
+    font-size: 14px;
+}
+
+/* 📝 Campos de entrada */
+input {
+    width: 100%;
+    padding: 8px;
+    border: none;
+    border-bottom: 2px solid black;
+    background-color: transparent;
+    outline: none;
+    font-size: 14px;
+}
+
+/* 🔐 Botón de enviar */
+button {
+    width: 100%;
+    background: linear-gradient(to right, #C8102E, #8B0000);
+    color: white;
+    padding: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    border: none;
+    border-radius: 20px;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: linear-gradient(to right, #8B0000, #C8102E);
+}
+
+/* 🔗 Enlaces */
+.links {
+    margin-top: 10px;
+    font-size: 12px;
+}
+
+.links a {
+    text-decoration: none;
+    color: #C8102E;
+    display: block;
+    margin: 3px 0;
+}
+
+.links a:hover {
+    text-decoration: underline;
+}
+
+
+
+
+/* 🖼 Imagen de fondo login */
+.Imagen-login {
+    position: relative;
+    width: 100%;
+    height: 100vh; /* ocupa toda la pantalla */
+    overflow: hidden;
+}
+
+.Imagen-login img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    object-position: top;
+    display: block;
+}

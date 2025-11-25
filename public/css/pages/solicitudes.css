@@ -1,0 +1,163 @@
+/* ============================
+   CONTENEDOR PRINCIPAL
+============================ */
+.admin-panel {
+    width: 100%;
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.admin-panel h2 {
+    font-size: 28px;
+    margin-bottom: 25px;
+    color: #333;
+    font-weight: 600;
+}
+
+/* ============================
+   TABLA DE SOLICITUDES
+============================ */
+.tabla-solicitudes {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.tabla-solicitudes thead {
+    background: #e03112;
+    color: #fff;
+}
+
+.tabla-solicitudes th {
+    padding: 14px 12px;
+    font-size: 15px;
+    font-weight: 600;
+    text-align: left;
+}
+
+.tabla-solicitudes td {
+    padding: 12px 14px;
+    font-size: 14px;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+/* Última fila sin borde */
+.tabla-solicitudes tr:last-child td {
+    border-bottom: none;
+}
+
+/* Hover */
+.tabla-solicitudes tbody tr:hover {
+    background: #f5f7ff;
+}
+
+/* ============================
+   BOTONES
+============================ */
+
+.btn-aceptar,
+.btn-rechazar {
+    border: none;
+    padding: 7px 14px;
+    border-radius: 6px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-aceptar {
+    background: #28a745;
+    color: white;
+}
+
+.btn-aceptar:hover {
+    background: #218838;
+}
+
+.btn-rechazar {
+    background: #dc3545;
+    color: white;
+}
+
+.btn-rechazar:hover {
+    background: #c82333;
+}
+
+.input-rechazo {
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 6px;
+    font-size: 13px;
+    width: 120px;
+}
+
+/* ============================
+   RESPONSIVE
+============================ */
+@media (max-width: 900px) {
+    .tabla-solicitudes th,
+    .tabla-solicitudes td {
+        font-size: 12px;
+        padding: 8px;
+    }
+
+    .input-rechazo {
+        width: 90px;
+    }
+}
+
+@media (max-width: 600px) {
+    .tabla-solicitudes {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+}
+
+/* Estilo general de botones tipo enlace */
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    cursor: pointer;
+    text-align: center;
+}
+
+/* Botón principal (para acciones destacadas) */
+.btn-primary {
+    background-color: #007bff;
+    color: #fff;
+    border: 1px solid #007bff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+/* Botón secundario (para acciones menos importantes) */
+.btn-secondary {
+    background-color: #6c757d;
+    color: #fff;
+    border: 1px solid #6c757d;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+    border-color: #545b62;
+    transform: translateY(-2px);
+}
+
+/* Margen inferior opcional para separar botones de la tabla */
+.mb-3 {
+    margin-bottom: 1rem;
+}
