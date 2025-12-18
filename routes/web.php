@@ -34,8 +34,8 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 //Formas de pago 
 //Quienes somos 
 //Soporte 
-Route::view('/sabermas', 'opciones.QuienesSomos')->name('quienes.somos');
-Route::get('/sabermas', [QuienesSomosController::class, 'quienesSomos']);
+Route::get('/sabermas', [QuienesSomosController::class, 'quienesSomos'])
+->name('quienes.somos');;
 
 
 Route::view('/mapa', 'opciones.Mapa')->name('mapa');

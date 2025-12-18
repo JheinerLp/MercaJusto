@@ -105,7 +105,7 @@
     <div class="modal-content">
         <span class="cerrar" onclick="cerrarModal('modalSolicitudProveedor')">&times;</span>
 
-        <h3>Solicitud para promocionar productos</h3>
+        <h3>Unetenos</h3>
 
         <form id="formSolicitudProveedor"
               action="{{ route('solicitud.proveedor.store') }}"
@@ -133,6 +133,13 @@
                 <option value="2">Buenaventura</option>
                 <option value="3">Palmira</option>
                 <option value="4">Yumbo</option>
+                <option value="5">Buga</option>
+                <option value="6">Tulua</option>
+                <option value="7">Zarzal</option>
+                <option value="8">Cartago</option>
+                <option value="9">Caicedonia</option>
+                <option value="10">Sede Norte </option>
+            
             </select>
 
             <input type="text" name="direccion" placeholder="Dirección (opcional)">

@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\SolicitudAceptada;
 use App\Mail\SolicitudRechazada;
 use App\Mail\NuevaSolicitudProveedor;
+use Illuminate\Support\Str;
 
 class SolicitudProveedorController extends Controller
 {
@@ -96,11 +97,12 @@ public function historial()
         return back()->with('error', 'El correo ya está registrado.');
     }
 
+     $passwordPlano = Str::random(10);
     // Crear usuario proveedor
     $user = User::create([
         'name' => $solicitud->nombre,
         'email' => $solicitud->correo,
-        'password' => bcrypt('password123'),
+        'password' => bcrypt($passwordPlano),
         'role' => 'provider',
     ]);
 
@@ -108,8 +110,8 @@ public function historial()
     Proveedor::create([
         'empresa'      => $solicitud->nombre_empresa,
         'user_id'      => $user->id,
-        'categoria_id' => 1,
-        'sede_id'      => 1,
+        'categoria_id' => $solicitud->categoria_id,
+        'sede_id'      => $solicitud->sede_id,
         'ubicacion'    => $solicitud->direccion,
         'descripcion'  => $solicitud->descripcion,
         'whatsapp'     => $solicitud->telefono,
@@ -122,6 +124,10 @@ public function historial()
         'estado' => 'aprobado',
         'respuesta_admin' => 'Aceptada',
     ]);
+
+     Mail::to($user->email)->send(
+        new SolicitudAceptada($user, $passwordPlano)
+    );
 
     return redirect()->back()->with('success', 'Solicitud aceptada y proveedor creado.');
 }
@@ -144,7 +150,15 @@ public function historial()
             'motivo_rechazo' => $request->motivo,
         ]);
 
-        Mail::to($solicitud->correo)->send(new SolicitudRechazada($solicitud));
+        try {
+        Mail::to($solicitud->correo)
+            ->send(new SolicitudRechazada($solicitud));
+    } catch (\Exception $e) {
+        // opcional: log
+        \Log::error('Error enviando correo de rechazo', [
+            'error' => $e->getMessage(),
+        ]);
+    }
 
         return redirect()->back()->with('success', 'Solicitud rechazada correctamente.');
     }
