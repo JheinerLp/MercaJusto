@@ -2,8 +2,8 @@
 
 namespace App\Mail;
 
+use App\Models\SolicitudProveedor;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
@@ -13,12 +13,14 @@ class NuevaSolicitudProveedor extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public SolicitudProveedor $solicitud;
+
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct(SolicitudProveedor $solicitud)
     {
-        //
+        $this->solicitud = $solicitud;
     }
 
     /**
@@ -27,7 +29,7 @@ class NuevaSolicitudProveedor extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Nueva Solicitud Proveedor',
+            subject: '📩 Nueva solicitud de proveedor',
         );
     }
 
@@ -37,14 +39,15 @@ class NuevaSolicitudProveedor extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'view.name',
+            view: 'emails.nueva_solicitud',
+            with: [
+                'solicitud' => $this->solicitud
+            ]
         );
     }
 
     /**
      * Get the attachments for the message.
-     *
-     * @return array<int, \Illuminate\Mail\Mailables\Attachment>
      */
     public function attachments(): array
     {

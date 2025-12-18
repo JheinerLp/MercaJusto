@@ -7,6 +7,8 @@ use App\Http\Controllers\SolicitudProveedorController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\ProductoController;
+use App\Http\Controllers\QuienessomosController;
+
 
 
 //Pagina principal 
@@ -33,12 +35,15 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 //Quienes somos 
 //Soporte 
 Route::view('/sabermas', 'opciones.QuienesSomos')->name('quienes.somos');
+Route::get('/sabermas', [QuienesSomosController::class, 'quienesSomos']);
+
 
 Route::view('/mapa', 'opciones.Mapa')->name('mapa');
 
 Route::view('/comopagar', 'opciones.Formas')->name('formas.pago');
 
 Route::view('/ayuda', 'opciones.Soporte')->name('soporte');
+
 
 
 
