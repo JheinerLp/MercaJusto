@@ -60,43 +60,85 @@
 
     </section>
 
-    {{-- ============================
-               PRODUCTOS
-    ============================= --}}
-    <section class="productos-lista">
-        <h3>Mis Productos</h3>
+  {{-- ============================
+       PRODUCTOS
+============================= --}}
+<section class="productos-lista">
+    <h3>Mis Productos</h3>
 
-        {{-- BOTÓN AÑADIR PRODUCTO --}}
-        <a href="{{ route('proveedor.productos.create') }}" class="btn-agregar-producto">+ Añadir Producto</a>
+    {{-- BOTÓN AÑADIR PRODUCTO --}}
+    <button class="btn-agregar-producto" onclick="abrirModal('modalAgregarProducto')">
+        + Añadir Producto
+    </button>
 
-        <div class="contenedor-productos">
+    <div class="contenedor-productos">
+        @forelse($productos as $p)
+            <div class="card-producto">
+                <img src="{{ $p->foto ? asset('storage/' . $p->foto) : asset('img/default-producto.jpg') }}" alt="Imagen" class="imagen-producto">
+                <h4>{{ $p->nombre ?? 'Producto sin nombre' }}</h4>
+                <p class="precio">Precio: ${{ number_format($p->precio ?? 0, 0, ',', '.') }}</p>
 
-            @forelse($productos as $p)
-                <div class="card-producto">
-                    <img src="{{ asset('img/productos/' . ($p->foto ?? 'default-producto.jpg')) }}" alt="Imagen" class="imagen-producto">
-                    <h4>{{ $p->nombre ?? 'Producto sin nombre' }}</h4>
-                    <p class="precio">Precio: ${{ number_format($p->precio ?? 0, 0, ',', '.') }}</p>
+                {{-- BOTÓN EDITAR --}}
+                <button class="btn-editar" onclick="abrirModal('modalEditarProducto{{ $p->id }}')">
+                    <i class="fas fa-edit"></i> Editar
+                </button>
 
-                    {{-- BOTÓN EDITAR --}}
-                    <a href="{{ route('proveedor.productos.edit', $p->id) }}" class="btn-editar">
-                        <i class="fas fa-edit"></i> Editar
-                    </a>
+                {{-- BOTÓN ELIMINAR --}}
+                <button class="btn-eliminar" onclick="abrirModal('modalEliminarProducto{{ $p->id }}')">
+                    <i class="fas fa-trash"></i> Eliminar
+                </button>
+            </div>
 
-                    {{-- BOTÓN ELIMINAR --}}
-                    <form action="{{ route('proveedor.productos.destroy', $p->id) }}" method="POST" class="form-eliminar">
+            {{-- MODAL EDITAR PRODUCTO --}}
+            <div id="modalEditarProducto{{ $p->id }}" class="modal">
+                <div class="modal-content">
+                    <h3>Editar Producto</h3>
+                    <form action="{{ route('proveedor.productos.update', $p->id) }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        @method('PUT')
+                        <input type="text" name="nombre" value="{{ $p->nombre }}" placeholder="Nombre del producto">
+                        <input type="number" name="precio" value="{{ $p->precio }}" placeholder="Precio">
+                        <input type="file" name="foto">
+                        <button class="btn-guardar">Guardar</button>
+                    </form>
+                    <span class="cerrar" onclick="cerrarModal('modalEditarProducto{{ $p->id }}')">&times;</span>
+                </div>
+            </div>
+
+            {{-- MODAL ELIMINAR PRODUCTO --}}
+            <div id="modalEliminarProducto{{ $p->id }}" class="modal">
+                <div class="modal-content">
+                    <h3>Eliminar Producto</h3>
+                    <p>¿Deseas eliminar "{{ $p->nombre }}"?</p>
+                    <form action="{{ route('proveedor.productos.destroy', $p->id) }}" method="POST">
                         @csrf
                         @method('DELETE')
-                        <button class="btn-eliminar" onclick="return confirm('¿Eliminar este producto?')">
-                            <i class="fas fa-trash"></i> Eliminar
-                        </button>
+                        <button class="btn-eliminar">Eliminar</button>
                     </form>
+                    <span class="cerrar" onclick="cerrarModal('modalEliminarProducto{{ $p->id }}')">&times;</span>
                 </div>
-            @empty
-                <p>No tienes productos registrados aún.</p>
-            @endforelse
+            </div>
 
-        </div>
-    </section>
+        @empty
+            <p>No tienes productos registrados aún.</p>
+        @endforelse
+    </div>
+</section>
+
+{{-- MODAL AÑADIR PRODUCTO --}}
+<div id="modalAgregarProducto" class="modal">
+    <div class="modal-content">
+        <h3>Agregar Producto</h3>
+        <form action="{{ route('proveedor.productos.store') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <input type="text" name="nombre" placeholder="Nombre del producto" required>
+            <input type="number" name="precio" placeholder="Precio" required>
+            <input type="file" name="foto">
+            <button class="btn-guardar">Guardar</button>
+        </form>
+        <span class="cerrar" onclick="cerrarModal('modalAgregarProducto')">&times;</span>
+    </div>
+</div>
 
 </main>
 

@@ -19,7 +19,6 @@ class ProductoController extends Controller
         $proveedor = Proveedor::where('user_id', Auth::id())->firstOrFail();
 
         $productos = Producto::where('proveedor_id', $proveedor->id)
-            ->with('categoria')
             ->get();
 
         return view('proveedor.productos.index', compact('productos'));
@@ -32,9 +31,7 @@ class ProductoController extends Controller
     {
         $proveedor = Proveedor::where('user_id', Auth::id())->firstOrFail();
 
-        $categorias = Categoria::all();
-
-        return view('proveedor.productos.create', compact('categorias', 'proveedor'));
+        return view('proveedor.productos.create', compact('proveedor'));
     }
 
     /**
@@ -48,21 +45,20 @@ class ProductoController extends Controller
             'nombre' => 'required|string|max:255',
             'descripcion' => 'nullable|string',
             'precio' => 'required|numeric',
-            'categoria_id' => 'required|exists:categorias,id',
             'foto' => 'required|image|max:4096',
         ]);
 
         // Guardar imagen
-        $path = $request->file('foto')->store('productos/fotos');
+        $path = $request->file('foto')->store('productos/fotos', 'public');
 
         Producto::create([
-            'proveedor_id' => $proveedor->id,
-            'nombre' => $request->nombre,
-            'descripcion' => $request->descripcion,
-            'precio' => $request->precio,
-            'categoria_id' => $request->categoria_id,
-            'empresa' => $proveedor->empresa,
-            'foto' => $path
+            'proveedor_id'   => $proveedor->id,
+            'nombre'         => $request->nombre,
+            'descripcion'    => $request->descripcion,
+            'precio'         => $request->precio,
+            'categoria_id'   => $proveedor->categoria_id, // HEREDADA DEL PROVEEDOR
+            'empresa'        => $proveedor->empresa,
+            'foto'           => $path
         ]);
 
         return redirect()->route('proveedor.dashboard')
@@ -81,9 +77,7 @@ class ProductoController extends Controller
             abort(403);
         }
 
-        $categorias = Categoria::all();
-
-        return view('proveedor.productos.edit', compact('producto', 'categorias'));
+        return view('proveedor.productos.edit', compact('producto'));
     }
 
     /**
@@ -101,23 +95,25 @@ class ProductoController extends Controller
             'nombre' => 'required|string|max:255',
             'descripcion' => 'nullable|string',
             'precio' => 'required|numeric',
-            'categoria_id' => 'required|exists:categorias,id',
             'foto' => 'nullable|image|max:4096',
         ]);
 
-        $data = $request->only(['nombre', 'descripcion', 'precio', 'categoria_id']);
+        $data = $request->only(['nombre', 'descripcion', 'precio']);
 
-        
+        // Si trae foto nueva
         if ($request->hasFile('foto')) {
 
-            
+            // Eliminar foto anterior
             if ($producto->foto) {
                 Storage::delete($producto->foto);
             }
 
-            $path = $request->file('foto')->store('productos/fotos');
+            $path = $request->file('foto')->store('productos/fotos', 'public');
             $data['foto'] = $path;
         }
+
+        // La categoría NO se puede cambiar → siempre es la del proveedor
+        $data['categoria_id'] = $producto->proveedor->categoria_id;
 
         $producto->update($data);
 
@@ -138,7 +134,7 @@ class ProductoController extends Controller
 
         // Borrar foto física
         if ($producto->foto) {
-            Storage::delete($producto->foto);
+           Storage::disk('public')->delete($producto->foto);
         }
 
         $producto->delete();

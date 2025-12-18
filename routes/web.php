@@ -115,8 +115,8 @@ Route::middleware(['proveedor'])->prefix('proveedor')->group(function () {
     Route::get('/productos/editar/{id}', [ProductoController::class, 'edit'])
         ->name('proveedor.productos.edit');
 
-    Route::post('/productos/actualizar/{id}', [ProductoController::class, 'update'])
-        ->name('proveedor.productos.update');
+    Route::put('/productos/actualizar/{id}', [ProductoController::class, 'update'])
+    ->name('proveedor.productos.update');
 
     Route::delete('/productos/eliminar/{id}', [ProductoController::class, 'destroy'])
         ->name('proveedor.productos.destroy');
