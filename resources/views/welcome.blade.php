@@ -53,7 +53,7 @@
     @if($role === 'admin')
         <div class="circle-item">
             <span class="arrow">➔</span>
-            <p><a href="{{ url('/admin/gestion') }}">GESTIÓN</a></p>
+            <p><a href="{{ route('admin.dashboard') }}">GESTIÓN</a></p>
         </div>
     @elseif($role === 'proveedor')
         <div class="circle-item">
