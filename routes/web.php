@@ -8,6 +8,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\QuienessomosController;
+use App\Http\Controllers\TicketController;
 
 
 
@@ -45,8 +46,11 @@ Route::view('/comopagar', 'opciones.Formas')->name('formas.pago');
 Route::view('/ayuda', 'opciones.Soporte')->name('soporte');
 
 
+Route::post('/tickets', [TicketController::class, 'store'])
+    ->name('tickets.store');
+Route::post('/tickets/responder/{id}', [TicketController::class, 'responder'])->name('tickets.responder');
 
-
+Route::patch('/tickets/finalizar/{id}', [TicketController::class, 'finalizar'])->name('tickets.finalizar');
 
 
 

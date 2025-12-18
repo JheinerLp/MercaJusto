@@ -42,21 +42,17 @@
     </div>
 </section>
 <section class="problemas-comprobacion">
-    <h2>¿Problemas con la comprobación del producto?</h2>
-    <p>Si tienes inconvenientes al recibir o validar tu pedido, sigue esta guía paso a paso:</p>
+    <h2>Recomendaciones Importantes</h2>
+    <p>Estos son algunos consejos </p>
     
     <div class="guia-comprobacion">
         <div class="paso">
-            <img src="{{ asset('Images/comprobantepago.jpg') }}" alt="Revisión del producto">
-            <p><strong>Paso 1:</strong> Verifica que los datos estan correctamente puestos</p>
-        </div>
-        <div class="paso">
             <img src="{{ asset('Images/Wassap.jpeg') }}" alt="Toma evidencia">
-            <p><strong>Paso 2:</strong> Recuerde que al dar la  comprobacion a parte de la notificacion hable por wassap con el proveedor</p>
+            <p><strong>Paso 1:</strong> Asegurese de que el numero suministrado por el proveedor es correcto no siempre es el de Wassap</p>
         </div>
         <div class="paso">
             <img src="{{ asset('Images/Robo.jpg') }}" alt="Contacto con soporte">
-            <p><strong>Paso 3:</strong> Compruebe y guarde todas las evidencias de la compra en caso de robo hable con soporte para el decuado reporte del proveedor</p>
+            <p><strong>Paso 2:</strong> Compruebe y guarde todas las evidencias de la compra en caso de robo hable con soporte para el decuado reporte del proveedor</p>
         </div>
     </div>
 </section>
