@@ -28,6 +28,22 @@ Route::post('/login', [AuthController::class, 'login'])->name('login');
 // Logout
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
+//Opciones 
+//Formas de pago 
+//Quienes somos 
+//Soporte 
+Route::view('/sabermas', 'opciones.QuienesSomos')->name('quienes.somos');
+
+Route::view('/mapa', 'opciones.Mapa')->name('mapa');
+
+Route::view('/comopagar', 'opciones.Formas')->name('formas.pago');
+
+Route::view('/ayuda', 'opciones.Soporte')->name('soporte');
+
+
+
+
+
 
 
 
@@ -62,8 +78,10 @@ Route::middleware('admin')->group(function() {
 
 });
 
+//Solicitudes Publicas 
 
-
+Route::post('/solicitud-proveedor', [SolicitudProveedorController::class, 'store'])
+    ->name('solicitud.proveedor.store');
 
 
 

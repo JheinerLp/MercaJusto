@@ -134,3 +134,122 @@
 .boton-rojo:hover {
     background-color: #c82333;
 }
+
+/* ===== MODAL FONDO ===== */
+.modal {
+    display: none; /* Se muestra solo con JS */
+    position: fixed;
+    z-index: 9999;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ===== CONTENIDO DEL MODAL ===== */
+.modal-content {
+    background: #ffffff;
+    width: 90%;
+    max-width: 900px;
+    padding: 25px 30px;
+    border-radius: 14px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+    position: relative;
+    animation: modalFadeIn 0.3s ease;
+}
+
+/* ===== ANIMACIÓN ===== */
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-15px) scale(0.97);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* ===== BOTÓN CERRAR ===== */
+.modal .cerrar {
+    position: absolute;
+    top: 12px;
+    right: 18px;
+    font-size: 26px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #999;
+}
+
+.modal .cerrar:hover {
+    color: #e63946;
+}
+
+/* ===== TÍTULO ===== */
+.modal-content h3 {
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 22px;
+    text-align: center;
+}
+
+/* ===== FORMULARIO ===== */
+.modal-content form {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+/* Inputs generales */
+.modal-content input,
+.modal-content select,
+.modal-content textarea {
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    width: 100%;
+}
+
+/* Textarea ocupa 2 columnas */
+.modal-content textarea {
+    grid-column: span 2;
+    resize: none;
+    min-height: 80px;
+}
+
+/* Dirección ocupa 2 columnas */
+.modal-content input[name="direccion"] {
+    grid-column: span 2;
+}
+
+/* Botón */
+.modal-content button {
+    grid-column: span 3;
+    padding: 12px;
+    background-color: #e63946;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.modal-content button:hover {
+    background-color: #c5303b;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .modal-content form {
+        grid-template-columns: 1fr;
+    }
+
+    .modal-content textarea,
+    .modal-content input[name="direccion"],
+    .modal-content button {
+        grid-column: span 1;
+    }
+}

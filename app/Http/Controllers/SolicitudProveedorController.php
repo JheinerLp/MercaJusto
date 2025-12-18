@@ -16,6 +16,46 @@ class SolicitudProveedorController extends Controller
     /**
      * Mostrar todas las solicitudes.
      */
+
+    public function store(Request $request)
+{
+    $request->validate([
+        'nombre' => 'required|string|max:255',
+        'correo' => 'required|email|max:255',
+        'nombre_empresa' => 'required|string|max:255',
+        'categoria_id' => 'required|integer',
+        'sede_id' => 'required|integer',
+        'telefono' => 'required|string|max:20',
+        'direccion' => 'nullable|string|max:255',
+        'descripcion' => 'nullable|string',
+    ]);
+
+
+     if (SolicitudProveedor::where('correo', $request->correo)->exists()) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Ya existe una solicitud con este correo.'
+        ], 409);
+    }
+
+    SolicitudProveedor::create([
+        'nombre' => $request->nombre,
+        'correo' => $request->correo,
+        'nombre_empresa' => $request->nombre_empresa,
+        'categoria_id' => $request->categoria_id,
+        'sede_id' => $request->sede_id,
+        'telefono' => $request->telefono,
+        'direccion' => $request->direccion,
+        'descripcion' => $request->descripcion,
+        'estado' => 'pendiente',
+    ]);
+
+     Mail::to(config('mail.from.address'))
+        ->send(new NuevaSolicitudProveedor($solicitud));
+
+    return back()->with('success', 'Solicitud enviada correctamente. Nos pondremos en contacto contigo.');
+}
+
    public function index()
 {
     // Solo solicitudes pendientes

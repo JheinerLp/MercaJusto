@@ -32,19 +32,19 @@
             <nav class="circle-menu" aria-label="Menú rápido de navegación">
     <div class="circle-item">
         <span class="arrow">➔</span>
-        <p><a href="{{ url('/sabermas') }}">QUIÉNES SOMOS</a></p>
+        <p><a href="{{ route('quienes.somos') }}">QUIÉNES SOMOS</a></p>
     </div>
     <div class="circle-item">
         <span class="arrow">➔</span>
-        <p><a href="{{ url('/mapa') }}">MAPA</a></p>
+         <p><a href="{{ route('mapa') }}">MAPA</a></p>
     </div>
     <div class="circle-item">
         <span class="arrow">➔</span>
-        <p><a href="{{ url('/Comopagar') }}">FORMA DE PAGO</a></p>
+        <p><a href="{{ route('formas.pago') }}">FORMA DE PAGO</a></p>
     </div>
     <div class="circle-item">
         <span class="arrow">➔</span>
-        <p><a href="{{ url('/ayuda') }}">SOPORTE</a></p>
+         <p><a href="{{ route('soporte') }}">SOPORTE</a></p>
     </div>
 
    @if(Auth::check())
