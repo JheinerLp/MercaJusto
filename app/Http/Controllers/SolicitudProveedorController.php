@@ -162,4 +162,14 @@ public function historial()
 
         return redirect()->back()->with('success', 'Solicitud rechazada correctamente.');
     }
+
+
+    public function eliminarHistorial()
+{
+    SolicitudProveedor::whereIn('estado', ['aprobado', 'rechazado'])->delete();
+
+    return redirect()
+        ->route('admin.solicitudes.historial')
+        ->with('success', 'Historial de solicitudes eliminado correctamente.');
+}
 }

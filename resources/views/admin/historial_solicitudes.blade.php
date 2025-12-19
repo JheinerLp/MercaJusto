@@ -56,9 +56,21 @@
     <h2>Historial de Solicitudes</h2>
 
     <!-- Botón para volver a solicitudes pendientes -->
-    <a href="{{ route('admin.solicitudes') }}" class="btn btn-primary mb-3">
+   <div style="display:flex; gap:10px; margin-bottom:20px;">
+    <a href="{{ route('admin.solicitudes') }}" class="tab-button">
         Volver a Solicitudes Pendientes
     </a>
+
+    <form action="{{ route('admin.solicitudes.historial.eliminar') }}"
+          method="POST"
+          onsubmit="return confirm('⚠ ¿Eliminar TODO el historial de solicitudes?')">
+        @csrf
+        @method('DELETE')
+        <button class="btn-rechazar">
+            Eliminar historial
+        </button>
+    </form>
+</div>
 
     <table class="tabla-solicitudes">
         <thead>

@@ -115,7 +115,7 @@
         </tbody>
     </table>
 
-    <a href="{{ route('solicitudes.historial') }}" class="btn btn-secondary mb-3">
+    <a href="{{ route('admin.solicitudes.historial') }}" class="btn btn-secondary mb-3">
     Historial de Solicitudes
 </a>
 
