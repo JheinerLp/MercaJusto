@@ -11,6 +11,7 @@ use App\Http\Controllers\QuienessomosController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\MapaController;
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\BusquedaController;
 
 
 
@@ -25,7 +26,10 @@ Route::get('/', function () {
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login.form');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 
+//busqueda 
 
+Route::get('/buscar', [BusquedaController::class, 'index'])
+    ->name('buscar.productos');
 
 
 
