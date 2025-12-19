@@ -12,6 +12,7 @@ use App\Http\Controllers\TicketController;
 use App\Http\Controllers\MapaController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\BusquedaController;
+use App\Http\Controllers\BuscadorController;
 
 
 
@@ -120,7 +121,25 @@ Route::post('/solicitud-proveedor', [SolicitudProveedorController::class, 'store
     ->name('solicitud.proveedor.store');
 
 
+//Rutas de el buscador o filtro 
 
+Route::get('/admin/solicitudes', [BuscadorController::class, 'solicitudes'])
+    ->name('admin.solicitudes');
+
+Route::get('/admin/solicitudes/historial', [BuscadorController::class, 'solicitudesHistorial'])
+    ->name('admin.solicitudes.historial');
+
+Route::get('/admin/proveedores', [BuscadorController::class, 'proveedores'])
+    ->name('admin.proveedores');
+
+Route::get('/admin/productos', [BuscadorController::class, 'productos'])
+    ->name('admin.productos');
+
+Route::get('/admin/tickets', [BuscadorController::class, 'tickets'])
+    ->name('admin.tickets');
+
+Route::get('/admin/tickets/historial', [BuscadorController::class, 'ticketsHistorial'])
+    ->name('admin.tickets.historial');
 
 
 

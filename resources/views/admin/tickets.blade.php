@@ -136,6 +136,17 @@
         Historial de tickets
     </button>
 </div>
+<x-search-filters
+    action="{{ route('admin.tickets') }}"
+    placeholder="Buscar por nombre o correo"
+    :filters="[
+        'estado' => [
+            'abierto' => 'Abierto',
+            'en_proceso' => 'En proceso'
+        ]
+    ]"
+/>
+
 
     <table class="tabla-solicitudes">
         <thead>

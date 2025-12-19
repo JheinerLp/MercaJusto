@@ -1,0 +1,41 @@
+.search-box {
+    margin-bottom: 20px;
+}
+
+.search-wrapper {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.search-input,
+.search-select {
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    min-width: 200px;
+}
+
+.search-select {
+    min-width: 160px;
+}
+
+.btn-search,
+.btn-clear {
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-search {
+    background-color: #007bff;
+    color: white;
+}
+
+.btn-clear {
+    background-color: #6c757d;
+    color: white;
+    text-decoration: none;
+}
+

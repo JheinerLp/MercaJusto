@@ -87,6 +87,11 @@
 <button class="tab-button" onclick="window.location='{{ route('admin.dashboard') }}'">
     Dashboard
 </button>
+<x-search-filters
+    action="{{ route('admin.productos') }}"
+    placeholder="Buscar producto o empresa"
+/>
+
     <table class="tabla-solicitudes">
         <thead>
             <tr>

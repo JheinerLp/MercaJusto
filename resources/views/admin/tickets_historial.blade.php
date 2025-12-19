@@ -81,6 +81,10 @@
             </button>
         </form>
     </div>
+   <x-search-filters
+    action="{{ route('admin.tickets.historial') }}"
+    placeholder="Buscar nombre o correo"
+ />
 
     <table class="tabla-solicitudes">
     <thead>

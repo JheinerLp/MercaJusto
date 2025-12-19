@@ -56,22 +56,23 @@
     <h2>Historial de Solicitudes</h2>
 
     <!-- Botón para volver a solicitudes pendientes -->
-   <div style="display:flex; gap:10px; margin-bottom:20px;">
-    <a href="{{ route('admin.solicitudes') }}" class="tab-button">
-        Volver a Solicitudes Pendientes
-    </a>
+  <div style="display:flex; gap:10px; margin-bottom:20px;"> 
+    <a href="{{ route('admin.solicitudes') }}" class="tab-button"> Volver a Solicitudes Pendientes </a>
+     <form action="{{ route('admin.solicitudes.historial.eliminar') }}" method="POST" onsubmit="return confirm('⚠ ¿Eliminar TODO el historial de solicitudes?')">
+    @csrf @method('DELETE') <button class="btn-rechazar"> Eliminar historial </button>
+</form>
 
-    <form action="{{ route('admin.solicitudes.historial.eliminar') }}"
-          method="POST"
-          onsubmit="return confirm('⚠ ¿Eliminar TODO el historial de solicitudes?')">
-        @csrf
-        @method('DELETE')
-        <button class="btn-rechazar">
-            Eliminar historial
-        </button>
-    </form>
-</div>
-
+ </div>
+ <x-search-filters
+    action="{{ route('admin.solicitudes.historial') }}"
+    placeholder="Buscar empresa o correo"
+    :filters="[
+        'estado' => [
+            'aprobado' => 'Aprobado',
+            'rechazado' => 'Rechazado'
+        ]
+    ]"
+/>
     <table class="tabla-solicitudes">
         <thead>
             <tr>
