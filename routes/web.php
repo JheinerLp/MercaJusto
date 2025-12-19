@@ -113,6 +113,8 @@ Route::post('/solicitud-proveedor', [SolicitudProveedorController::class, 'store
 
 
 // Rutas proveedor
+
+
 Route::middleware(['proveedor'])->prefix('proveedor')->group(function () {
 
     // Dashboard
@@ -134,7 +136,9 @@ Route::middleware(['proveedor'])->prefix('proveedor')->group(function () {
 
     Route::post('/celular', [ProveedorController::class, 'actualizarCelular'])
         ->name('proveedor.celular');
-
+Route::get('/proveedor/{proveedor}', [ProveedorController::class, 'show'])
+    ->whereNumber('proveedor')
+    ->name('proveedor.perfil');
     // Productos
     Route::get('/productos', [ProductoController::class, 'index'])
         ->name('proveedor.productos.index');

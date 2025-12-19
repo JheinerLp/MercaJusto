@@ -8,6 +8,15 @@ use Illuminate\Support\Facades\Auth;
 
 class ProveedorController extends Controller
 {
+
+
+    public function show($id)
+    {
+        $proveedor = Proveedor::with('productos')->findOrFail($id);
+
+        return view('proveedor.perfil', compact('proveedor'));
+    }
+
     // ============================================================
     //      DASHBOARD DEL PROVEEDOR
     // ============================================================

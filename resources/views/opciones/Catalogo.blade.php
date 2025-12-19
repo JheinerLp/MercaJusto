@@ -7,6 +7,7 @@
 
 <link rel="stylesheet" href="{{ asset('css/base/normalize.css') }}">
 <link rel="stylesheet" href="{{ asset('css/Estiloweb.css') }}">
+<link rel="stylesheet" href="{{ asset('css/productos.css') }}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
 <style>
@@ -183,8 +184,8 @@
     <!-- 📦 PRODUCTOS -->
     <div class="grid-productos">
         @foreach ($productos as $p)
-        <div class="card-producto">
-
+        <div class="card-producto" onclick="window.location='{{ route('proveedor.perfil', $p->proveedor->id) }}'">
+             
             <img src="{{ $p->foto ? asset('storage/' . $p->foto) : asset('Images/no-image.png') }}"
                  alt="{{ $p->nombre }}"
                  class="imagen-producto">
