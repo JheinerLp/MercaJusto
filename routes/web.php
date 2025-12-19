@@ -94,6 +94,10 @@ Route::middleware('admin')->group(function() {
     Route::post('/admin/proveedor/{id}/suspender', [AdminController::class, 'suspenderProveedor'])->name('admin.proveedor.suspender');
     Route::get('/admin/solicitudes/historial', [SolicitudProveedorController::class, 'historial'])->name('solicitudes.historial');
     Route::get('/admin/tickets', [AdminController::class, 'tickets'])->name('admin.tickets');
+    Route::get('/admin/tickets/historial', [AdminController::class, 'historialTickets'])
+    ->name('admin.tickets.historial');
+    Route::delete('/admin/tickets/historial', [AdminController::class, 'eliminarHistorial'])
+    ->name('admin.tickets.historial.eliminar');
     Route::get('/admin/solicitudes', [SolicitudProveedorController::class, 'index'])
     ->name('admin.solicitudes');
 

@@ -112,9 +112,27 @@ public function eliminarProveedor($id)
 public function tickets()
 {
     // Obtener todos los tickets con relación a usuario y proveedor
-    $tickets = Ticket::with(['proveedor', 'user'])->get();
+    $tickets = Ticket::with(['proveedor', 'user'])->where('estado', '!=', 'finalizado')->get();
 
     return view('admin.tickets', compact('tickets'));
+}
+
+public function historialTickets()
+{
+    $tickets = Ticket::with(['proveedor', 'user'])
+        ->where('estado', 'finalizado')
+        ->orderBy('updated_at', 'desc')
+        ->get();
+
+    return view('admin.tickets_historial', compact('tickets'));
+}
+
+public function eliminarHistorial()
+{
+    Ticket::where('estado', 'finalizado')->delete();
+
+    return redirect()->route('admin.tickets.historial')
+        ->with('success', 'Historial de tickets eliminado correctamente.');
 }
 
 

@@ -55,12 +55,12 @@ class TicketController extends Controller
 }
 public function finalizar($id)
 {
-    $ticket = Ticket::findOrFail($id);
+   $ticket = Ticket::findOrFail($id);
 
-    // Eliminar ticket
-    $ticket->delete();
+    $ticket->estado = 'finalizado';
+    $ticket->save();
 
-    return back()->with('success', 'Ticket finalizado y eliminado correctamente.');
+    return back()->with('success', 'Ticket finalizado y enviado al historial.');
 }
 
 }

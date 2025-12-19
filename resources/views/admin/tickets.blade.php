@@ -127,7 +127,15 @@
 
 <main class="admin-panel">
     <h2>Tickets de Soporte</h2>
-    <button class="tab-button" onclick="window.location='{{ route('admin.dashboard') }}'">Dashboard</button>
+    <div style="display:flex; gap:10px; margin-bottom:20px;">
+    <button class="tab-button" onclick="window.location='{{ route('admin.dashboard') }}'">
+        Dashboard
+    </button>
+
+    <button class="tab-button" onclick="window.location='{{ route('admin.tickets.historial') }}'">
+        Historial de tickets
+    </button>
+</div>
 
     <table class="tabla-solicitudes">
         <thead>
