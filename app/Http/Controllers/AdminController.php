@@ -21,7 +21,7 @@ class AdminController extends Controller
     $totalProductos = Producto::count();
 
   
-    $totalTickets = Ticket::count();
+    $totalTickets = Ticket::where('estado', '!=', 'finalizado')->count();
 
     
     return view('admin.dashboard', compact('solicitudesPendientes', 'totalActivos', 'totalProductos', 'totalTickets'));
