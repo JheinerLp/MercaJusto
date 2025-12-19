@@ -62,13 +62,13 @@
 
                     <nav class="menu" id="menu" aria-label="Menú principal de categorías">
                      <ul>
-    <li><a href="{{ url('/categoria/frutas-y-verduras') }}">Frutas y verduras</a></li>
-    <li><a href="{{ url('/categoria/lacteos-y-carnes') }}">Lácteos y Carnes</a></li>
-    <li><a href="{{ url('/categoria/transformados') }}">Transformados</a></li>
-    <li><a href="{{ url('/categoria/cosmeticos') }}">Cosméticos</a></li>
-    <li><a href="{{ url('/categoria/artesanias') }}">Artesanías</a></li>
-    <li><a href="{{ url('/categoria/certificado') }}">Certificados</a></li>
-    <li><a href="{{ url('/categoria/otros') }}">Otro</a></li>
+    <li><a href="{{ route('categoria.show', 'frutas-y-verduras') }}">Frutas y verduras</a></li>
+<li><a href="{{ route('categoria.show', 'lacteos-y-carnes') }}">Lácteos y Carnes</a></li>
+<li><a href="{{ route('categoria.show', 'transformados') }}">Transformados</a></li>
+<li><a href="{{ route('categoria.show', 'cosmeticos') }}">Cosméticos</a></li>
+<li><a href="{{ route('categoria.show', 'artesanias') }}">Artesanías</a></li>
+<li><a href="{{ route('categoria.show', 'certificados') }}">Certificados</a></li>
+<li><a href="{{ route('categoria.show', 'otros') }}">Otros</a></li>
 </ul>
 
                     </nav>

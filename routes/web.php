@@ -10,6 +10,7 @@ use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\QuienessomosController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\MapaController;
+use App\Http\Controllers\CategoriaController;
 
 
 
@@ -61,7 +62,8 @@ Route::get('/sede/{sede_id}/productos', [MapaController::class, 'catalogo'])->na
 
 
 
-
+Route::get('/categoria/{slug}', [CategoriaController::class, 'show'])
+    ->name('categoria.show');
 
 // Panel admin
 //Los productos  que le llegan al admin 
