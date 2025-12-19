@@ -87,7 +87,23 @@
                 </button>
             </form>
         @else
-            <span class="text-muted">Suspendido</span>
+           {{-- REACTIVAR --}}
+        <form action="{{ route('admin.proveedor.reactivar', $p->id) }}" method="POST">
+            @csrf
+            <button type="submit" class="btn-aceptar">
+                Reactivar
+            </button>
+        </form>
+
+        {{-- ELIMINAR --}}
+        <form action="{{ route('admin.proveedor.eliminar', $p->id) }}" method="POST"
+              onsubmit="return confirm('⚠ ¿Seguro que deseas eliminar este proveedor? Esta acción no se puede deshacer.')">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="btn-eliminar">
+                Eliminar
+            </button>
+        </form>
         @endif
     </td>
 </tr>

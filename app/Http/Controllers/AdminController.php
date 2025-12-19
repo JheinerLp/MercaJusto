@@ -60,6 +60,34 @@ public function productos()
         return redirect()->route('admin.proveedores')->with('success', 'Proveedor suspendido correctamente.');
     }
 
+    public function reactivarProveedor($id)
+{
+    $proveedor = Proveedor::findOrFail($id);
+    $proveedor->suspendido = false;
+    $proveedor->save();
+
+    return redirect()->route('admin.proveedores')
+        ->with('success', 'Proveedor reactivado correctamente.');
+}
+
+public function eliminarProveedor($id)
+{
+    $proveedor = Proveedor::findOrFail($id);
+
+    // Opcional: eliminar productos asociados
+    $proveedor->productos()->delete();
+
+    // Opcional: eliminar usuario asociado
+    if ($proveedor->user) {
+        $proveedor->user->delete();
+    }
+
+    $proveedor->delete();
+
+    return redirect()->route('admin.proveedores')
+        ->with('success', 'Proveedor eliminado correctamente.');
+}
+
 
     public function eliminarProducto(Request $request, $id)
 {

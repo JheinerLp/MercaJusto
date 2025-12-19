@@ -97,6 +97,13 @@ Route::middleware('admin')->group(function() {
     Route::get('/admin/solicitudes', [SolicitudProveedorController::class, 'index'])
     ->name('admin.solicitudes');
 
+    Route::post('/admin/proveedor/{id}/reactivar', [AdminController::class, 'reactivarProveedor'])
+    ->name('admin.proveedor.reactivar');
+
+Route::delete('/admin/proveedor/{id}', [AdminController::class, 'eliminarProveedor'])
+    ->name('admin.proveedor.eliminar');
+
+
 });
 
 //Solicitudes Publicas 
