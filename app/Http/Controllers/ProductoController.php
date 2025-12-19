@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Proveedor;
+use App\Models\Sede;
 
 class ProductoController extends Controller
 {
@@ -141,4 +142,5 @@ class ProductoController extends Controller
 
         return back()->with('success', 'Producto eliminado.');
     }
+
 }

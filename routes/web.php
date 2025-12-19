@@ -9,6 +9,7 @@ use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\QuienessomosController;
 use App\Http\Controllers\TicketController;
+use App\Http\Controllers\MapaController;
 
 
 
@@ -38,20 +39,25 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/sabermas', [QuienesSomosController::class, 'quienesSomos'])
 ->name('quienes.somos');;
 
-
-Route::view('/mapa', 'opciones.Mapa')->name('mapa');
-
 Route::view('/comopagar', 'opciones.Formas')->name('formas.pago');
 
 Route::view('/ayuda', 'opciones.Soporte')->name('soporte');
 
-
+//Tickets de soporte
 Route::post('/tickets', [TicketController::class, 'store'])
     ->name('tickets.store');
 Route::post('/tickets/responder/{id}', [TicketController::class, 'responder'])->name('tickets.responder');
 
 Route::patch('/tickets/finalizar/{id}', [TicketController::class, 'finalizar'])->name('tickets.finalizar');
 
+//mapa 
+Route::get('/mapa', [MapaController::class, 'index'])->name('mapa.index');
+
+// Mostrar producto individual
+Route::get('/producto/{id}', [ProductoController::class, 'show'])->name('productos.show');
+
+// Catálogo completo por sede
+Route::get('/sede/{sede_id}/productos', [MapaController::class, 'catalogo'])->name('productos.catalogo');
 
 
 

@@ -36,7 +36,7 @@
     </div>
     <div class="circle-item">
         <span class="arrow">➔</span>
-         <p><a href="{{ route('mapa') }}">MAPA</a></p>
+         <p><a href="{{ route('mapa.index') }}">MAPA</a></p>
     </div>
     <div class="circle-item">
         <span class="arrow">➔</span>
@@ -55,10 +55,10 @@
             <span class="arrow">➔</span>
             <p><a href="{{ route('admin.dashboard') }}">GESTIÓN</a></p>
         </div>
-    @elseif($role === 'proveedor')
+    @elseif($role === 'provider')
         <div class="circle-item">
             <span class="arrow">➔</span>
-            <p><a href="{{ url('/proveedor/misproductos') }}">MIS PRODUCTOS</a></p>
+            <p><a href="{{ route('proveedor.dashboard') }}">MIS PRODUCTOS</a></p>
         </div>
     @endif
 @endif

@@ -223,6 +223,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 </script>
+<script src="{{ asset('Js/Generalidades.js') }}"></script>
 
 </body>
 </html>

@@ -26,4 +26,12 @@ class Producto extends Model
     {
         return $this->belongsTo(Proveedor::class);
     }
+
+    public function sede()
+{
+    // Acceso indirecto a la sede a través del proveedor
+    return $this->belongsToThrough(Sede::class, Proveedor::class);
+    // Nota: belongsToThrough requiere paquete de terceros como "staudenmeir/eloquent-has-many-deep"
+}
+
 }
