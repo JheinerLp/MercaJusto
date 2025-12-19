@@ -1,0 +1,109 @@
+/* ===== OVERLAY ===== */
+.overlay-busqueda {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    z-index: 3000;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 70px;
+}
+
+/* ===== CONTENEDOR ===== */
+.contenedor-busqueda {
+    background: #fff;
+    width: 92%;
+    max-width: 1000px;
+    max-height: 75vh;
+    overflow-y: auto;
+    border-radius: 14px;
+    padding: 18px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.35);
+}
+
+/* ===== HEADER ===== */
+.busqueda-header {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+#search-modal-input {
+    flex: 1;
+    padding: 10px 14px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+/* ===== CERRAR ===== */
+.cerrar-busqueda {
+    font-size: 26px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* ===== TABS ===== */
+.tabs-busqueda {
+    display: flex;
+    gap: 10px;
+    margin: 14px 0;
+}
+
+.tabs-busqueda .tab {
+    padding: 6px 16px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    background: #eee;
+    font-weight: 600;
+}
+
+.tabs-busqueda .tab.active {
+    background: #007bff;
+    color: #fff;
+}
+
+/* ===== LOADER ===== */
+.loader {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #ddd;
+    border-top-color: #007bff;
+    border-radius: 50%;
+    margin: 30px auto;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ===== RESULTADOS ===== */
+#resultados-busqueda {
+    margin-top: 10px;
+}
+
+/* ===== CARDS DENTRO DEL MODAL ===== */
+#resultados-busqueda .card-producto {
+    box-shadow: none;
+    border: 1px solid #eee;
+    transition: background 0.2s ease;
+}
+
+#resultados-busqueda .card-producto:hover {
+    background: #f8f9fa;
+    transform: none;
+}
+
+/* ===== SCROLL BONITO ===== */
+.contenedor-busqueda::-webkit-scrollbar {
+    width: 6px;
+}
+
+.contenedor-busqueda::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+}
+

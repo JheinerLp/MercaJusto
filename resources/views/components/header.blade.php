@@ -3,7 +3,7 @@
         <img src="{{ asset('Images/logounivallemenu.JPG') }}" alt="Logo de la Universidad del Valle" class="imagen">
         <h1>Universidad del Valle</h1>
     </div>
-
+<link rel="stylesheet" href="{{ asset('css/busqueda.css') }}">
     <div class="menu-container">
         <div class="Header_Na"> 
             <div class="Titulo_cabeza"> 
@@ -60,63 +60,35 @@
 
 <!-- OVERLAY DE BÚSQUEDA -->
 <div id="overlay-busqueda" class="overlay-busqueda">
-    <div class="contenedor-busqueda">
-        <span class="cerrar-busqueda" id="cerrar-busqueda">&times;</span>
 
+    <div class="contenedor-busqueda">
+
+        <!-- HEADER DEL MODAL -->
+        <div class="busqueda-header">
+            <input type="text"
+                   id="search-modal-input"
+                   placeholder="Buscar productos, proveedores o categorías..."
+                   autocomplete="off">
+
+            <span class="cerrar-busqueda" id="cerrar-busqueda">&times;</span>
+        </div>
+
+        <!-- TABS -->
+        <div class="tabs-busqueda">
+            <button class="tab active" data-tipo="productos">Productos</button>
+            <button class="tab" data-tipo="proveedores">Proveedores</button>
+            <button class="tab" data-tipo="categorias">Categorías</button>
+        </div>
+
+        <!-- LOADER -->
+        <div id="loader-busqueda" class="loader" style="display:none;"></div>
+
+        <!-- RESULTADOS -->
         <div id="resultados-busqueda"></div>
+
     </div>
 </div>
-<style>
-    /* ===== OVERLAY ===== */
-.overlay-busqueda {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.55);
-    z-index: 3000;
-    justify-content: center;
-    align-items: flex-start;
-    padding-top: 80px;
-}
 
-/* ===== CONTENEDOR ===== */
-.contenedor-busqueda {
-    background: #fff;
-    width: 90%;
-    max-width: 1100px;
-    max-height: 75vh;
-    overflow-y: auto;
-    border-radius: 12px;
-    padding: 20px;
-    position: relative;
-}
-
-/* ===== BOTÓN CERRAR ===== */
-.cerrar-busqueda {
-    position: absolute;
-    top: 12px;
-    right: 16px;
-    font-size: 26px;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-/* ===== RESULTADOS ===== */
-#resultados-busqueda .grid-productos {
-    margin-top: 20px;
-}
-
-/* ===== SCROLL BONITO ===== */
-.contenedor-busqueda::-webkit-scrollbar {
-    width: 6px;
-}
-
-.contenedor-busqueda::-webkit-scrollbar-thumb {
-    background: #ccc;
-    border-radius: 4px;
-}
-
-    </style>
 
                 <!-- Menú Hamburguesa y Navegación Principal -->
                 <div class="Navegacion">

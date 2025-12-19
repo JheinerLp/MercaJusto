@@ -1,42 +1,77 @@
-const input = document.getElementById('search-input');
-const overlay = document.getElementById('overlay-busqueda');
-const resultados = document.getElementById('resultados-busqueda');
-const cerrar = document.getElementById('cerrar-busqueda');
+document.addEventListener('DOMContentLoaded', () => {
 
-let timeout = null;
+    const inputHeader = document.getElementById('search-input');
+    const overlay = document.getElementById('overlay-busqueda');
+    const inputModal = document.getElementById('search-modal-input');
+    const resultados = document.getElementById('resultados-busqueda');
+    const loader = document.getElementById('loader-busqueda');
+    const cerrar = document.getElementById('cerrar-busqueda');
 
-input.addEventListener('input', () => {
-    const query = input.value.trim();
+    if (!inputHeader || !overlay || !inputModal) return;
 
-    clearTimeout(timeout);
+    let tipo = 'productos';
+    let timeout = null;
 
-    if (query.length < 2) {
-        overlay.style.display = 'none';
-        resultados.innerHTML = '';
-        return;
+    /* Abrir modal al escribir */
+    inputHeader.addEventListener('input', () => {
+        overlay.style.display = 'flex';
+        inputModal.value = inputHeader.value;
+        buscar();
+    });
+
+    /* Seguir buscando desde el modal */
+    inputModal.addEventListener('input', () => {
+        inputHeader.value = inputModal.value;
+        buscar();
+    });
+
+    /* Tabs */
+    document.querySelectorAll('.tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            tipo = tab.dataset.tipo;
+            buscar();
+        });
+    });
+
+    function buscar() {
+        const q = inputModal.value.trim();
+        clearTimeout(timeout);
+
+        if (q.length < 2) {
+            resultados.innerHTML = '';
+            loader.style.display = 'none';
+            return;
+        }
+
+        loader.style.display = 'block';
+
+        timeout = setTimeout(() => {
+            fetch(`/buscar?q=${encodeURIComponent(q)}&tipo=${tipo}`)
+                .then(r => r.text())
+                .then(html => {
+                    resultados.innerHTML = html;
+                    loader.style.display = 'none';
+                });
+        }, 300);
     }
 
-    timeout = setTimeout(() => {
-        fetch(`/buscar?q=${encodeURIComponent(query)}`)
-            .then(res => res.text())
-            .then(html => {
-                resultados.innerHTML = html;
-                overlay.style.display = 'flex';
-            });
-    }, 350); // debounce
+    /* Cerrar */
+    cerrar.addEventListener('click', cerrarModal);
+    overlay.addEventListener('click', e => {
+        if (e.target === overlay) cerrarModal();
+    });
+
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') cerrarModal();
+    });
+
+    function cerrarModal() {
+        overlay.style.display = 'none';
+        resultados.innerHTML = '';
+        inputHeader.blur();
+    }
+
 });
 
-/* Cerrar */
-cerrar.addEventListener('click', cerrarBusqueda);
-
-overlay.addEventListener('click', e => {
-    if (e.target === overlay) cerrarBusqueda();
-});
-
-document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') cerrarBusqueda();
-});
-
-function cerrarBusqueda() {
-    overlay.style.display = 'none';
-}
