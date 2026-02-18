@@ -34,7 +34,7 @@
                     💬 Hablar por WhatsApp
                 </a>
 
-                <button class="btn-bot">🤖 Hablar con el Bot</button>
+                
 
                 <button class="btn-soporte" onclick="abrirModalSoporte()">
                   📨 Solicitar soporte
@@ -285,7 +285,7 @@
 
 </style>
 </section>
-    @include('components.botsoporte')
+    
     <footer class="footer-container">
         @include('components.footer')  
     </footer>

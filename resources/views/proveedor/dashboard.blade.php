@@ -23,7 +23,7 @@
         BANNER DEL PROVEEDOR
     ============================= --}}
     <section class="proveedor-banner">
-        <img src="{{ asset('img/proveedores/banners/' . ($proveedor->banner ?? 'default-banner.jpg')) }}" alt="Banner proveedor">
+        <img src="{{ $proveedor->banner ?? asset('img/default-banner.jpg') }}" alt="Banner proveedor">
         <button class="btn-cambiar-banner" onclick="abrirModal('modalBanner')">Cambiar Banner</button>
     </section>
 
@@ -34,7 +34,7 @@
 
         {{-- FOTO --}}
         <div class="foto-container">
-           <img src="{{ asset('img/proveedores/fotos/' . ($proveedor->foto ?? 'default-foto.jpg')) }}" alt="Foto proveedor">
+           <img src="{{ $proveedor->foto ?? asset('img/default-foto.jpg') }}" alt="Foto proveedor">
             <button class="btn-cambiar-foto" onclick="abrirModal('modalFoto')">Cambiar Foto</button>
         </div>
 
@@ -46,17 +46,41 @@
             <strong>Categoría:</strong> {{ $proveedor->categoria->nombre ?? 'Sin categoría' }}
         </p>
 
-        {{-- DESCRIPCIÓN --}}
+
+        <div class="datos-proveedor">
+
+    {{-- CREDENCIALES --}}
+    <div class="dato credenciales-box">
+        <p><strong>Cuenta</strong><br>Configura tu acceso</p>
+
+        <button class="btn-guardar btn-credenciales"
+                onclick="abrirModalCredenciales()">
+            Credenciales
+        </button>
+    </div>
+
+    <div class="dato">
         <p><strong>Descripción:</strong> {{ $proveedor->descripcion ?? 'Sin descripción' }}</p>
-        <button class="btn-guardar" onclick="abrirModal('modalDescripcion')">Actualizar Descripción</button>
+        <button class="btn-guardar" onclick="abrirModal('modalDescripcion')">
+            Actualizar
+        </button>
+    </div>
 
-        {{-- DIRECCIÓN --}}
+    <div class="dato">
         <p><strong>Dirección:</strong> {{ $proveedor->ubicacion ?? 'Sin dirección' }}</p>
-        <button class="btn-guardar" onclick="abrirModal('modalDireccion')">Actualizar Dirección</button>
+        <button class="btn-guardar" onclick="abrirModal('modalDireccion')">
+            Actualizar
+        </button>
+    </div>
 
-        {{-- CELULAR --}}
+    <div class="dato">
         <p><strong>Celular / WhatsApp:</strong> {{ $proveedor->whatsapp ?? 'Sin celular' }}</p>
-        <button class="btn-guardar" onclick="abrirModal('modalCelular')">Actualizar Celular</button>
+        <button class="btn-guardar" onclick="abrirModal('modalCelular')">
+            Actualizar
+        </button>
+    </div>
+
+</div>
 
     </section>
 
@@ -74,7 +98,7 @@
     <div class="contenedor-productos">
         @forelse($productos as $p)
             <div class="card-producto">
-                <img src="{{ $p->foto ? asset('storage/' . $p->foto) : asset('img/default-producto.jpg') }}" alt="Imagen" class="imagen-producto">
+                <img src="{{ $p->foto ?? asset('img/default-producto.jpg') }}" alt="Imagen"  class="imagen-producto">
                 <h4>{{ $p->nombre ?? 'Producto sin nombre' }}</h4>
                 <p class="precio">Precio: ${{ number_format($p->precio ?? 0, 0, ',', '.') }}</p>
 
@@ -133,7 +157,7 @@
             @csrf
             <input type="text" name="nombre" placeholder="Nombre del producto" required>
             <input type="number" name="precio" placeholder="Precio" required>
-            <input type="file" name="foto">
+            <input type="file" name="foto" required>
             <button class="btn-guardar">Guardar</button>
         </form>
         <span class="cerrar" onclick="cerrarModal('modalAgregarProducto')">&times;</span>
@@ -142,7 +166,7 @@
 
 </main>
 
-@include('components.botsoporte')
+
 
 <footer class="footer-container">
     @include('components.footer')
@@ -219,6 +243,58 @@
     </div>
 </div>
 
+{{-- MODAL CREDENCIALES PROVEEDOR --}}
+<div id="modalCredenciales" class="modal">
+    <div class="modal-content modal-credenciales">
+        <h3>Actualizar Credenciales</h3>
+        <p class="subtitulo-modal">
+            Modifica tu información de acceso
+        </p>
+
+        <form id="formCredenciales"
+              action="{{ route('proveedor.credenciales') }}"
+              method="POST">
+            @csrf
+
+            <div class="form-group-credenciales">
+                <label>Correo Electrónico</label>
+                <input type="email" id="email" name="email"
+                       value="{{ auth()->user()->email }}"
+                       class="input-credenciales" required>
+            </div>
+
+            <div class="form-group-credenciales">
+    <label>Confirmar Correo Electrónico</label>
+    <input type="email"
+           id="email_confirmation"
+           name="email_confirmation"
+           class="input-credenciales"
+           required>
+</div>
+
+            <div class="form-group-credenciales">
+                <label>Nueva Contraseña</label>
+                <input type="password" id="password" name="password"
+                       class="input-credenciales"
+                       placeholder="Dejar vacío si no deseas cambiarla">
+                <small>Mínimo 8 caracteres</small>
+            </div>
+
+            <div class="form-group-credenciales">
+    <label>Confirmar Nueva Contraseña</label>
+    <input type="password"
+           id="password_confirmation"
+           name="password_confirmation"
+           class="input-credenciales">
+</div>
+
+            <button class="btn-guardar">Guardar cambios</button>
+        </form>
+
+        <span class="cerrar" onclick="cerrarModalCredenciales()">&times;</span>
+    </div>
+</div>
+
 {{-- SCRIPT PARA ABRIR/CERRAR MODALES --}}
 <script>
 function abrirModal(id) {
@@ -228,6 +304,48 @@ function abrirModal(id) {
 function cerrarModal(id) {
     document.getElementById(id).style.display = 'none';
 }
+</script>
+
+<script>
+function abrirModalCredenciales() {
+    document.getElementById('modalCredenciales').style.display = 'flex';
+
+    const email = document.getElementById('email').value;
+    document.getElementById('email_confirmation').value = email;
+}
+
+function cerrarModalCredenciales() {
+    document.getElementById('modalCredenciales').style.display = 'none';
+
+    document.getElementById('password').value = '';
+    document.getElementById('password_confirmation').value = '';
+}
+
+document.getElementById('formCredenciales')
+?.addEventListener('submit', function(e) {
+
+    const email = document.getElementById('email').value;
+    const emailConfirmation = document.getElementById('email_confirmation').value;
+    const password = document.getElementById('password').value;
+    const passwordConfirmation = document.getElementById('password_confirmation').value;
+
+    if (email !== emailConfirmation) {
+        e.preventDefault();
+        alert('Los correos no coinciden');
+        return;
+    }
+
+    if (password && password !== passwordConfirmation) {
+        e.preventDefault();
+        alert('Las contraseñas no coinciden');
+        return;
+    }
+
+    if (password && password.length < 8) {
+        e.preventDefault();
+        alert('La contraseña debe tener al menos 8 caracteres');
+    }
+});
 </script>
 
 </body>

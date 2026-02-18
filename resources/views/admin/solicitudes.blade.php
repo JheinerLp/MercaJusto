@@ -127,7 +127,7 @@
 
 </main>
 
-@include('components.botsoporte')
+
 
 <footer class="footer-container">
     @include('components.footer')

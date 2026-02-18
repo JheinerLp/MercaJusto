@@ -222,6 +222,7 @@ h1 {
     display: none;
     width: 140px;     /* Más pequeño */
     z-index: 200;
+    overflow: hidden;
 }
 
 /* Lista del menú */

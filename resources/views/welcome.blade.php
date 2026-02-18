@@ -11,9 +11,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
-    <header class="header">
+    
         @include('components.header')
-    </header>
+    
 
     @include('components.lupa')
 
@@ -47,21 +47,6 @@
          <p><a href="{{ route('soporte') }}">SOPORTE</a></p>
     </div>
 
-   @if(Auth::check())
-    @php $role = Auth::user()->role; @endphp
-
-    @if($role === 'admin')
-        <div class="circle-item">
-            <span class="arrow">➔</span>
-            <p><a href="{{ route('admin.dashboard') }}">GESTIÓN</a></p>
-        </div>
-    @elseif($role === 'provider')
-        <div class="circle-item">
-            <span class="arrow">➔</span>
-            <p><a href="{{ route('proveedor.dashboard') }}">MIS PRODUCTOS</a></p>
-        </div>
-    @endif
-@endif
 
 </nav>
 @if (session('success'))
@@ -117,7 +102,7 @@
     </script>
             
     </section>
-    @include('components.botsoporte')
+   
     <footer class="footer-container">
         @include('components.footer')
     </footer>
@@ -127,8 +112,11 @@
         let index = 0;
         function moveCarousel() {
             const images = document.querySelector('.carousel-images');
+            const carousel = document.querySelector('.carousel');
+            // Calcula el ancho de una imagen basado en el ancho real del carrusel
+            const imageWidth = carousel ? carousel.offsetWidth : 630;
             index = (index + 1) % 4;
-            images.style.transform = `translateX(-${index * 630}px)`;
+            images.style.transform = `translateX(-${index * imageWidth}px)`;
         }
         setInterval(moveCarousel, 3000);
     </script>

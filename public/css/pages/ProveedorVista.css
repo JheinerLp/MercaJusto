@@ -269,7 +269,7 @@
     padding: 25px;
     border-radius: 12px;
     width: 90%;
-    max-width: 420px;
+    max-width: 500px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.25);
     position: relative;
     animation: modalEntrada .25s ease-out;
@@ -421,3 +421,118 @@
     font-weight: bold;
     font-size: 17px;
 }
+
+
+
+ /* ====== FIX HORIZONTAL proveedor ====== */
+
+.datos-proveedor {
+    display: flex !important;
+    justify-content: space-between;
+    gap: 25px;
+    width: 100%;
+}
+
+.dato {
+    flex: 1;
+    max-width: 33%;
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 20px;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+    text-align: center;
+}
+
+.dato p {
+    min-height: 60px;
+    margin-bottom: 15px;
+}
+
+.dato .btn-guardar {
+    width: 100%;
+    background: #dc3545;
+    border-radius: 10px;
+}
+
+
+/* ============================
+   FIX MODAL CREDENCIALES (PROVEEDOR)
+   MISMO ESTILO ADMIN
+============================ */
+
+/* Tamaño exacto del modal */
+.modal-content.modal-credenciales {
+    max-width: 500px;
+    padding: 30px;
+}
+
+/* NO aplicar estilos genéricos a inputs de credenciales */
+.modal-credenciales .input-credenciales {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+    box-sizing: border-box;
+    margin-bottom: 0;
+}
+
+.modal-credenciales .input-credenciales:focus {
+    outline: none;
+    border-color: #df0a0a;
+}
+
+/* Grupos */
+.modal-credenciales .form-group-credenciales {
+    margin-bottom: 20px;
+}
+
+.modal-credenciales label {
+    display: block;
+    margin-bottom: 8px;
+    color: #333;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.modal-credenciales small {
+    display: block;
+    margin-top: 6px;
+    color: #666;
+}
+
+/* Título y subtítulo */
+.modal-credenciales h3 {
+    font-size: 22px;
+    margin-bottom: 6px;
+}
+
+.modal-credenciales .subtitulo-modal {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* ===== BOTÓN CREDENCIALES ===== */
+
+.credenciales-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.btn-credenciales {
+    background: #dc3545;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 12px;
+    border-radius: 12px;
+    margin-top: 20px;
+}
+
+.btn-credenciales:hover {
+    background: #b71f1f;
+}
+

@@ -16,13 +16,28 @@
                         <i class="fas fa-home"></i>
                     </a>
                 <button class="boton-usuario" onclick="toggleUsuarioMenu()" aria-label="Abrir menú de usuario" aria-controls="menuUsuario" aria-expanded="false">
-                    <img src="{{ asset('Images/Usuario.jpg') }}" alt="Icono de usuario">
+                    <img src="{{ auth()->user()->proveedor->foto ?? asset('Images/Usuario.jpg') }}" alt="Icono de usuario">
                 </button>
 
                 <!-- Menú Usuario -->
              <div class="menu-usuario" id="menuUsuario">
     <ul>
         @if(auth()->check())
+            @php $role = auth()->user()->role; @endphp
+
+            {{-- Opciones según rol --}}
+            @if($role === 'admin')
+                <li>
+                    <a href="{{ route('admin.dashboard') }}" class="menu-link">Gestión</a>
+                </li>
+    
+            @elseif($role === 'provider')
+                <li>
+                    <a href="{{ route('proveedor.dashboard') }}" class="menu-link">Mi perfil</a>
+                </li>
+            @endif
+
+            {{-- Cerrar sesión --}}
             <li>
                 <form action="{{ route('logout') }}" method="POST">
                     @csrf

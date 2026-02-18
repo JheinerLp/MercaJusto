@@ -6,6 +6,15 @@ use App\Models\Producto;
 use App\Models\Categoria;
 use App\Models\SolicitudProveedor;
 use App\Models\Ticket;
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules\Password;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
+
 
 class AdminController extends Controller
 {
@@ -48,7 +57,7 @@ public function productos()
     // Ver perfil del proveedor
     public function verProveedor($id) {
         $proveedor = Proveedor::findOrFail($id);
-        return view('admin.proveedores.perfil', compact('proveedor'));
+        return view('proveedor.perfil', compact('proveedor'));
     }
 
     // Suspender proveedor
@@ -133,6 +142,145 @@ public function eliminarHistorial()
 
     return redirect()->route('admin.tickets.historial')
         ->with('success', 'Historial de tickets eliminado correctamente.');
+}
+
+public function actualizarCarrusel(Request $request)
+{
+    $request->validate([
+        'imagen1' => 'nullable|image|max:5120',
+        'imagen2' => 'nullable|image|max:5120',
+        'imagen3' => 'nullable|image|max:5120',
+        'imagen4' => 'nullable|image|max:5120',
+    ]);
+
+    $nombresImagenes = [
+        1 => 'Carrusel.jpg',
+        2 => 'Carrusel2.jpeg',
+        3 => 'Carrusel3.jpeg',
+        4 => 'Carrusel4.jpeg'
+    ];
+
+    $rutaImagenes = public_path('Images');
+
+    // Crear el directorio si no existe
+    if (!File::exists($rutaImagenes)) {
+        File::makeDirectory($rutaImagenes, 0755, true, true);
+    }
+
+    // Verificar que el directorio sea escribible
+    if (!is_writable($rutaImagenes)) {
+        // Intentar cambiar permisos en Windows
+        @chmod($rutaImagenes, 0755);
+        
+        if (!is_writable($rutaImagenes)) {
+            return redirect()->route('admin.dashboard')
+                ->with('error', 'Error: No se tienen permisos para escribir en el directorio de imágenes. Verifica los permisos de la carpeta public/Images');
+        }
+    }
+
+    $imagenesActualizadas = 0;
+
+    for ($i = 1; $i <= 4; $i++) {
+        $campo = 'imagen' . $i;
+        
+        if ($request->hasFile($campo)) {
+            $archivo = $request->file($campo);
+            
+            // Validar que el archivo es válido
+            if (!$archivo->isValid()) {
+                continue;
+            }
+            
+            $nombreArchivo = $nombresImagenes[$i];
+            $rutaCompleta = $rutaImagenes . DIRECTORY_SEPARATOR . $nombreArchivo;
+
+            // Eliminar imagen anterior si existe
+            if (File::exists($rutaCompleta)) {
+                try {
+                    File::delete($rutaCompleta);
+                } catch (\Exception $e) {
+                    // Continuar aunque falle el borrado
+                }
+            }
+
+            // Guardar nueva imagen usando File::put para mejor compatibilidad
+            try {
+                // Obtener el contenido de la imagen
+                $contenido = File::get($archivo->getPathname());
+                
+                // Guardar el archivo
+                File::put($rutaCompleta, $contenido);
+                
+                // Asegurar permisos correctos
+                @chmod($rutaCompleta, 0644);
+                
+                $imagenesActualizadas++;
+            } catch (\Exception $e) {
+                return redirect()->route('admin.dashboard')
+                    ->with('error', 'Error al guardar la imagen ' . $i . ': ' . $e->getMessage());
+            }
+        }
+    }
+
+    if ($imagenesActualizadas > 0) {
+    return redirect()->route('admin.dashboard')
+        ->with('success', $imagenesActualizadas . ' imagen(es) del carrusel actualizada(s) correctamente.');
+    } else {
+        return redirect()->route('admin.dashboard')
+            ->with('error', 'No se seleccionaron imágenes para actualizar.');
+    }
+}
+
+public function actualizarCredenciales(Request $request)
+{
+    $user = Auth::user();
+
+    // Validaciones
+    $rules = [
+        'name' => 'required|string|max:255',
+        'email' => 'required|string|email|max:255|confirmed',
+        'email_confirmation' => 'required|string|email',
+    ];
+
+    // Validar email único (excepto el del usuario actual)
+    $rules['email'] = 'required|string|email|max:255|confirmed|unique:users,email,' . $user->id;
+
+    // Si se proporciona contraseña, validarla
+    if ($request->filled('password')) {
+        $rules['password'] = ['required', 'string', 'min:8', 'confirmed'];
+    }
+
+    $request->validate($rules, [
+        'name.required' => 'El nombre es obligatorio',
+        'email.required' => 'El correo electrónico es obligatorio',
+        'email.email' => 'El correo electrónico no es válido',
+        'email.unique' => 'Este correo electrónico ya está en uso',
+        'email.confirmed' => 'Los correos electrónicos no coinciden',
+        'password.min' => 'La contraseña debe tener al menos 8 caracteres',
+        'password.confirmed' => 'Las contraseñas no coinciden',
+    ]);
+
+    try {
+        // Actualizar nombre
+        $user->name = $request->name;
+
+        // Actualizar email
+        $user->email = $request->email;
+
+        // Actualizar contraseña solo si se proporciona
+        if ($request->filled('password')) {
+            $user->password = Hash::make($request->password);
+        }
+
+        $user->save();
+
+        return redirect()->route('admin.dashboard')
+            ->with('success', 'Credenciales actualizadas correctamente.');
+
+    } catch (\Exception $e) {
+        return redirect()->route('admin.dashboard')
+            ->with('error', 'Error al actualizar las credenciales: ' . $e->getMessage());
+    }
 }
 
 

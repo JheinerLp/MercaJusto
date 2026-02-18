@@ -107,3 +107,56 @@
     border-radius: 4px;
 }
 
+
+/* Texto negro */
+.card-producto {
+    color: #000;
+}
+
+.card-producto h3,
+.card-producto p {
+    color: #000;
+}
+
+.precio {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+/* Botones */
+.botones-producto {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.btn-contacto {
+    background: #25D366;
+    color: white;
+    padding: 8px 14px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.btn-contacto:hover {
+    background: #1ebe5d;
+}
+
+.btn-detalles {
+    background: #333;
+    color: white;
+    padding: 8px 14px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.btn-detalles:hover {
+    background: #000;
+}
+
+

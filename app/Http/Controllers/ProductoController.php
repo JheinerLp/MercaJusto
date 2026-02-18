@@ -3,24 +3,37 @@
 namespace App\Http\Controllers;
 
 use App\Models\Producto;
-use App\Models\Categoria;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 use App\Models\Proveedor;
-use App\Models\Sede;
+use Cloudinary\Cloudinary;
 
 class ProductoController extends Controller
 {
+    protected $cloudinary;
+
+    public function __construct()
+    {
+        // Inicializar Cloudinary con tus credenciales del .env
+        $this->cloudinary = new Cloudinary([
+            'cloud' => [
+                'cloud_name' => env('CLOUDINARY_CLOUD_NAME'),
+                'api_key'    => env('CLOUDINARY_API_KEY'),
+                'api_secret' => env('CLOUDINARY_API_SECRET'),
+            ],
+            'url' => [
+                'secure' => true
+            ]
+        ]);
+    }
+
     /**
      * Mostrar todos los productos del proveedor
      */
     public function index()
     {
         $proveedor = Proveedor::where('user_id', Auth::id())->firstOrFail();
-
-        $productos = Producto::where('proveedor_id', $proveedor->id)
-            ->get();
+        $productos = Producto::where('proveedor_id', $proveedor->id)->get();
 
         return view('proveedor.productos.index', compact('productos'));
     }
@@ -31,7 +44,6 @@ class ProductoController extends Controller
     public function create()
     {
         $proveedor = Proveedor::where('user_id', Auth::id())->firstOrFail();
-
         return view('proveedor.productos.create', compact('proveedor'));
     }
 
@@ -39,46 +51,48 @@ class ProductoController extends Controller
      * Guardar un nuevo producto
      */
     public function store(Request $request)
-    {
+    {   
         $proveedor = Proveedor::where('user_id', Auth::id())->firstOrFail();
-
+           
         $request->validate([
             'nombre' => 'required|string|max:255',
             'descripcion' => 'nullable|string',
             'precio' => 'required|numeric',
             'foto' => 'required|image|max:4096',
         ]);
+        
+        try {
 
-        // Guardar imagen
-        $path = $request->file('foto')->store('productos/fotos', 'public');
+            if (!$request->hasFile('foto') || !$request->file('foto')->isValid()) {
+                return back()->with('error', 'La imagen no es válida.');
+            }
 
-        Producto::create([
-            'proveedor_id'   => $proveedor->id,
-            'nombre'         => $request->nombre,
-            'descripcion'    => $request->descripcion,
-            'precio'         => $request->precio,
-            'categoria_id'   => $proveedor->categoria_id, // HEREDADA DEL PROVEEDOR
-            'empresa'        => $proveedor->empresa,
-            'foto'           => $path
-        ]);
+            // Subir imagen con el SDK oficial
+            $uploadResult = $this->cloudinary->uploadApi()->upload(
+                $request->file('foto')->getRealPath(),
+                ['folder' => 'productos']
+            );
 
-        return redirect()->route('proveedor.dashboard')
-            ->with('success', 'Producto añadido correctamente.');
-    }
+            $foto = $uploadResult['secure_url'];
+            $publicId = $uploadResult['public_id'];
 
-    /**
-     * Vista de edición de un producto
-     */
-    public function edit($id)
-    {
-        $producto = Producto::findOrFail($id);
+            Producto::create([
+                'proveedor_id' => $proveedor->id,
+                'nombre'       => $request->nombre,
+                'descripcion'  => $request->descripcion,
+                'precio'       => $request->precio,
+                'categoria_id' => $proveedor->categoria_id,
+                'empresa'      => $proveedor->empresa,
+                'foto'         => $foto,
+                'public_id'    => $publicId
+            ]);
 
-        // Validar que el producto pertenece a este proveedor
-        if ($producto->proveedor->user_id !== Auth::id()) {
-            abort(403);
+            return redirect()->route('proveedor.dashboard')
+                ->with('success', 'Producto añadido correctamente.');
+
+        } catch (\Exception $e) {
+           return back()->with('error', 'Error al guardar el producto: ' . $e->getMessage());
         }
-
-        return view('proveedor.productos.edit', compact('producto'));
     }
 
     /**
@@ -100,26 +114,34 @@ class ProductoController extends Controller
         ]);
 
         $data = $request->only(['nombre', 'descripcion', 'precio']);
-
-        // Si trae foto nueva
-        if ($request->hasFile('foto')) {
-
-            // Eliminar foto anterior
-            if ($producto->foto) {
-                Storage::delete($producto->foto);
-            }
-
-            $path = $request->file('foto')->store('productos/fotos', 'public');
-            $data['foto'] = $path;
-        }
-
-        // La categoría NO se puede cambiar → siempre es la del proveedor
         $data['categoria_id'] = $producto->proveedor->categoria_id;
 
-        $producto->update($data);
+        try {
 
-        return redirect()->route('proveedor.dashboard')
-            ->with('success', 'Producto actualizado correctamente.');
+            if ($request->hasFile('foto') && $request->file('foto')->isValid()) {
+
+                // Eliminar imagen anterior si existe
+                if (!empty($producto->public_id)) {
+                    $this->cloudinary->uploadApi()->destroy($producto->public_id);
+                }
+
+                $uploadResult = $this->cloudinary->uploadApi()->upload(
+                    $request->file('foto')->getRealPath(),
+                    ['folder' => 'productos']
+                );
+
+                $data['foto'] = $uploadResult['secure_url'];
+                $data['public_id'] = $uploadResult['public_id'];
+            }
+
+            $producto->update($data);
+
+            return redirect()->route('proveedor.dashboard')
+                ->with('success', 'Producto actualizado correctamente.');
+
+        } catch (\Exception $e) {
+            return back()->with('error', 'Error al actualizar el producto: ' . $e->getMessage());
+        }
     }
 
     /**
@@ -133,14 +155,18 @@ class ProductoController extends Controller
             abort(403);
         }
 
-        // Borrar foto física
-        if ($producto->foto) {
-           Storage::disk('public')->delete($producto->foto);
+        try {
+
+            if (!empty($producto->public_id)) {
+                $this->cloudinary->uploadApi()->destroy($producto->public_id);
+            }
+
+            $producto->delete();
+
+            return back()->with('success', 'Producto eliminado.');
+
+        } catch (\Exception $e) {
+            return back()->with('error', 'Error al eliminar el producto: ' . $e->getMessage());
         }
-
-        $producto->delete();
-
-        return back()->with('success', 'Producto eliminado.');
     }
-
 }

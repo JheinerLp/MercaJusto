@@ -109,11 +109,17 @@ Route::middleware('admin')->group(function() {
     Route::post('/admin/proveedor/{id}/reactivar', [AdminController::class, 'reactivarProveedor'])
     ->name('admin.proveedor.reactivar');
 
-Route::delete('/admin/proveedor/{id}', [AdminController::class, 'eliminarProveedor'])
+    Route::delete('/admin/proveedor/{id}', [AdminController::class, 'eliminarProveedor'])
     ->name('admin.proveedor.eliminar');
+
+    Route::post('/admin/carrusel/actualizar', [AdminController::class, 'actualizarCarrusel'])->name('admin.carrusel.actualizar');
+    Route::post('/admin/credenciales/actualizar', [AdminController::class, 'actualizarCredenciales'])->name('admin.credenciales.actualizar');
 
 
 });
+
+
+
 
 //Solicitudes Publicas 
 
@@ -149,7 +155,9 @@ Route::get('/admin/tickets/historial', [BuscadorController::class, 'ticketsHisto
 
 
 
-
+Route::get('/proveedor/{proveedor}', [ProveedorController::class, 'show'])
+    ->whereNumber('proveedor')
+    ->name('proveedor.perfil');
 
 
 // Rutas proveedor
@@ -176,9 +184,7 @@ Route::middleware(['proveedor'])->prefix('proveedor')->group(function () {
 
     Route::post('/celular', [ProveedorController::class, 'actualizarCelular'])
         ->name('proveedor.celular');
-Route::get('/proveedor/{proveedor}', [ProveedorController::class, 'show'])
-    ->whereNumber('proveedor')
-    ->name('proveedor.perfil');
+
     // Productos
     Route::get('/productos', [ProductoController::class, 'index'])
         ->name('proveedor.productos.index');
@@ -197,4 +203,9 @@ Route::get('/proveedor/{proveedor}', [ProveedorController::class, 'show'])
 
     Route::delete('/productos/eliminar/{id}', [ProductoController::class, 'destroy'])
         ->name('proveedor.productos.destroy');
+
+    Route::post(
+        '/proveedor/credenciales/actualizar',
+        [App\Http\Controllers\ProveedorController::class, 'actualizarCredenciales']
+    )->name('proveedor.credenciales');
 });

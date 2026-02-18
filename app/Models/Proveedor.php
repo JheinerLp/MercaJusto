@@ -17,7 +17,9 @@ class Proveedor extends Model
         'descripcion',
         'foto',
         'banner',
-        'whatsapp'
+        'whatsapp',
+        'foto_public_id',
+        'banner_public_id',
     ];
 
     public function categoria()

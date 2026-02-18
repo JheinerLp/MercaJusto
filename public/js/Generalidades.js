@@ -37,6 +37,34 @@ function toggleInfo() {
     }
 }
 
+// ==============================
+// FUNCIONES DEL MODAL PRODUCTO
+// ==============================
+
+function abrirModal(id) {
+    const modal = document.getElementById(id);
+    if (modal) {
+        modal.style.display = "flex";
+    }
+}
+
+function cerrarModal(id) {
+    const modal = document.getElementById(id);
+    if (modal) {
+        modal.style.display = "none";
+    }
+}
+
+// Cerrar modal al hacer clic fuera
+document.addEventListener("click", function (event) {
+    const modales = document.querySelectorAll(".modal");
+    modales.forEach(modal => {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    });
+});
+
 
 
  

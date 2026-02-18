@@ -1,6 +1,6 @@
 @props([
     'p',
-    'mostrarPerfil' => true, // true = redirige al perfil del proveedor
+    'mostrarPerfil' => true,
 ])
 
 <div class="card-producto"
@@ -10,15 +10,19 @@
 >
 
     <!-- Imagen -->
-    <img src="{{ $p->foto ? asset('storage/' . $p->foto) : asset('Images/no-image.png') }}"
-         alt="{{ $p->nombre ?? 'Producto sin nombre' }}"
-         class="imagen-producto">
+    <img 
+        src="{{ $p->foto ? $p->foto : asset('Images/no-image.png') }}"
+        alt="{{ $p->nombre ?? 'Producto sin nombre' }}"
+        class="imagen-producto"
+    >
 
     <!-- Nombre -->
     <h3>{{ $p->nombre ?? 'Producto sin nombre' }}</h3>
 
     <!-- Proveedor -->
-    <p>Proveedor: {{ $p->proveedor->empresa ?? 'Desconocido' }}</p>
+    <p class="proveedor-nombre">
+        Proveedor: {{ $p->proveedor->empresa ?? 'Desconocido' }}
+    </p>
 
     <!-- Precio -->
     <p class="precio">
@@ -33,8 +37,7 @@
              Contactar
         </a>
 
-        <button class="btn-detalles"
-                onclick="abrirModal('modal-{{ $p->id }}')">
+        <button class="btn-detalles" onclick="abrirModal('modal-{{ $p->id }}')">
             Detalles
         </button>
     </div>
@@ -48,7 +51,8 @@
 
         <div class="modal-body">
             <div class="modal-imagen">
-                <img src="{{ $p->foto ? asset('storage/' . $p->foto) : asset('Images/no-image.png') }}">
+               <img src="{{ $p->foto ? $p->foto : asset('Images/no-image.png') }}"  
+                    alt="Imagen del producto">
             </div>
 
             <div class="modal-info">
@@ -70,3 +74,60 @@
         </div>
     </div>
 </div>
+<style>
+
+   
+/* Información */
+.modal-info {
+    flex: 1;
+}
+
+/* Título */
+.modal-info h2 {
+    margin-bottom: 10px;
+    color: #222; /* color oscuro */
+}
+
+/* Textos */
+.modal-info p {
+    margin: 6px 0;
+    color: #444; /* gris oscuro para buena lectura */
+}
+
+.modal {
+    display: none; /* oculto por defecto */
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    max-width: 700px;
+    width: 90%;
+    position: relative;
+}
+
+.modal-body {
+    display: flex;
+    gap: 20px;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+
+</style>

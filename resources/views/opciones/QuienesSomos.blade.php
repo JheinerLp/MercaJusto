@@ -178,7 +178,7 @@
 }
 </style>
 
-@include('components.botsoporte')
+
 @include('components.footer')
 
 <script>
