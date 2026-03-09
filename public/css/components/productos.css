@@ -3,7 +3,7 @@
 ============================== */
 .grid-productos {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     gap: 12px; /* antes 16px */
     margin-top: 5px; /* reduce espacio arriba */
 }

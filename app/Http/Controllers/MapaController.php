@@ -30,7 +30,7 @@ class MapaController extends Controller
             $q->where('categoria_id', $request->categoria);
         })
         ->with('proveedor')
-        ->paginate(8); // 📦 paginación
+        ->paginate(10); // 📦 paginación
 
     $sede = Sede::findOrFail($sede_id);
 
