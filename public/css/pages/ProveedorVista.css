@@ -15,18 +15,56 @@
 ================================== */
 .proveedor-banner {
     width: 100%;
-    height: 280px;
+    height: 320px; /* más grande */
     position: relative;
     overflow: hidden;
     border-radius: 12px;
     margin-bottom: 25px;
-    background: #eee;
+    cursor: pointer;
 }
 
 .proveedor-banner img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+
+.overlay-banner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    background: rgba(0,0,0,0.45);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    opacity: 0;
+    transition: opacity .25s ease;
+}
+
+/* icono */
+.overlay-banner i {
+    color: white;
+    font-size: 40px;
+    margin-bottom: 8px;
+}
+
+/* texto */
+.overlay-banner span {
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+/* aparece al pasar mouse */
+.proveedor-banner:hover .overlay-banner {
+    opacity: 1;
 }
 
 .btn-cambiar-banner {
@@ -336,7 +374,49 @@
 .btn-eliminar:hover {
     background: #b71f1f;
 }
+.foto-container{
+    position: relative;
+    width: 160px;
+    height: 160px;
+    cursor: pointer;
+}
 
+.foto-container img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+/* capa oscura */
+.overlay-camara{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    background: rgba(0,0,0,0.45);
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    opacity: 0;
+    transition: opacity 0.25s ease;
+}
+
+/* icono */
+.overlay-camara i{
+    color: white;
+    font-size: 28px;
+}
+
+/* aparece al pasar el mouse */
+.foto-container:hover .overlay-camara{
+    opacity: 1;
+}
 /* ============================
    INPUTS DENTRO DE MODALES
 ============================ */
@@ -344,13 +424,28 @@
 .modal-content input,
 .modal-content textarea {
     width: 100%;
-    padding: 10px 12px;
+    padding: 10px 0px;
     border-radius: 6px;
     border: 1px solid #ccc;
     outline: none;
     margin-bottom: 12px;
     font-size: 15px;
 }
+
+
+input[type="file"]::file-selector-button{
+    background: #ff0000;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+input[type="file"]::file-selector-button:hover{
+    background: #e50000;
+}
+
 
 .modal-content input:focus,
 .modal-content textarea:focus {

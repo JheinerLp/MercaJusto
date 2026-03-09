@@ -22,10 +22,16 @@
     {{-- ============================
         BANNER DEL PROVEEDOR
     ============================= --}}
-    <section class="proveedor-banner">
-        <img src="{{ $proveedor->banner ?? asset('img/default-banner.jpg') }}" alt="Banner proveedor">
-        <button class="btn-cambiar-banner" onclick="abrirModal('modalBanner')">Cambiar Banner</button>
-    </section>
+    <section class="proveedor-banner" onclick="abrirModal('modalBanner')">
+
+    <img src="{{ $proveedor->banner ?? asset('img/default-banner.jpg') }}" alt="Banner proveedor">
+
+    <div class="overlay-banner">
+        <i class="fas fa-camera"></i>
+        <span>Cambiar banner</span>
+    </div>
+
+</section>
 
     {{-- ============================
          FOTO + INFO DEL PROVEEDOR
@@ -33,10 +39,15 @@
     <section class="proveedor-info">
 
         {{-- FOTO --}}
-        <div class="foto-container">
-           <img src="{{ $proveedor->foto ?? asset('img/default-foto.jpg') }}" alt="Foto proveedor">
-            <button class="btn-cambiar-foto" onclick="abrirModal('modalFoto')">Cambiar Foto</button>
-        </div>
+        <div class="foto-container" onclick="abrirModal('modalFoto')">
+
+        <img src="{{ $proveedor->foto ?? asset('img/default-foto.jpg') }}" alt="Foto proveedor">
+
+        <div class="overlay-camara">
+        <i class="fas fa-camera"></i>
+    </div>
+
+</div>
 
         {{-- NOMBRE --}}
         <h2 class="nombre-proveedor">{{ $proveedor->empresa ?? 'Proveedor sin nombre' }}</h2>
