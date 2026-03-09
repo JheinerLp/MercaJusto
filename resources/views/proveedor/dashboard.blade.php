@@ -122,6 +122,7 @@
                         @method('PUT')
                         <input type="text" name="nombre" value="{{ $p->nombre }}" placeholder="Nombre del producto">
                         <input type="number" name="precio" value="{{ $p->precio }}" placeholder="Precio">
+                        <input type="text" name="descripcion" value="{{ $p->descripcion }}" placeholder="Descripción del producto">
                         <input type="file" name="foto">
                         <button class="btn-guardar">Guardar</button>
                     </form>
@@ -157,6 +158,7 @@
             @csrf
             <input type="text" name="nombre" placeholder="Nombre del producto" required>
             <input type="number" name="precio" placeholder="Precio" required>
+            <input type="text" name="descripcion" placeholder="Descripción del producto" required>
             <input type="file" name="foto" required>
             <button class="btn-guardar">Guardar</button>
         </form>

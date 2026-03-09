@@ -12,12 +12,18 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
 <style>
-.banner {
+.banner-container {
     width: 100%;
-    height: 280px;
-    background: url('{{ asset('img/proveedores/banners/' . $proveedor->banner) }}') center/cover no-repeat;
-    border-radius: 10px;
+    height: 350px; /* Puedes ajustar */
+    overflow: hidden;
 }
+
+.banner-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
 
 .info-proveedor {
     display: flex;
@@ -54,12 +60,19 @@
 <div class="contenedor">
 
     {{-- BANNER --}}
-    <div class="banner"></div>
-    <img src="{{ asset('img/proveedores/banners/' . $proveedor->banner) }}" alt="Banner de {{ $proveedor->empresa }}" style="display:none;">
+    <div class="banner-container">
+    <img 
+        src="{{ $proveedor->banner ?? asset('img/default-banner.jpg') }}" 
+        alt="Banner de {{ $proveedor->empresa }}"
+        class="banner-img"
+    >
+</div>
+
+    
 
     {{-- INFO --}}
     <div class="info-proveedor">
-        <img src="{{ asset('img/proveedores/fotos/' . $proveedor->foto) }}" class="foto-proveedor">
+        <img src="{{ $proveedor->foto ?? asset('img/default-foto.jpg') }}" class="foto-proveedor">
 
         <div class="datos-proveedor">
             <h1>{{ $proveedor->empresa }}</h1>

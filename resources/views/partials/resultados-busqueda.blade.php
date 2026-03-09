@@ -1,9 +1,12 @@
 @if($productos->count())
-    <div class="grid-productos">
+    <div class="grid-productos resultados-busqueda">
         @foreach($productos as $p)
             <x-card-producto :p="$p" :mostrarPerfil="true" />
         @endforeach
     </div>
 @else
-    <p style="margin-top:20px">❌ No se encontraron resultados</p>
+    <p class="sin-resultados">❌ No se encontraron resultados</p>
 @endif
+
+
+

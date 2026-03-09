@@ -7,7 +7,7 @@
 
 <link rel="stylesheet" href="{{ asset('css/base/normalize.css') }}">
 <link rel="stylesheet" href="{{ asset('css/Estiloweb.css') }}">
-<link rel="stylesheet" href="{{ asset('css/productos.css') }}">
+<link rel="stylesheet" href="{{ asset('css/components/productos.css') }}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
 <style>
@@ -93,38 +93,41 @@
     display: flex;
     justify-content: center;
 }
-
-/* ===== MODAL ===== */
+/* ===== MODAL MEJORADO ===== */
 .modal {
-    display: none;
+    display: none; /* 👈 oculto por defecto */
     position: fixed;
-    z-index: 2000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
+    inset: 0;
     background-color: rgba(0,0,0,0.6);
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    z-index: 2000;
 }
 
 .modal-content {
     background: #fff;
-    margin: 60px auto;
-    padding: 20px;
-    border-radius: 8px;
-    width: 50%;
-    max-width: 700px;
+    width: 100%;
+    max-width: 520px;
+    max-height: 90vh;
+    overflow-y: auto;
+    border-radius: 12px;
+    padding: 25px;
+    position: relative;
+    animation: fadeIn 0.2s ease;
 }
 
 .modal-body {
     display: flex;
     gap: 16px;
+    align-items: flex-start;
 }
 
 .modal-imagen img {
-    width: 200px;
-    height: 200px;
+    width: 180px;
+    height: 180px;
     object-fit: cover;
-    border-radius: 6px;
+    border-radius: 8px;
 }
 
 .modal-info {
@@ -132,27 +135,39 @@
 }
 
 .modal .close-btn {
-    float: right;
-    font-size: 24px;
+    position: absolute;
+    top: 12px;
+    right: 15px;
+    font-size: 22px;
     font-weight: bold;
     cursor: pointer;
 }
 
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
-    .modal-content {
-        width: 90%;
-    }
-
     .modal-body {
         flex-direction: column;
         align-items: center;
+        text-align: center;
     }
 
     .modal-imagen img {
         width: 100%;
         height: auto;
     }
+}
+
 }
 </style>
 </head>
@@ -186,9 +201,9 @@
         @foreach ($productos as $p)
         <div class="card-producto" onclick="window.location='{{ route('proveedor.perfil', $p->proveedor->id) }}'">
              
-            <img src="{{ $p->foto ? asset('storage/' . $p->foto) : asset('Images/no-image.png') }}"
-                 alt="{{ $p->nombre }}"
-                 class="imagen-producto">
+            <img src="{{ $p->foto ?? asset('Images/no-image.png') }}"
+     alt="{{ $p->nombre }}"
+     class="imagen-producto">
 
             <h3>{{ $p->nombre }}</h3>
             <p>Proveedor: {{ $p->proveedor->empresa ?? 'Desconocido' }}</p>
@@ -198,9 +213,9 @@
                 <a href="https://wa.me/{{ $p->proveedor->whatsapp ?? '' }}"
                    class="btn-contacto"> Contactar</a>
 
-                <button class="btn-detalles"
-                        onclick="abrirModal('modal-{{ $p->id }}')">
-                    Detalles
+               <button class="btn-detalles"
+                onclick="event.stopPropagation(); abrirModal('modal-{{ $p->id }}')">
+                 Detalles
                 </button>
             </div>
         </div>
@@ -213,7 +228,7 @@
 
                 <div class="modal-body">
                     <div class="modal-imagen">
-                        <img src="{{ $p->foto ? asset('storage/' . $p->foto) : asset('Images/no-image.png') }}">
+                       <img src="{{ $p->foto ?? asset('Images/no-image.png') }}">
                     </div>
 
                     <div class="modal-info">
@@ -275,6 +290,10 @@
     background: #007bff;
     color: #fff;
     border-color: #007bff;
+
+
+
+   
 }
 
 
