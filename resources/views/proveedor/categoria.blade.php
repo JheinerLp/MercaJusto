@@ -17,7 +17,10 @@
 @include('components.lupa')
 
 <div class="contenedor">
-    <h1>{{ $categoria->nombre }}</h1>
+
+    <div class="letrero-categoria">
+        <h2>{{ $categoria->nombre }}</h2>
+    </div>
 
     <div class="grid-productos">
         @foreach ($productos as $p)
@@ -27,7 +30,39 @@
             ])
         @endforeach
     </div>
+
+
   <style>
+
+
+.letrero-categoria{
+    background-image: url('/images/LetreroMercajustoMadera.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    
+    width: 200px;
+    height: 200px;
+
+    margin: 0 0 0 0; /* reduce espacio debajo */
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.letrero-categoria h2{
+    color: white;
+    font-size: 28px;
+    font-weight: bold;
+    text-align: center;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.7); /* para que resalte sobre la madera */
+    margin: 0;
+}
+.contenedor{
+    position: relative;
+}
+
 /* ===== PAGINACIÓN PERSONALIZADA ===== */
 .paginacion-custom {
     margin-top: 30px;

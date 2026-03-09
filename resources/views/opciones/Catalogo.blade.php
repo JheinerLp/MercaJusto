@@ -168,6 +168,30 @@
     }
 }
 
+
+.letrero-categoria{
+    background-image: url('/images/LetreroMercajustoMadera.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    width: 201px;
+    height: 200px;
+
+    margin: 0px 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.texto-letrero{
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    text-align: center;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+}
 }
 </style>
 </head>
@@ -181,7 +205,12 @@
 @include('components.lupa')
 
 <div class="contenedor">
-    <h1>Catálogo de {{ $sede->nombre }}</h1>
+    
+    <h1 style="display:none;">Catálogo de {{ $sede->nombre }}</h1>
+
+    <div class="letrero-categoria">
+        <span class="texto-letrero">Catálogo de {{ $sede->nombre }}</span>
+    </div>
 
     <!-- 🔍 FILTRO POR CATEGORÍA -->
     <form method="GET" class="filtros">
