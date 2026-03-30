@@ -17,7 +17,7 @@
                     </a>
                     <div class="usuario-wrapper">
                 <button class="boton-usuario" onclick="toggleUsuarioMenu()" aria-label="Abrir menú de usuario" aria-controls="menuUsuario" aria-expanded="false">
-                   <img src="{{ optional(auth()->user()->proveedor)->foto ? asset(optional(auth()->user()->proveedor)->foto) : asset('images/Usuario.jpg') }}"onerror="this.src='{{ asset('images/Usuario.jpg') }}'"  alt="Icono de usuario">
+                  <img src="{{ optional(optional(auth()->user())->proveedor)->foto ? asset(optional(auth()->user()->proveedor)->foto) : asset('images/Usuario.jpg') }}"onerror="this.src='{{ asset('images/Usuario.jpg') }}'"alt="Icono de usuario">
                 </button>
 
                 <!-- Menú Usuario -->

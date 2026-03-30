@@ -138,6 +138,8 @@
                         <input type="number" name="precio" value="{{ $p->precio }}" placeholder="Precio">
                         <input type="text" name="descripcion" value="{{ $p->descripcion }}" placeholder="Descripción del producto">
                         <input type="file" name="foto">
+                         <small class="text-muted">
+    <strong>Aviso:</strong> La imagen debe ser formato JPG o PNG y no debe superar los <strong>4 MB</strong> </small>
                         <button class="btn-guardar">Guardar</button>
                     </form>
                     <span class="cerrar" onclick="cerrarModal('modalEditarProducto{{ $p->id }}')">&times;</span>
@@ -174,6 +176,8 @@
             <input type="number" name="precio" placeholder="Precio" required>
             <input type="text" name="descripcion" placeholder="Descripción del producto" required>
             <input type="file" name="foto" required>
+            <small class="text-muted">
+    <strong>Aviso:</strong> La imagen debe ser formato JPG o PNG y no debe superar los <strong>4 MB</strong> </small>
             <button class="btn-guardar">Guardar</button>
         </form>
         <span class="cerrar" onclick="cerrarModal('modalAgregarProducto')">&times;</span>
