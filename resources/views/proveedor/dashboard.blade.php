@@ -18,9 +18,6 @@
 </header>
 @include('components.lupa')
 
-<div id="toastCodigo" class="toast success">
-    📩 Código enviado a tu correo
-</div>
 
 <main class="proveedor-vista">
 
@@ -29,7 +26,9 @@
     ============================= --}}
     <section class="proveedor-banner" onclick="abrirModal('modalBanner')">
 
-    <img src="{{ $proveedor->banner ?? asset('img/default-banner.jpg') }}" alt="Banner proveedor">
+    
+    
+     <img src="{{ optional(auth()->user()->proveedor)->banner ? asset(optional(auth()->user()->proveedor)->banner) : asset('images/Banner.png') }}"onerror="this.src='{{ asset('images/Banner.png') }}'"  alt="Banner proveedor">
 
     <div class="overlay-banner">
         <i class="fas fa-camera"></i>
@@ -46,8 +45,7 @@
         {{-- FOTO --}}
         <div class="foto-container" onclick="abrirModal('modalFoto')">
 
-        <img src="{{ $proveedor->foto ?? asset('img/default-foto.jpg') }}" alt="Foto proveedor">
-
+        <img src="{{ optional(auth()->user()->proveedor)->foto ? asset(optional(auth()->user()->proveedor)->foto) : asset('images/Usuario.jpg') }}"onerror="this.src='{{ asset('images/Usuario.jpg') }}'"  alt="Foto proveedor">
         <div class="overlay-camara">
         <i class="fas fa-camera"></i>
     </div>
@@ -346,6 +344,13 @@
 @endif
 
 <style>
+    #toastCodigo {
+    display: none;
+}
+
+#toastCodigo.show {
+    display: block;
+}
 .mensaje-codigo {
     display: none;
     margin-top: 10px;
@@ -494,12 +499,14 @@ function enviarCodigo() {
     })
     .then(() => {
 
-        // 🔥 Mostrar toast
-        const toast = document.getElementById('toastCodigo');
-        toast.classList.add('show');
+        const toast = document.createElement('div');
+        toast.className = 'toast success show';
+        toast.innerText = '📩 Código enviado a tu correo';
+
+        document.body.appendChild(toast);
 
         setTimeout(() => {
-            toast.classList.remove('show');
+            toast.remove();
         }, 3000);
 
     });

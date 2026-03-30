@@ -13,6 +13,7 @@ class CategoriaController extends Controller
 
         $productos = Producto::where('categoria_id', $categoria->id)
             ->with('proveedor')
+            ->latest()
             ->paginate(10); // paginación lista para usar
 
         return view('proveedor.categoria', compact('categoria', 'productos'));

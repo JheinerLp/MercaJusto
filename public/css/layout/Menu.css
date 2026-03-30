@@ -146,6 +146,11 @@
 }
 
 
+@media (max-width: 1085.33px) {
+    .circle-menu {
+        display: none;
+    }
+}
 
 
 @media (max-width: 768px) {
@@ -167,7 +172,6 @@
 .zoom-activo .circle-menu {
     display: none;
 }
-
 
 
 
