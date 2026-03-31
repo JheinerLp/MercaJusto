@@ -45,8 +45,7 @@ class ProveedorController extends Controller
         ->with('categoria')
         ->select('id','nombre','precio','foto','proveedor_id','categoria_id')
         ->latest()
-        ->limit(12)
-        ->get();
+        ->paginate(12);
 
     return view('proveedor.dashboard', compact('proveedor', 'productos'));
 }

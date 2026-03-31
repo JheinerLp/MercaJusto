@@ -41,10 +41,8 @@ class MapaController extends Controller
     ));
 }
 
-
-    public function index()
+public function index()
 {
-    // Array con posiciones del mapa
     $sedesPos = [
         ['id' => 1, 'nombre'=>'Cali', 'top'=>'74%', 'left'=>'45%'],
         ['id' => 2, 'nombre'=>'Buenaventura', 'top'=>'55%', 'left'=>'25.6%'],
@@ -58,19 +56,30 @@ class MapaController extends Controller
         ['id' => 10, 'nombre'=>'Santander', 'top'=>'91%', 'left'=>'36.3%'],
     ];
 
-    $sedes = [];
+    // 🔥 UNA SOLA QUERY (CRÍTICO)
+    $sedes = Sede::with('proveedores.productos')
+        ->whereIn('id', array_column($sedesPos, 'id'))
+        ->get()
+        ->keyBy('id');
 
-    foreach ($sedesPos as $sedePos) {
-        $sedeModel = Sede::with('proveedores.productos')->find($sedePos['id']);
-        if (!$sedeModel) continue;
+    // 🔥 MAPEO EN MEMORIA (NO BD)
+    $result = [];
 
-        $sedeModel->top = $sedePos['top'];   // agregar posición
-        $sedeModel->left = $sedePos['left']; // agregar posición
-        $sedes[] = $sedeModel;
+    foreach ($sedesPos as $pos) {
+        if (!isset($sedes[$pos['id']])) continue;
+
+        $sede = $sedes[$pos['id']];
+        $sede->top = $pos['top'];
+        $sede->left = $pos['left'];
+
+        $result[] = $sede;
     }
 
-    return view('opciones.Mapa', compact('sedes'));
+    return view('opciones.Mapa', [
+        'sedes' => $result
+    ]);
 }
+   
 
 }
 
