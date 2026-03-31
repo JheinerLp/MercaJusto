@@ -16,6 +16,11 @@
 <header class="header">
     @include('components.header')
 </header>
+@include('components.lupa')
+
+<div id="toastCodigo" class="toast success">
+    📩 Código enviado a tu correo
+</div>
 
 <main class="proveedor-vista">
 
@@ -301,15 +306,128 @@
            class="input-credenciales">
 </div>
 
+<!-- BOTÓN ENVIAR CÓDIGO -->
+<button type="button" onclick="enviarCodigo()" class="btn-guardar">
+    📩 Enviar código
+</button>
+
+<small class="mensaje-codigo">
+    Revisa tu correo para obtener el código
+</small>
+
+<!-- INPUT OTP -->
+<div class="form-group-credenciales">
+    <label>Código de verificación</label>
+    <input type="text"
+           name="otp_code"
+           id="otp_code"
+           class="input-credenciales"
+           placeholder="Ingresa el código"
+           required>
+</div>
+
             <button class="btn-guardar">Guardar cambios</button>
         </form>
 
         <span class="cerrar" onclick="cerrarModalCredenciales()">&times;</span>
     </div>
 </div>
+<!-- TOASTS (FUERA DE SCRIPT) -->
+@if(session('success'))
+<div id="toastSuccess" class="toast success">
+    {{ session('success') }}
+</div>
+@endif
+
+@if(session('error'))
+<div id="toastError" class="toast error">
+    {{ session('error') }}
+</div>
+@endif
+
+<style>
+.mensaje-codigo {
+    display: none;
+    margin-top: 10px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    background: #e3f2fd;
+    color: #1976d2;
+    border-left: 4px solid #2196f3;
+    animation: fadeIn 0.4s ease;
+}
+
+.mensaje-codigo.activo {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+
+
+.btn-guardar {
+    margin-top: 10px;
+}
+/* SOLO modal de credenciales */
+.modal-credenciales {
+    max-height: 80vh;
+    overflow-y: auto;
+}
+.modal-credenciales {
+    max-height: 80vh;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+/* Scroll bonito */
+.modal-credenciales::-webkit-scrollbar {
+    width: 6px;
+}
+
+.modal-credenciales::-webkit-scrollbar-thumb {
+    background: #999;
+    border-radius: 10px;
+}
+/* TOAST */
+.toast {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 15px 20px;
+    border-radius: 10px;
+    color: white;
+    font-weight: 500;
+    z-index: 9999;
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: all 0.4s ease;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.toast.success {
+    background: #4caf50;
+}
+
+.toast.error {
+    background: #f44336;
+}
+</style>
 
 {{-- SCRIPT PARA ABRIR/CERRAR MODALES --}}
 <script>
+    
+// =========================
+// MODALES
+// =========================
 function abrirModal(id) {
     document.getElementById(id).style.display = 'flex';
 }
@@ -317,9 +435,7 @@ function abrirModal(id) {
 function cerrarModal(id) {
     document.getElementById(id).style.display = 'none';
 }
-</script>
 
-<script>
 function abrirModalCredenciales() {
     document.getElementById('modalCredenciales').style.display = 'flex';
 
@@ -334,6 +450,10 @@ function cerrarModalCredenciales() {
     document.getElementById('password_confirmation').value = '';
 }
 
+
+// =========================
+// VALIDACIÓN FORM
+// =========================
 document.getElementById('formCredenciales')
 ?.addEventListener('submit', function(e) {
 
@@ -359,6 +479,58 @@ document.getElementById('formCredenciales')
         alert('La contraseña debe tener al menos 8 caracteres');
     }
 });
+
+
+// =========================
+// ENVIAR CÓDIGO OTP
+// =========================
+function enviarCodigo() {
+    fetch("{{ route('proveedor.enviar.codigo') }}", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "X-CSRF-TOKEN": "{{ csrf_token() }}"
+        }
+    })
+    .then(() => {
+
+        // 🔥 Mostrar toast
+        const toast = document.getElementById('toastCodigo');
+        toast.classList.add('show');
+
+        setTimeout(() => {
+            toast.classList.remove('show');
+        }, 3000);
+
+    });
+}
+
+// =========================
+// TOASTS
+// =========================
+document.addEventListener('DOMContentLoaded', function () {
+
+    const toastSuccess = document.getElementById('toastSuccess');
+    const toastError = document.getElementById('toastError');
+
+    if (toastSuccess) {
+        toastSuccess.classList.add('show');
+
+        setTimeout(() => {
+            toastSuccess.classList.remove('show');
+        }, 3000);
+    }
+
+    if (toastError) {
+        toastError.classList.add('show');
+
+        setTimeout(() => {
+            toastError.classList.remove('show');
+        }, 3000);
+    }
+
+});
+
 </script>
 
 </body>

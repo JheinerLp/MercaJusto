@@ -167,6 +167,9 @@ Route::get('/proveedor/{proveedor}', [ProveedorController::class, 'show'])
 
 Route::middleware(['proveedor'])->prefix('proveedor')->group(function () {
 
+Route::post('/proveedor/enviar-codigo', [ProveedorController::class, 'enviarCodigo'])
+    ->name('proveedor.enviar.codigo');
+    
     // Dashboard
     Route::get('/dashboard', [ProveedorController::class, 'dashboard'])
         ->name('proveedor.dashboard');

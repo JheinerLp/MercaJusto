@@ -7,6 +7,8 @@ use App\Models\Producto;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Cloudinary\Cloudinary;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 class ProveedorController extends Controller
 {
@@ -196,38 +198,75 @@ class ProveedorController extends Controller
     // ============================================================
     // ACTUALIZAR CREDENCIALES
     // ============================================================
-    public function actualizarCredenciales(Request $request)
-    {
-        $user = Auth::user();
 
-        $rules = [
-            'email' => 'required|string|email|max:255|confirmed|unique:users,email,' . $user->id,
-            'email_confirmation' => 'required|string|email',
-        ];
+public function enviarCodigo()
+{
+    $user = Auth::user();
+
+    // Generar código
+    $codigo = rand(100000, 999999);
+
+    $user->otp_code = $codigo;
+    $user->otp_expires_at = now()->addMinutes(10);
+    $user->save();
+
+    // Enviar correo
+    Mail::raw("Tu código de verificación es: $codigo", function ($message) use ($user) {
+        $message->to($user->email)
+                ->subject('Código de verificación');
+    });
+
+    return response()->json(['success' => true]);
+}
+
+   public function actualizarCredenciales(Request $request)
+{
+    $user = Auth::user();
+
+    // Validaciones
+    $rules = [
+        'email' => 'required|string|email|max:255|confirmed|unique:users,email,' . $user->id,
+        'email_confirmation' => 'required|string|email',
+        'otp_code' => 'required'
+    ];
+
+    if ($request->filled('password')) {
+        $rules['password'] = ['required', 'string', 'min:8', 'confirmed'];
+    }
+
+    $request->validate($rules);
+
+    // Validar código OTP
+    if (
+        $request->otp_code != $user->otp_code ||
+        now()->gt($user->otp_expires_at)
+    ) {
+        return back()->with('error', 'Código inválido o expirado');
+    }
+
+    try {
+        // Limpiar OTP
+        $user->otp_code = null;
+        $user->otp_expires_at = null;
+
+        // Actualizar datos
+        $user->email = $request->email;
 
         if ($request->filled('password')) {
-            $rules['password'] = ['required', 'string', 'min:10', 'confirmed'];
+            $user->password = Hash::make($request->password);
         }
 
-        $request->validate($rules);
+        $user->save();
 
-        try {
-            $user->email = $request->email;
+        return redirect()->route('proveedor.dashboard')
+            ->with('success', 'Credenciales actualizadas correctamente');
 
-            if ($request->filled('password')) {
-                $user->password = Hash::make($request->password);
-            }
-
-            $user->save();
-
-            return redirect()->route('proveedor.dashboard')
-                ->with('success', 'Credenciales actualizadas correctamente');
-
-        } catch (\Exception $e) {
-            return redirect()->route('proveedor.dashboard')
-                ->with('error', 'Error al actualizar credenciales');
-        }
+    } catch (\Exception $e) {
+        return redirect()->route('proveedor.dashboard')
+            ->with('error', 'Error al actualizar credenciales');
     }
+}
+
 }
 
 
