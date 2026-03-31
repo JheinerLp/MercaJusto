@@ -198,8 +198,51 @@
                        placeholder="Repite la nueva contraseña" 
                        class="input-credenciales"
                        minlength="8">
+                      
             </div>
+             <!-- 🔥 BOTÓN OTP AQUÍ -->
+<button type="button" onclick="enviarCodigo()" class="btn-guardar-carrusel">
+    📩 Enviar código de verificación
+</button>
 
+<!-- 🔐 INPUT DEL CÓDIGO -->
+<div class="form-group-credenciales">
+    <label for="otp_code">Código de verificación</label>
+    <input type="text" 
+           name="otp_code" 
+           id="otp_code"
+           placeholder="Ingresa el código enviado al correo" 
+           class="input-credenciales"
+           required>
+           <small id="mensajeOTP" class="mensaje-otp" style="display:none;">
+    📩 Código enviado, revisa tu correo
+</small>
+<style>
+.mensaje-otp {
+    display: block;
+    margin-top: 10px;
+    padding: 10px 15px;
+    background: linear-gradient(135deg, #4caf50, #66bb6a);
+    color: white;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    animation: slideIn 0.4s ease;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+    </style>
+
+</div>
             <button type="submit" class="btn-guardar-carrusel">
                 <i class="fas fa-save"></i> Guardar Cambios
             </button>
@@ -344,11 +387,32 @@
         }
     });
 </script>
+<script>
+    function enviarCodigo() {
+    fetch("{{ route('admin.enviar.codigo') }}", {
+        method: "POST",
+        headers: {
+            "X-CSRF-TOKEN": "{{ csrf_token() }}"
+        }
+    })
+    .then(() => {
+        const mensaje = document.getElementById('mensajeOTP');
+        mensaje.style.display = 'block';
 
+        // Ocultar después de 5 segundos
+        setTimeout(() => {
+            mensaje.style.display = 'none';
+        }, 5000);
+    })
+    .catch(() => {
+        alert("Error al enviar código");
+    });
+}
+    </script>
     <script src="{{ asset('js/Generalidades.js') }}"></script>
     
-    <footer class="footer-container">
+    
     @include('components.footer')
-    </footer>
+    
 </body>
 </html>

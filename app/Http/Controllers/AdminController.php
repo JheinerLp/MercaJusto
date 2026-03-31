@@ -14,6 +14,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
+use Carbon\Carbon;
 
 
 class AdminController extends Controller
@@ -231,43 +234,72 @@ public function actualizarCarrusel(Request $request)
     }
 }
 
+
+public function enviarCodigo(Request $request)
+{
+    $user = Auth::user();
+
+    $codigo = rand(100000, 999999); // 6 dígitos
+
+    $user->otp_code = $codigo;
+    $user->otp_expires_at = Carbon::now()->addMinutes(5);
+    $user->save();
+
+    Mail::raw("Tu código de verificación es: $codigo", function ($message) use ($user) {
+        $message->to($user->email)
+                ->subject('Código de verificación');
+    });
+
+    return response()->json(['success' => true]);
+}
+
 public function actualizarCredenciales(Request $request)
 {
     $user = Auth::user();
 
-    // Validaciones
+    // 🔐 VALIDACIONES
     $rules = [
         'name' => 'required|string|max:255',
-        'email' => 'required|string|email|max:255|confirmed',
+        'email' => 'required|string|email|max:255|confirmed|unique:users,email,' . $user->id,
         'email_confirmation' => 'required|string|email',
+        'otp_code' => 'required|numeric'
     ];
 
-    // Validar email único (excepto el del usuario actual)
-    $rules['email'] = 'required|string|email|max:255|confirmed|unique:users,email,' . $user->id;
-
-    // Si se proporciona contraseña, validarla
+    // Si hay contraseña
     if ($request->filled('password')) {
         $rules['password'] = ['required', 'string', 'min:8', 'confirmed'];
     }
 
     $request->validate($rules, [
         'name.required' => 'El nombre es obligatorio',
-        'email.required' => 'El correo electrónico es obligatorio',
-        'email.email' => 'El correo electrónico no es válido',
-        'email.unique' => 'Este correo electrónico ya está en uso',
-        'email.confirmed' => 'Los correos electrónicos no coinciden',
-        'password.min' => 'La contraseña debe tener al menos 8 caracteres',
+        'email.required' => 'El correo es obligatorio',
+        'email.email' => 'Correo inválido',
+        'email.unique' => 'Este correo ya está en uso',
+        'email.confirmed' => 'Los correos no coinciden',
+        'password.min' => 'Mínimo 8 caracteres',
         'password.confirmed' => 'Las contraseñas no coinciden',
+        'otp_code.required' => 'El código es obligatorio'
     ]);
 
     try {
-        // Actualizar nombre
-        $user->name = $request->name;
 
-        // Actualizar email
+        // 🔑 VALIDAR OTP
+        if (
+            !$user->otp_code ||
+            $request->otp_code != $user->otp_code ||
+            now()->gt($user->otp_expires_at)
+        ) {
+            return back()->with('error', 'Código inválido o expirado');
+        }
+
+        // 🧹 LIMPIAR OTP
+        $user->otp_code = null;
+        $user->otp_expires_at = null;
+
+        // ✏️ ACTUALIZAR DATOS
+        $user->name = $request->name;
         $user->email = $request->email;
 
-        // Actualizar contraseña solo si se proporciona
         if ($request->filled('password')) {
             $user->password = Hash::make($request->password);
         }
@@ -278,8 +310,7 @@ public function actualizarCredenciales(Request $request)
             ->with('success', 'Credenciales actualizadas correctamente.');
 
     } catch (\Exception $e) {
-        return redirect()->route('admin.dashboard')
-            ->with('error', 'Error al actualizar las credenciales: ' . $e->getMessage());
+        return back()->with('error', 'Error: ' . $e->getMessage());
     }
 }
 

@@ -83,6 +83,8 @@ Route::get('/categoria/{slug}', [CategoriaController::class, 'show'])
 //Solicitudes que envian al admin 
 Route::middleware('admin')->group(function() {
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    Route::post('/admin/enviar-codigo', [AdminController::class, 'enviarCodigo'])
+    ->name('admin.enviar.codigo');
     Route::get('/admin/productos', [AdminController::class, 'productos'])->name('admin.productos');
     Route::post('/admin/productos/eliminar/{id}', [AdminController::class, 'eliminarProducto'])
     ->name('admin.producto.eliminar');
