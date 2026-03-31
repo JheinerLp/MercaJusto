@@ -39,9 +39,8 @@ class ProveedorController extends Controller
     // ============================================================
     public function dashboard()
     {
-        $user = Auth::user();
-        $proveedor = $user->proveedor;
-        $productos = $proveedor ? $proveedor->productos : collect();
+        $proveedor = proveedorActual();
+        $productos = $proveedor?->productos ?? collect();
 
         return view('proveedor.dashboard', compact('proveedor', 'productos'));
     }
@@ -55,7 +54,7 @@ class ProveedorController extends Controller
             'banner' => 'required|image|max:3000'
         ]);
 
-        $proveedor = Auth::user()->proveedor;
+        $proveedor = proveedorActual();
 
         try {
 
@@ -76,7 +75,10 @@ class ProveedorController extends Controller
                 'banner_public_id' => $upload['public_id']
             ]);
 
+            cache()->forget('proveedor_'.auth()->id());
+
             return back()->with('ok', 'Banner actualizado');
+
 
         } catch (\Exception $e) {
             return back()->with('error', 'Error al subir banner: ' . $e->getMessage());
@@ -92,7 +94,7 @@ class ProveedorController extends Controller
             'foto' => 'required|image|max:3000'
         ]);
 
-        $proveedor = Auth::user()->proveedor;
+        $proveedor = proveedorActual();
 
         try {
 
@@ -113,6 +115,8 @@ class ProveedorController extends Controller
                 'foto_public_id' => $upload['public_id']
             ]);
 
+            cache()->forget('proveedor_'.auth()->id());
+
             return back()->with('ok', 'Foto actualizada');
 
         } catch (\Exception $e) {
@@ -127,11 +131,13 @@ class ProveedorController extends Controller
     {
         $request->validate(['descripcion' => 'required|string']);
 
-        $proveedor = Auth::user()->proveedor;
+        $proveedor = proveedorActual();
 
         $proveedor->update([
             'descripcion' => $request->descripcion
         ]);
+
+        cache()->forget('proveedor_'.auth()->id());
 
         return back()->with('ok', 'Descripción actualizada');
     }
@@ -143,11 +149,13 @@ class ProveedorController extends Controller
     {
         $request->validate(['direccion' => 'required|string']);
 
-        $proveedor = Auth::user()->proveedor;
+        $proveedor = proveedorActual();
 
         $proveedor->update([
             'ubicacion' => $request->direccion
         ]);
+
+        cache()->forget('proveedor_'.auth()->id());
 
         return back()->with('ok', 'Dirección actualizada');
     }
@@ -159,11 +167,13 @@ class ProveedorController extends Controller
     {
         $request->validate(['celular' => 'required|string']);
 
-        $proveedor = Auth::user()->proveedor;
+        $proveedor = proveedorActual();
 
         $proveedor->update([
             'whatsapp' => $request->celular
         ]);
+
+        cache()->forget('proveedor_'.auth()->id());
 
         return back()->with('ok', 'Celular actualizado');
     }
@@ -174,10 +184,11 @@ class ProveedorController extends Controller
     public function eliminarProducto($id)
     {
         $producto = Producto::findOrFail($id);
+        $proveedor = proveedorActual();
 
-        if ($producto->proveedor_id !== Auth::user()->proveedor->id) {
+        if ($producto->proveedor_id !== $proveedor->id) {
             abort(403);
-        }
+        } 
 
         try {
 
@@ -257,6 +268,7 @@ public function enviarCodigo()
         }
 
         $user->save();
+        cache()->forget('proveedor_'.auth()->id());
 
         return redirect()->route('proveedor.dashboard')
             ->with('success', 'Credenciales actualizadas correctamente');

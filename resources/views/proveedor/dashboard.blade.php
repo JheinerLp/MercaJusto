@@ -28,7 +28,7 @@
 
     
     
-     <img src="{{ optional(auth()->user()->proveedor)->banner ? asset(optional(auth()->user()->proveedor)->banner) : asset('images/Banner.png') }}"onerror="this.src='{{ asset('images/Banner.png') }}'"  alt="Banner proveedor">
+     <img src="{{ proveedorActual()?->banner ? asset(proveedorActual()->banner) : asset('images/Banner.png') }}" onerror="this.src='{{ asset('images/Banner.png') }}'" alt="Banner proveedor">
 
     <div class="overlay-banner">
         <i class="fas fa-camera"></i>
@@ -45,7 +45,7 @@
         {{-- FOTO --}}
         <div class="foto-container" onclick="abrirModal('modalFoto')">
 
-        <img src="{{ optional(auth()->user()->proveedor)->foto ? asset(optional(auth()->user()->proveedor)->foto) : asset('images/Usuario.jpg') }}"onerror="this.src='{{ asset('images/Usuario.jpg') }}'"  alt="Foto proveedor">
+        <img src="{{ proveedorActual()?->foto ? asset(proveedorActual()->foto) : asset('images/Usuario.jpg') }}"onerror="this.src='{{ asset('images/Usuario.jpg') }}'"alt="Foto proveedor">
         <div class="overlay-camara">
         <i class="fas fa-camera"></i>
     </div>
@@ -279,7 +279,7 @@
             <div class="form-group-credenciales">
                 <label>Correo Electrónico</label>
                 <input type="email" id="email" name="email"
-                       value="{{ auth()->user()->email }}"
+                       value="{{ auth()->user()?->email }}"
                        class="input-credenciales" required>
             </div>
 
