@@ -23,7 +23,7 @@
 
     {{-- ============================
         BANNER DEL PROVEEDOR
-    ============================= --}}
+    ============================ --}}
     <section class="proveedor-banner" onclick="abrirModal('modalBanner')">
 
     
