@@ -14,13 +14,11 @@
         @include('components.header') 
     </header>
     @include('components.lupa')
-
-    <main class="contenedor">
-    <section class="soporte-section">
+ <section class="soporte-section">
         <div class="soporte-img">
             <img src="{{ asset('Images/Soporte.png') }}" alt="Soporte técnico MercaJusto" class="pulse">
         </div>
-
+        
         <div class="soporte-texto">
             <h1>¿Necesitas ayuda?</h1>
             <p>Si presentas inconvenientes, puedes contactarnos:</p>
@@ -41,13 +39,14 @@
                   </button>
             </div>
         </div>
-    </section>
+    <main class="contenedor">
+        
 </main>
 <section class="faq-section">
     <h2>Preguntas Frecuentes</h2>
    <div class="faq-item">
     <h3 onclick="toggleFaq(this)">1. ¿Cómo puedo contactar a un proveedor?</h3>
-    <p class="faq-answer">Puedes hacerlo mediante la sección del proveedor o usando el bot para asistencia directa.</p>
+    <p class="faq-answer">Puedes hacerlo mediante la sección de soporte por medio de un correo electrónico.</p>
  </div>
   <div class="faq-item">
     <h3 onclick="toggleFaq(this)">2. ¿Cómo puedo verificar un pago?</h3>
@@ -266,16 +265,39 @@
 .faq-section h2 {
   font-size: 2em;
   color: #d40f0f;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
 }
 .faq-item {
-  border-bottom: 1px solid #ddd;
-  padding: 10px 0;
+  background: #fff;
+    border-radius: 10px;
+    margin-bottom: 12px;
+    padding: 18px 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 1px solid #eee;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
+.faq-item:hover {
+    transform: translateY(-3px);
+    background: #fafafa;
+}
+
+
 .faq-item h3 {
-  font-size: 18px;
-  cursor: pointer;
-  margin: 0;
+  display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 17px;
+    margin: 0;
+}
+.faq-item h3::after {
+    content: "+";
+    font-size: 20px;
+    transition: transform 0.3s;
+}
+
+.faq-item.active h3::after {
+    content: "-";
 }
 .faq-answer {
   display: none;
