@@ -108,7 +108,13 @@
             <div style="position: absolute; top: {{ $sede->top }}; left: {{ $sede->left }}; transform: translate(-50%, -50%); z-index:5;">
                 
                 <!-- Marcador -->
-                <div class="marker" onclick="toggleTooltip('tooltip-{{ $sede->id }}')"></div>
+                <div class="marker" onclick="toggleTooltip('tooltip-{{ $sede->id }}')">
+
+                <div class="hover-info">
+            📍 {{ $sede->nombre }} <br>
+            Da click para ver productos
+            </div>
+                </div>
 
                 <!-- Tooltip -->
                 <div class="tooltip" id="tooltip-{{ $sede->id }}">
@@ -124,7 +130,49 @@
 
     </div>
 </div>
+<style>
+    /* Tooltip rojo al pasar el mouse */
+.hover-info {
+    position: absolute;
+    bottom: 35px;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
 
+    background: #b71c1c;
+    color: #fff;
+
+    padding: 8px 12px;
+    border-radius: 6px;
+
+    font-size: 13px;
+    text-align: center;
+    white-space: nowrap;
+
+    opacity: 0;
+    pointer-events: none;
+
+    transition: all 0.3s ease;
+}
+
+/* Flechita */
+.hover-info::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+
+    border-width: 6px;
+    border-style: solid;
+    border-color: #b71c1c transparent transparent transparent;
+}
+
+/* Mostrar al pasar el mouse */
+.marker:hover .hover-info {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+</style>
 
 
 <footer class="footer-container">
