@@ -16,8 +16,13 @@
 <header class="header">
     @include('components.header')
 </header>
+
 @include('components.lupa')
 
+@php
+    // 🔥 SE EJECUTA UNA SOLA VEZ (OPTIMIZACIÓN CLAVE)
+    $prov = proveedorActual();
+@endphp
 
 <main class="proveedor-vista">
 
@@ -26,16 +31,16 @@
     ============================ --}}
     <section class="proveedor-banner" onclick="abrirModal('modalBanner')">
 
-    
-    
-     <img src="{{ proveedorActual()?->banner ? asset(proveedorActual()->banner) : asset('images/Banner.png') }}" onerror="this.src='{{ asset('images/Banner.png') }}'" alt="Banner proveedor">
+        <img src="{{ $prov?->banner ? asset($prov->banner) : asset('images/Banner.png') }}"
+             onerror="this.src='{{ asset('images/Banner.png') }}'"
+             alt="Banner proveedor">
 
-    <div class="overlay-banner">
-        <i class="fas fa-camera"></i>
-        <span>Cambiar banner</span>
-    </div>
+        <div class="overlay-banner">
+            <i class="fas fa-camera"></i>
+            <span>Cambiar banner</span>
+        </div>
 
-</section>
+    </section>
 
     {{-- ============================
          FOTO + INFO DEL PROVEEDOR
@@ -45,12 +50,15 @@
         {{-- FOTO --}}
         <div class="foto-container" onclick="abrirModal('modalFoto')">
 
-        <img src="{{ proveedorActual()?->foto ? asset(proveedorActual()->foto) : asset('images/Usuario.jpg') }}"onerror="this.src='{{ asset('images/Usuario.jpg') }}'"alt="Foto proveedor">
-        <div class="overlay-camara">
-        <i class="fas fa-camera"></i>
-    </div>
+            <img src="{{ $prov?->foto ? asset($prov->foto) : asset('images/Usuario.jpg') }}"
+                 onerror="this.src='{{ asset('images/Usuario.jpg') }}'"
+                 alt="Foto proveedor">
 
-</div>
+            <div class="overlay-camara">
+                <i class="fas fa-camera"></i>
+            </div>
+
+        </div>
 
         {{-- NOMBRE --}}
         <h2 class="nombre-proveedor">{{ $proveedor->empresa ?? 'Proveedor sin nombre' }}</h2>
@@ -60,133 +68,145 @@
             <strong>Categoría:</strong> {{ $proveedor->categoria->nombre ?? 'Sin categoría' }}
         </p>
 
-
         <div class="datos-proveedor">
 
-    {{-- CREDENCIALES --}}
-    <div class="dato credenciales-box">
-        <p><strong>Cuenta</strong><br>Configura tu acceso</p>
+            <div class="dato credenciales-box">
+                <p><strong>Cuenta</strong><br>Configura tu acceso</p>
 
-        <button class="btn-guardar btn-credenciales"
-                onclick="abrirModalCredenciales()">
-            Credenciales
-        </button>
-    </div>
+                <button class="btn-guardar btn-credenciales"
+                        onclick="abrirModalCredenciales()">
+                    Credenciales
+                </button>
+            </div>
 
-    <div class="dato">
-        <p><strong>Descripción:</strong> {{ $proveedor->descripcion ?? 'Sin descripción' }}</p>
-        <button class="btn-guardar" onclick="abrirModal('modalDescripcion')">
-            Actualizar
-        </button>
-    </div>
+            <div class="dato">
+                <p><strong>Descripción:</strong> {{ $proveedor->descripcion ?? 'Sin descripción' }}</p>
+                <button class="btn-guardar" onclick="abrirModal('modalDescripcion')">
+                    Actualizar
+                </button>
+            </div>
 
-    <div class="dato">
-        <p><strong>Dirección:</strong> {{ $proveedor->ubicacion ?? 'Sin dirección' }}</p>
-        <button class="btn-guardar" onclick="abrirModal('modalDireccion')">
-            Actualizar
-        </button>
-    </div>
+            <div class="dato">
+                <p><strong>Dirección:</strong> {{ $proveedor->ubicacion ?? 'Sin dirección' }}</p>
+                <button class="btn-guardar" onclick="abrirModal('modalDireccion')">
+                    Actualizar
+                </button>
+            </div>
 
-    <div class="dato">
-        <p><strong>Celular / WhatsApp:</strong> {{ $proveedor->whatsapp ?? 'Sin celular' }}</p>
-        <button class="btn-guardar" onclick="abrirModal('modalCelular')">
-            Actualizar
-        </button>
-    </div>
+            <div class="dato">
+                <p><strong>Celular / WhatsApp:</strong> {{ $proveedor->whatsapp ?? 'Sin celular' }}</p>
+                <button class="btn-guardar" onclick="abrirModal('modalCelular')">
+                    Actualizar
+                </button>
+            </div>
 
-</div>
+        </div>
 
     </section>
 
-  {{-- ============================
+    {{-- ============================
        PRODUCTOS
-============================= --}}
-<section class="productos-lista">
-    <h3>Mis Productos</h3>
+    ============================= --}}
+    <section class="productos-lista">
+        <h3>Mis Productos</h3>
 
-    {{-- BOTÓN AÑADIR PRODUCTO --}}
-    <button class="btn-agregar-producto" onclick="abrirModal('modalAgregarProducto')">
-        + Añadir Producto
-    </button>
+        <button class="btn-agregar-producto" onclick="abrirModal('modalAgregarProducto')">
+            + Añadir Producto
+        </button>
 
-    <div class="contenedor-productos">
-        @forelse($productos as $p)
-            <div class="card-producto">
-                <img src="{{ $p->foto ?? asset('img/default-producto.jpg') }}" alt="Imagen"  class="imagen-producto">
-                <h4>{{ $p->nombre ?? 'Producto sin nombre' }}</h4>
-                <p class="precio">Precio: ${{ number_format($p->precio ?? 0, 0, ',', '.') }}</p>
+        <div class="contenedor-productos">
+            @forelse($productos as $p)
+                <div class="card-producto">
+                    <img src="{{ $p->foto ?? asset('img/default-producto.jpg') }}"
+                         alt="Imagen"
+                         class="imagen-producto">
 
-                {{-- BOTÓN EDITAR --}}
-                <button class="btn-editar" onclick="abrirModal('modalEditarProducto{{ $p->id }}')">
-                    <i class="fas fa-edit"></i> Editar
-                </button>
+                    <h4>{{ $p->nombre ?? 'Producto sin nombre' }}</h4>
 
-                {{-- BOTÓN ELIMINAR --}}
-                <button class="btn-eliminar" onclick="abrirModal('modalEliminarProducto{{ $p->id }}')">
-                    <i class="fas fa-trash"></i> Eliminar
-                </button>
-            </div>
+                    <p class="precio">
+                        Precio: ${{ number_format($p->precio ?? 0, 0, ',', '.') }}
+                    </p>
 
-            {{-- MODAL EDITAR PRODUCTO --}}
-            <div id="modalEditarProducto{{ $p->id }}" class="modal">
-                <div class="modal-content">
-                    <h3>Editar Producto</h3>
-                    <form action="{{ route('proveedor.productos.update', $p->id) }}" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        @method('PUT')
-                        <input type="text" name="nombre" value="{{ $p->nombre }}" placeholder="Nombre del producto">
-                        <input type="number" name="precio" value="{{ $p->precio }}" placeholder="Precio">
-                        <input type="text" name="descripcion" value="{{ $p->descripcion }}" placeholder="Descripción del producto">
-                        <input type="file" name="foto">
-                         <small class="text-muted">
-    <strong>Aviso:</strong> La imagen debe ser formato JPG o PNG y no debe superar los <strong>4 MB</strong> </small>
-                        <button class="btn-guardar">Guardar</button>
-                    </form>
-                    <span class="cerrar" onclick="cerrarModal('modalEditarProducto{{ $p->id }}')">&times;</span>
+                    <button class="btn-editar" onclick="abrirModal('modalEditarProducto{{ $p->id }}')">
+                        <i class="fas fa-edit"></i> Editar
+                    </button>
+
+                    <button class="btn-eliminar" onclick="abrirModal('modalEliminarProducto{{ $p->id }}')">
+                        <i class="fas fa-trash"></i> Eliminar
+                    </button>
                 </div>
-            </div>
 
-            {{-- MODAL ELIMINAR PRODUCTO --}}
-            <div id="modalEliminarProducto{{ $p->id }}" class="modal">
-                <div class="modal-content">
-                    <h3>Eliminar Producto</h3>
-                    <p>¿Deseas eliminar "{{ $p->nombre }}"?</p>
-                    <form action="{{ route('proveedor.productos.destroy', $p->id) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button class="btn-eliminar">Eliminar</button>
-                    </form>
-                    <span class="cerrar" onclick="cerrarModal('modalEliminarProducto{{ $p->id }}')">&times;</span>
+                {{-- MODAL EDITAR --}}
+                <div id="modalEditarProducto{{ $p->id }}" class="modal">
+                    <div class="modal-content">
+                        <h3>Editar Producto</h3>
+
+                        <form action="{{ route('proveedor.productos.update', $p->id) }}"
+                              method="POST"
+                              enctype="multipart/form-data">
+                            @csrf
+                            @method('PUT')
+
+                            <input type="text" name="nombre" value="{{ $p->nombre }}">
+                            <input type="number" name="precio" value="{{ $p->precio }}">
+                            <input type="text" name="descripcion" value="{{ $p->descripcion }}">
+                            <input type="file" name="foto">
+
+                            <small class="text-muted">
+                                <strong>Aviso:</strong> JPG o PNG max 4MB
+                            </small>
+
+                            <button class="btn-guardar">Guardar</button>
+                        </form>
+
+                        <span class="cerrar" onclick="cerrarModal('modalEditarProducto{{ $p->id }}')">&times;</span>
+                    </div>
                 </div>
-            </div>
 
-        @empty
-            <p>No tienes productos registrados aún.</p>
-        @endforelse
-    </div>
-</section>
+                {{-- MODAL ELIMINAR --}}
+                <div id="modalEliminarProducto{{ $p->id }}" class="modal">
+                    <div class="modal-content">
+                        <h3>Eliminar Producto</h3>
 
-{{-- MODAL AÑADIR PRODUCTO --}}
-<div id="modalAgregarProducto" class="modal">
-    <div class="modal-content">
-        <h3>Agregar Producto</h3>
-        <form action="{{ route('proveedor.productos.store') }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            <input type="text" name="nombre" placeholder="Nombre del producto" required>
-            <input type="number" name="precio" placeholder="Precio" required>
-            <input type="text" name="descripcion" placeholder="Descripción del producto" required>
-            <input type="file" name="foto" required>
-            <small class="text-muted">
-    <strong>Aviso:</strong> La imagen debe ser formato JPG o PNG y no debe superar los <strong>4 MB</strong> </small>
-            <button class="btn-guardar">Guardar</button>
-        </form>
-        <span class="cerrar" onclick="cerrarModal('modalAgregarProducto')">&times;</span>
+                        <p>¿Deseas eliminar "{{ $p->nombre }}"?</p>
+
+                        <form action="{{ route('proveedor.productos.destroy', $p->id) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn-eliminar">Eliminar</button>
+                        </form>
+
+                        <span class="cerrar" onclick="cerrarModal('modalEliminarProducto{{ $p->id }}')">&times;</span>
+                    </div>
+                </div>
+
+            @empty
+                <p>No tienes productos registrados aún.</p>
+            @endforelse
+        </div>
+    </section>
+
+    {{-- MODAL AGREGAR --}}
+    <div id="modalAgregarProducto" class="modal">
+        <div class="modal-content">
+            <h3>Agregar Producto</h3>
+
+            <form action="{{ route('proveedor.productos.store') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+
+                <input type="text" name="nombre" required>
+                <input type="number" name="precio" required>
+                <input type="text" name="descripcion" required>
+                <input type="file" name="foto" required>
+
+                <button class="btn-guardar">Guardar</button>
+            </form>
+
+            <span class="cerrar" onclick="cerrarModal('modalAgregarProducto')">&times;</span>
+        </div>
     </div>
-</div>
 
 </main>
-
-
 
 <footer class="footer-container">
     @include('components.footer')
@@ -194,11 +214,8 @@
 
 <script src="{{ asset('js/Generalidades.js') }}"></script>
 
-{{-- =====================================================
-                MODALES
-===================================================== --}}
+{{-- ================= MODALES ================= --}}
 
-{{-- Modal Actualizar Banner --}}
 <div id="modalBanner" class="modal">
     <div class="modal-content">
         <h3>Actualizar Banner</h3>
@@ -211,7 +228,6 @@
     </div>
 </div>
 
-{{-- Modal Actualizar Foto --}}
 <div id="modalFoto" class="modal">
     <div class="modal-content">
         <h3>Actualizar Foto</h3>
@@ -224,109 +240,61 @@
     </div>
 </div>
 
-{{-- Modal Actualizar Descripción --}}
 <div id="modalDescripcion" class="modal">
     <div class="modal-content">
         <h3>Editar Descripción</h3>
         <form action="{{ route('proveedor.descripcion') }}" method="POST">
             @csrf
-            <textarea name="descripcion" class="input-admin" rows="5"></textarea>
+            <textarea name="descripcion" rows="5"></textarea>
             <button class="btn-guardar">Guardar</button>
         </form>
         <span class="cerrar" onclick="cerrarModal('modalDescripcion')">&times;</span>
     </div>
 </div>
 
-{{-- Modal Actualizar Dirección --}}
 <div id="modalDireccion" class="modal">
     <div class="modal-content">
         <h3>Editar Dirección</h3>
         <form action="{{ route('proveedor.direccion') }}" method="POST">
             @csrf
-            <input type="text" name="direccion" class="input-admin">
+            <input type="text" name="direccion">
             <button class="btn-guardar">Guardar</button>
         </form>
         <span class="cerrar" onclick="cerrarModal('modalDireccion')">&times;</span>
     </div>
 </div>
 
-{{-- Modal Actualizar Celular --}}
 <div id="modalCelular" class="modal">
     <div class="modal-content">
-        <h3>Editar Número de Celular</h3>
+        <h3>Editar Celular</h3>
         <form action="{{ route('proveedor.celular') }}" method="POST">
             @csrf
-            <input type="text" name="celular" class="input-admin">
+            <input type="text" name="celular">
             <button class="btn-guardar">Guardar</button>
         </form>
         <span class="cerrar" onclick="cerrarModal('modalCelular')">&times;</span>
     </div>
 </div>
 
-{{-- MODAL CREDENCIALES PROVEEDOR --}}
+{{-- CREDENCIALES --}}
 <div id="modalCredenciales" class="modal">
     <div class="modal-content modal-credenciales">
         <h3>Actualizar Credenciales</h3>
-        <p class="subtitulo-modal">
-            Modifica tu información de acceso
-        </p>
 
-        <form id="formCredenciales"
-              action="{{ route('proveedor.credenciales') }}"
-              method="POST">
+        <form id="formCredenciales" action="{{ route('proveedor.credenciales') }}" method="POST">
             @csrf
 
-            <div class="form-group-credenciales">
-                <label>Correo Electrónico</label>
-                <input type="email" id="email" name="email"
-                       value="{{ auth()->user()?->email }}"
-                       class="input-credenciales" required>
-            </div>
+            <input type="email" name="email" value="{{ auth()->user()?->email }}" required>
+            <input type="email" name="email_confirmation" required>
 
-            <div class="form-group-credenciales">
-    <label>Confirmar Correo Electrónico</label>
-    <input type="email"
-           id="email_confirmation"
-           name="email_confirmation"
-           class="input-credenciales"
-           required>
-</div>
+            <input type="password" name="password">
+            <input type="password" name="password_confirmation">
 
-            <div class="form-group-credenciales">
-                <label>Nueva Contraseña</label>
-                <input type="password" id="password" name="password"
-                       class="input-credenciales"
-                       placeholder="Dejar vacío si no deseas cambiarla">
-                <small>Mínimo 8 caracteres</small>
-            </div>
+            <button type="button" onclick="enviarCodigo()" class="btn-guardar">
+                📩 Enviar código
+            </button>
 
-            <div class="form-group-credenciales">
-    <label>Confirmar Nueva Contraseña</label>
-    <input type="password"
-           id="password_confirmation"
-           name="password_confirmation"
-           class="input-credenciales">
-</div>
-
-<!-- BOTÓN ENVIAR CÓDIGO -->
-<button type="button" onclick="enviarCodigo()" class="btn-guardar">
-    📩 Enviar código
-</button>
-
-<small class="mensaje-codigo">
-    Revisa tu correo para obtener el código
-</small>
-
-<!-- INPUT OTP -->
-<div class="form-group-credenciales">
-    <label>Código de verificación</label>
-    <input type="text"
-           name="otp_code"
-           id="otp_code"
-           class="input-credenciales"
-           placeholder="Ingresa el código"
-           required>
-</div>
+            <input type="text" name="otp_code" required>
 
             <button class="btn-guardar">Guardar cambios</button>
         </form>
@@ -334,214 +302,51 @@
         <span class="cerrar" onclick="cerrarModalCredenciales()">&times;</span>
     </div>
 </div>
-<!-- TOASTS (FUERA DE SCRIPT) -->
+
+{{-- TOASTS --}}
 @if(session('success'))
-<div id="toastSuccess" class="toast success">
-    {{ session('success') }}
-</div>
+<div id="toastSuccess" class="toast success">{{ session('success') }}</div>
 @endif
 
 @if(session('error'))
-<div id="toastError" class="toast error">
-    {{ session('error') }}
-</div>
+<div id="toastError" class="toast error">{{ session('error') }}</div>
 @endif
 
-<style>
-    #toastCodigo {
-    display: none;
-}
-
-#toastCodigo.show {
-    display: block;
-}
-.mensaje-codigo {
-    display: none;
-    margin-top: 10px;
-    padding: 10px 12px;
-    border-radius: 8px;
-    font-size: 0.85rem;
-    font-weight: 500;
-    background: #e3f2fd;
-    color: #1976d2;
-    border-left: 4px solid #2196f3;
-    animation: fadeIn 0.4s ease;
-}
-
-.mensaje-codigo.activo {
-    display: block;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-5px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-
-
-.btn-guardar {
-    margin-top: 10px;
-}
-/* SOLO modal de credenciales */
-.modal-credenciales {
-    max-height: 80vh;
-    overflow-y: auto;
-}
-.modal-credenciales {
-    max-height: 80vh;
-    overflow-y: auto;
-    padding-right: 10px;
-}
-
-/* Scroll bonito */
-.modal-credenciales::-webkit-scrollbar {
-    width: 6px;
-}
-
-.modal-credenciales::-webkit-scrollbar-thumb {
-    background: #999;
-    border-radius: 10px;
-}
-/* TOAST */
-.toast {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    padding: 15px 20px;
-    border-radius: 10px;
-    color: white;
-    font-weight: 500;
-    z-index: 9999;
-    opacity: 0;
-    transform: translateY(-20px);
-    transition: all 0.4s ease;
-}
-
-.toast.show {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.toast.success {
-    background: #4caf50;
-}
-
-.toast.error {
-    background: #f44336;
-}
-</style>
-
-{{-- SCRIPT PARA ABRIR/CERRAR MODALES --}}
 <script>
-    
-// =========================
-// MODALES
-// =========================
-function abrirModal(id) {
-    document.getElementById(id).style.display = 'flex';
+function abrirModal(id){ document.getElementById(id).style.display='flex'; }
+function cerrarModal(id){ document.getElementById(id).style.display='none'; }
+
+function abrirModalCredenciales(){
+    document.getElementById('modalCredenciales').style.display='flex';
 }
 
-function cerrarModal(id) {
-    document.getElementById(id).style.display = 'none';
+function cerrarModalCredenciales(){
+    document.getElementById('modalCredenciales').style.display='none';
 }
 
-function abrirModalCredenciales() {
-    document.getElementById('modalCredenciales').style.display = 'flex';
-
-    const email = document.getElementById('email').value;
-    document.getElementById('email_confirmation').value = email;
-}
-
-function cerrarModalCredenciales() {
-    document.getElementById('modalCredenciales').style.display = 'none';
-
-    document.getElementById('password').value = '';
-    document.getElementById('password_confirmation').value = '';
-}
-
-
-// =========================
-// VALIDACIÓN FORM
-// =========================
-document.getElementById('formCredenciales')
-?.addEventListener('submit', function(e) {
-
-    const email = document.getElementById('email').value;
-    const emailConfirmation = document.getElementById('email_confirmation').value;
-    const password = document.getElementById('password').value;
-    const passwordConfirmation = document.getElementById('password_confirmation').value;
-
-    if (email !== emailConfirmation) {
-        e.preventDefault();
-        alert('Los correos no coinciden');
-        return;
-    }
-
-    if (password && password !== passwordConfirmation) {
-        e.preventDefault();
-        alert('Las contraseñas no coinciden');
-        return;
-    }
-
-    if (password && password.length < 8) {
-        e.preventDefault();
-        alert('La contraseña debe tener al menos 8 caracteres');
-    }
-});
-
-
-// =========================
-// ENVIAR CÓDIGO OTP
-// =========================
-function enviarCodigo() {
+function enviarCodigo(){
     fetch("{{ route('proveedor.enviar.codigo') }}", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "X-CSRF-TOKEN": "{{ csrf_token() }}"
+        method:"POST",
+        headers:{
+            "Content-Type":"application/json",
+            "X-CSRF-TOKEN":"{{ csrf_token() }}"
         }
     })
-    .then(() => {
-
-        const toast = document.createElement('div');
-        toast.className = 'toast success show';
-        toast.innerText = '📩 Código enviado a tu correo';
-
-        document.body.appendChild(toast);
-
-        setTimeout(() => {
-            toast.remove();
-        }, 3000);
-
+    .then(()=>{
+        const t=document.createElement('div');
+        t.className='toast success show';
+        t.innerText='📩 Código enviado';
+        document.body.appendChild(t);
+        setTimeout(()=>t.remove(),3000);
     });
 }
 
-// =========================
-// TOASTS
-// =========================
-document.addEventListener('DOMContentLoaded', function () {
-
-    const toastSuccess = document.getElementById('toastSuccess');
-    const toastError = document.getElementById('toastError');
-
-    if (toastSuccess) {
-        toastSuccess.classList.add('show');
-
-        setTimeout(() => {
-            toastSuccess.classList.remove('show');
-        }, 3000);
-    }
-
-    if (toastError) {
-        toastError.classList.add('show');
-
-        setTimeout(() => {
-            toastError.classList.remove('show');
-        }, 3000);
-    }
-
+document.addEventListener('DOMContentLoaded',()=>{
+    document.querySelectorAll('.toast').forEach(t=>{
+        t.classList.add('show');
+        setTimeout(()=>t.classList.remove('show'),3000);
+    });
 });
-
 </script>
 
 </body>

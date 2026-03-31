@@ -37,13 +37,19 @@ class ProveedorController extends Controller
     // ============================================================
     // DASHBOARD DEL PROVEEDOR
     // ============================================================
-    public function dashboard()
-    {
-        $proveedor = proveedorActual();
-        $productos = $proveedor?->productos ?? collect();
+   public function dashboard()
+{
+    $proveedor = proveedorActual();
 
-        return view('proveedor.dashboard', compact('proveedor', 'productos'));
-    }
+    $productos = $proveedor?->productos()
+        ->with('categoria')
+        ->select('id','nombre','precio','foto','proveedor_id','categoria_id')
+        ->latest()
+        ->limit(12)
+        ->get();
+
+    return view('proveedor.dashboard', compact('proveedor', 'productos'));
+}
 
     // ============================================================
     // ACTUALIZAR BANNER

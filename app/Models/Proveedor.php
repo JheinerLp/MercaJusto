@@ -33,9 +33,10 @@ class Proveedor extends Model
     }
 
     public function productos()
-    {
-        return $this->hasMany(Producto::class);
-    }
+{
+    return $this->hasMany(Producto::class)
+        ->select('id','nombre','precio','foto','proveedor_id','categoria_id');
+}
 
     public function user()
     {
