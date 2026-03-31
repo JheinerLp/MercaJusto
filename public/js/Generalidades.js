@@ -18,14 +18,20 @@ document.addEventListener("click", function (event) {
     }
 });
 
+let zoomLevel = 1;
 
-let zoomActivo = false;
+const lupaBtn = document.getElementById("lupaBtn");
 
-document.getElementById("lupaBtn").addEventListener("click", () => {
-  zoomActivo = !zoomActivo;
-  document.body.style.transform = zoomActivo ? "scale(1.2)" : "scale(1)";
-  document.body.style.transformOrigin = "top center";
+lupaBtn.addEventListener("click", () => {
+    if (zoomLevel === 1) {
+        zoomLevel = 1.3; // puedes cambiar a 1.5
+    } else {
+        zoomLevel = 1;
+    }
+
+    document.body.style.zoom = zoomLevel;
 });
+
 
 
 function toggleInfo() {

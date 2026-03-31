@@ -79,26 +79,7 @@
 @endif
 
  <script>
-    let zoomActive = false;
-    const lupa = document.getElementById('lupaBtn');
-
-    // Aplica el efecto de zoom alrededor del mouse
-    document.addEventListener('mousemove', function(e) {
-        if (zoomActive) {
-            document.body.style.transformOrigin = `${e.clientX}px ${e.clientY}px`;
-        }
-    });
-
-    lupa.addEventListener('click', function () {
-        zoomActive = !zoomActive;
-
-        if (zoomActive) {
-            document.body.style.transform = "scale(1.5)";
-            document.body.style.transition = "transform 0.3s ease";
-        } else {
-            document.body.style.transform = "scale(1)";
-        }
-    });
+   
     </script>
             
     </section>
