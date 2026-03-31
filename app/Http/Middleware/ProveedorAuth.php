@@ -19,8 +19,10 @@ class ProveedorAuth
     {
         
         // Si NO está autenticado o NO es proveedor → redirigir al login
-        if (!auth()->check() || auth()->user()->role !== 'provider') {
-            return redirect('/login');
+        $user = auth()->user();
+
+    if (!$user || $user->role !== 'provider') {
+        return redirect('/login');
         }
 
         // Si todo está correcto → continuar

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -15,30 +16,26 @@ class AuthController extends Controller
 
    public function login(Request $request)
 {
-    $request->validate([
+    $credentials = $request->validate([
         'email' => 'required|email',
         'password' => 'required'
     ]);
 
-    $user = User::where('email', $request->email)->first();
+    if (Auth::attempt($credentials)) {
+        $request->session()->regenerate(); // 🔥 seguridad + rendimiento
 
-    if(!$user || !Hash::check($request->password, $user->password)) {
-        return back()->with('error', 'Credenciales incorrectas');
+        $user = Auth::user();
+
+        if ($user->role === 'admin') {
+            return redirect()->route('admin.dashboard');
+        }
+
+        if ($user->role === 'provider') {
+            return redirect()->route('proveedor.dashboard');
+        }
     }
 
-    // Iniciar sesión correctamente con Laravel
-    auth()->login($user);
-
-    // Redireccionar según rol
-    if($user->role === 'admin') {
-        return redirect()->route('admin.dashboard');
-    }
-
-    if($user->role === 'provider') {
-        return redirect()->route('proveedor.dashboard');
-    }
-
-    return redirect('/login');
+    return back()->with('error', 'Credenciales incorrectas');
 }
     public function logout()
     {
