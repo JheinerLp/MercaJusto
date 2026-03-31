@@ -75,7 +75,9 @@
     padding-right: 60px; /* 🔁 Esto aleja .circle-menu del borde derecho */
 
     align-self: flex-start;
+    z-index: 10;
 }
+
 
 /* MODO RESPONSIVE - móviles */
 @media (max-width: 768px) {
@@ -162,7 +164,9 @@
         height: 25px;
     }
 }
-
+.zoom-activo .circle-menu {
+    display: none;
+}
 
 
 

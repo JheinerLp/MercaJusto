@@ -15,6 +15,7 @@
                 <a href="{{ url('/') }}" class="home-button" title="Volver al inicio">
                         <i class="fas fa-home"></i>
                     </a>
+                    <div class="usuario-wrapper">
                 <button class="boton-usuario" onclick="toggleUsuarioMenu()" aria-label="Abrir menú de usuario" aria-controls="menuUsuario" aria-expanded="false">
                     <img src="{{ auth()->user()->proveedor->foto ?? asset('Images/Usuario.jpg') }}" alt="Icono de usuario">
                 </button>
@@ -22,6 +23,18 @@
                 <!-- Menú Usuario -->
              <div class="menu-usuario" id="menuUsuario">
     <ul>
+     <li>
+    <a href="{{ route('quienes.somos') }}" class="menu-link">Quienes somos</a>
+</li>
+<li>
+    <a href="{{ route('mapa.index') }}" class="menu-link">Mapa</a>
+</li>
+<li>
+    <a href="{{ route('formas.pago') }}" class="menu-link">Forma de Pago</a>
+</li>
+<li>
+    <a href="{{ route('soporte') }}" class="menu-link">Soporte</a>
+</li>
         @if(auth()->check())
             @php $role = auth()->user()->role; @endphp
 
@@ -55,8 +68,20 @@
         @endif
     </ul>
 </div>
+</div>
 
+<style>
+    .usuario-wrapper {
+    position: relative; /* 🔥 ESTE ES EL SECRETO */
+    display: inline-block;
+}
 
+.menu-usuario {
+    position: absolute;
+    top: 110%;
+    right: 0; /* ahora sí funciona perfecto */
+}
+</style>
 
 
 

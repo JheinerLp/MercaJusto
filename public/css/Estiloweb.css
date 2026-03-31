@@ -213,7 +213,8 @@ h1 {
 .menu-usuario {
     position: absolute;
     top: 110%;        /* Debajo del botón */
-    left: 70%;          /* Alineado perfectamente al botón */
+    right: 0;
+    left: auto;          /* Alineado perfectamente al botón */
     background-color: white;
     border: 1px solid #ddd;
     border-radius: 8px;
@@ -576,30 +577,7 @@ body > *:not(.footer-container) {
 
 
 
-/* Arbustos */
-/* 🌿 Estilos Generales de los Arbustos */
-.decorativo {
-    position: absolute;  /* Se mantiene dentro de su contenedor */
-    width: 9vw;  /* Tamaño relativo */
-    max-width: 120px;
-    z-index: 3;  /* Encima del contenido */
-    pointer-events: none; /* No bloquea clics */
-    user-select: none; /* Evita selección accidental */
-}
 
-/* 🌿 Arbusto Izquierdo */
-.carousel-container .decorativo-izquierdo {
-    left: -50px; /* Ajustado para que no empuje contenido */
-    top: 28%;
-    transform: translateY(-50%);
-}
-
-/* 🌿 Arbusto Derecho */
-.carousel-container .decorativo-derecho {
-    right: -0px; /* Ajustado para que no empuje contenido */
-    top: 1%;
-    transform: translateY(-50%);
-}
 
 /* 📌 Ajuste para pantallas pequeñas */
 @media (max-width: 768px) {
@@ -648,3 +626,8 @@ body > *:not(.footer-container) {
     }
   }
 
+  .menu-usuario hr {
+    border: none;
+    border-top: 1px solid #ccc;
+    margin: 6px 0;
+}

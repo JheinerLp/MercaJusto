@@ -65,8 +65,11 @@
     ">
         ✅ {{ session('success') }}
     </div>
+<style>
 
+    </style>
     <script>
+        
         setTimeout(() => {
             const toast = document.getElementById('toast-success');
             if (toast) {

@@ -24,9 +24,13 @@ const lupaBtn = document.getElementById("lupaBtn");
 
 lupaBtn.addEventListener("click", () => {
     if (zoomLevel === 1) {
-        zoomLevel = 1.3; // puedes cambiar a 1.5
+        zoomLevel = 1.3;
+
+        document.body.classList.add("zoom-activo"); // 👈 IMPORTANTE
     } else {
         zoomLevel = 1;
+
+        document.body.classList.remove("zoom-activo"); // 👈 IMPORTANTE
     }
 
     document.body.style.zoom = zoomLevel;
