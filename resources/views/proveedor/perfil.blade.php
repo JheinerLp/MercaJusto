@@ -61,18 +61,14 @@
 
     {{-- BANNER --}}
     <div class="banner-container">
-    <img 
-        src="{{ $proveedor->banner ?? asset('img/default-banner.jpg') }}" 
-        alt="Banner de {{ $proveedor->empresa }}"
-        class="banner-img"
-    >
+        <img src="{{ optional(auth()->user()->proveedor)->banner ? asset(optional(auth()->user()->proveedor)->banner) : asset('images/Banner.png') }}"onerror="this.src='{{ asset('images/Banner.png') }}'"  alt="Banner de {{ $proveedor->empresa }}" class="banner-img">
 </div>
 
     
 
     {{-- INFO --}}
     <div class="info-proveedor">
-        <img src="{{ $proveedor->foto ?? asset('img/default-foto.jpg') }}" class="foto-proveedor">
+        <img src="{{ optional(optional(auth()->user())->proveedor)->foto ? asset(optional(auth()->user()->proveedor)->foto) : asset('images/Usuario.jpg') }}"onerror="this.src='{{ asset('images/Usuario.jpg') }}' "class="foto-proveedor" >
 
         <div class="datos-proveedor">
             <h1>{{ $proveedor->empresa }}</h1>
