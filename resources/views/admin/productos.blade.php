@@ -108,7 +108,7 @@
             @foreach ($productos as $producto)
             <tr>
                 <td class="producto-img">
-                    <img src="{{ asset('storage/' . $producto->foto) }}" alt="{{ $producto->nombre }}" width="80">
+                <img src="{{ $producto->foto }}"  alt="{{ $producto->nombre }}" width="80" onclick="verImagen('{{ $producto->foto }}')"style="cursor: pointer; border-radius: 6px;">
                 </td>
                 <td>{{ $producto->nombre }}</td>
                 <td>{{ $producto->categoria->nombre ?? 'Sin categoría' }}</td>
@@ -136,6 +136,49 @@
         </form>
     </div>
 </div>
+
+<div id="modalImagen" class="modal-imagen">
+    <span class="cerrar-img" onclick="cerrarImagen()">&times;</span>
+    <img id="imagenGrande">
+</div>
+<style>
+.modal-imagen {
+    display: none;
+    position: fixed;
+    z-index: 3000;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-imagen img {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 10px;
+    animation: zoom 0.3s ease;
+}
+
+.cerrar-img {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 35px;
+    color: #fff;
+    cursor: pointer;
+}
+
+@keyframes zoom {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+    </style>
 
 
 <footer class="footer-container">
@@ -173,6 +216,26 @@ window.onclick = function(event) {
         modal.style.display = 'none';
     }
 }
+
+
+
+function verImagen(src) {
+    const modal = document.getElementById('modalImagen');
+    const img = document.getElementById('imagenGrande');
+
+    img.src = src;
+    modal.style.display = 'flex';
+}
+
+function cerrarImagen() {
+    document.getElementById('modalImagen').style.display = 'none';
+}
+
+document.getElementById('modalImagen').addEventListener('click', function(e) {
+    if (e.target.id === 'modalImagen') {
+        cerrarImagen();
+    }
+});
 </script>
 
 </body>
