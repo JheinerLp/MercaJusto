@@ -52,7 +52,7 @@
 
                             <div class="links">
                                 <a href="{{ url('/') }}">¿Olvidó su nombre o contraseña?</a>
-                                <a href="{{ url('/register') }}">Registrarse</a>
+                                <a href="#" onclick="abrirModal('modalSolicitudProveedor')">Registrarse</a>
                             </div>
                         </form>
                     </div>
@@ -63,7 +63,7 @@
             
         </div>
     </main>
-
+    @include('components.modal-solicitud')
     <footer class="footer-container" role="contentinfo">
         @include('components.footer')
     </footer>
@@ -71,4 +71,5 @@
     
 
 </body>
+
 </html>
