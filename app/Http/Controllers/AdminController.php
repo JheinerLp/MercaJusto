@@ -83,44 +83,61 @@ public function productos(Request $request)
 
     // Suspender proveedor
     public function suspenderProveedor($id) {
-        $proveedor = Proveedor::findOrFail($id);
-        $proveedor->suspendido = true; // Asumiendo que tienes un campo 'suspendido' en la tabla
-        $proveedor->save();
+    
+    try {
+    $proveedor = Proveedor::findOrFail($id);
+    $proveedor->suspendido = true;
+    $proveedor->save();
 
-        return redirect()->route('admin.proveedores')->with('success', 'Proveedor suspendido correctamente.');
+    return back()->with('success', 'Proveedor suspendido correctamente');
+
+} catch (\Exception $e) {
+    return back()->with('error', 'Error al suspender proveedor');
+}
+
+   
     }
 
     public function reactivarProveedor($id)
 {
+   try {
     $proveedor = Proveedor::findOrFail($id);
     $proveedor->suspendido = false;
     $proveedor->save();
 
-    return redirect()->route('admin.proveedores')
-        ->with('success', 'Proveedor reactivado correctamente.');
+    return back()->with('success', 'Proveedor reactivado correctamente');
+
+} catch (\Exception $e) {
+    return back()->with('error', 'Error al reactivar proveedor');
+}
 }
 
 public function eliminarProveedor($id)
 {
-    $proveedor = Proveedor::findOrFail($id);
+    try {
+    DB::transaction(function () use ($id) {
+        $proveedor = Proveedor::findOrFail($id);
 
-    // Opcional: eliminar productos asociados
-    $proveedor->productos()->delete();
+        $proveedor->productos()->delete();
 
-    // Opcional: eliminar usuario asociado
-    if ($proveedor->user) {
-        $proveedor->user->delete();
-    }
+        if ($proveedor->user) {
+            $proveedor->user->delete();
+        }
 
-    $proveedor->delete();
+        $proveedor->delete();
+    });
 
-    return redirect()->route('admin.proveedores')
-        ->with('success', 'Proveedor eliminado correctamente.');
+    return back()->with('success', 'Proveedor eliminado correctamente');
+
+} catch (\Exception $e) {
+    return back()->with('error', 'Error al eliminar proveedor');
+}
 }
 
 
     public function eliminarProducto(Request $request, $id)
-{
+{  
+    try {
     $producto = Producto::findOrFail($id);
     $proveedor = $producto->proveedor;
 
@@ -136,6 +153,9 @@ public function eliminarProveedor($id)
     }
 
     return redirect()->back()->with('success', 'Producto eliminado y proveedor notificado.');
+    } catch (\Exception $e) {
+    return back()->with('error', 'Error al eliminar producto');
+}
 }
 
 
@@ -164,10 +184,14 @@ public function historialTickets(Request $request)
 
 public function eliminarHistorial()
 {
+    try {
     Ticket::where('estado', 'finalizado')->delete();
 
     return redirect()->route('admin.tickets.historial')
         ->with('success', 'Historial de tickets eliminado correctamente.');
+        } catch (\Exception $e) {
+    return back()->with('error', 'Error al eliminar historial');
+}
 }
 
 public function actualizarCarrusel(Request $request)

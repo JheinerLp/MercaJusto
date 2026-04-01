@@ -69,7 +69,7 @@
     </ul>
 </div>
 </div>
-
+@include('components.toast')
 <style>
     .usuario-wrapper {
     position: relative; /* 🔥 ESTE ES EL SECRETO */

@@ -102,16 +102,22 @@ class ProductoController extends Controller
     {
         $producto = Producto::findOrFail($id);
 
-        if ($producto->proveedor->user_id != Auth::id()) {
-            abort(403);
-        }
+        if ($producto->proveedor->user_id !== Auth::id()) {
+    return back()->with('error', 'No tienes permiso para eliminar este producto.');
+}
 
         $request->validate([
             'nombre' => 'required|string|max:255',
-            'descripcion' => 'nullable|string',
-            'precio' => 'required|numeric',
+            'descripcion' => 'nullable|string|max:1000',
+            'precio' => 'required|numeric|min:0.01|max:99999999',
             'foto' => 'nullable|image|max:4096',
-        ]);
+        ], [
+    'precio.min' => 'El precio debe ser mayor a 0',
+    'precio.max' => 'El precio es demasiado alto',
+    'foto.max' => 'La imagen es muy pesada (máx 4MB)',
+    'nombre.max' => 'El nombre es muy largo (máx 255 caracteres)',
+    'descripcion.max' => 'La descripción es muy larga (máx 1000 caracteres)',
+    ]);
 
         $data = $request->only(['nombre', 'descripcion', 'precio']);
         $data['categoria_id'] = $producto->proveedor->categoria_id;
@@ -151,9 +157,9 @@ class ProductoController extends Controller
     {
         $producto = Producto::findOrFail($id);
 
-        if ($producto->proveedor->user_id !== Auth::id()) {
-            abort(403);
-        }
+        if ($producto->proveedor->user_id != Auth::id()) {
+    return back()->with('error', 'No tienes permiso para modificar este producto.');
+}
 
         try {
 

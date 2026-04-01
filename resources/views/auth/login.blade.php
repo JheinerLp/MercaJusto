@@ -25,7 +25,7 @@
         </div>
         <div class="menu-container" aria-hidden="true"></div>
     </header>
-
+@include('components.toast')
     <main>
         <section class="Imagen-login" aria-hidden="true">
             <img src="{{ asset('Images/fondo-frutas-verduras-LOGIN.JPG') }}" alt="Imagen de fondo con frutas y verduras para el login">

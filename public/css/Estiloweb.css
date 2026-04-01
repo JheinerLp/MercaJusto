@@ -631,3 +631,44 @@ body > *:not(.footer-container) {
     border-top: 1px solid #ccc;
     margin: 6px 0;
 }
+.toast {
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from { transform: translateX(100%); }
+    to { transform: translateX(0); }
+}
+
+.toast-custom {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    min-width: 250px;
+    max-width: 350px;
+    padding: 15px 20px;
+    border-radius: 8px;
+    color: white;
+    font-weight: 500;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    
+    opacity: 0;
+    transform: translateX(100%);
+    transition: all 0.4s ease;
+    z-index: 9999;
+}
+
+/* TIPOS */
+.toast-success {
+    background-color: #28a745;
+}
+
+.toast-error {
+    background-color: #dc3545;
+}
+
+/* ANIMACIÓN */
+.toast-show {
+    opacity: 1;
+    transform: translateX(0);
+}

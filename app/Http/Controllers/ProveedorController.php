@@ -56,8 +56,12 @@ class ProveedorController extends Controller
     public function actualizarBanner(Request $request)
     {
         $request->validate([
-            'banner' => 'required|image|max:3000'
-        ]);
+    'banner' => 'required|image|max:3000'
+], [
+    'banner.required' => 'Debes subir una imagen',
+    'banner.image' => 'El archivo debe ser una imagen',
+    'banner.max' => 'La imagen es muy pesada (máx 3MB)'
+]);
 
         $proveedor = proveedorActual();
 
@@ -82,7 +86,7 @@ class ProveedorController extends Controller
 
             cache()->forget('proveedor_'.auth()->id());
 
-            return back()->with('ok', 'Banner actualizado');
+            return back()->with('success', 'Banner actualizado');
 
 
         } catch (\Exception $e) {
@@ -122,7 +126,7 @@ class ProveedorController extends Controller
 
             cache()->forget('proveedor_'.auth()->id());
 
-            return back()->with('ok', 'Foto actualizada');
+            return back()->with('success', 'Foto actualizada');
 
         } catch (\Exception $e) {
             return back()->with('error', 'Error al subir foto: ' . $e->getMessage());
@@ -134,7 +138,7 @@ class ProveedorController extends Controller
     // ============================================================
     public function actualizarDescripcion(Request $request)
     {
-        $request->validate(['descripcion' => 'required|string']);
+        $request->validate(['descripcion' => 'required|string|max:1000']);
 
         $proveedor = proveedorActual();
 
@@ -144,7 +148,7 @@ class ProveedorController extends Controller
 
         cache()->forget('proveedor_'.auth()->id());
 
-        return back()->with('ok', 'Descripción actualizada');
+        return back()->with('success', 'Descripción actualizada');
     }
 
     // ============================================================
@@ -152,7 +156,7 @@ class ProveedorController extends Controller
     // ============================================================
     public function actualizarDireccion(Request $request)
     {
-        $request->validate(['direccion' => 'required|string']);
+        $request->validate(['direccion' => 'required|string|max:255']);
 
         $proveedor = proveedorActual();
 
@@ -162,7 +166,7 @@ class ProveedorController extends Controller
 
         cache()->forget('proveedor_'.auth()->id());
 
-        return back()->with('ok', 'Dirección actualizada');
+        return back()->with('success', 'Dirección actualizada');
     }
 
     // ============================================================
@@ -170,7 +174,7 @@ class ProveedorController extends Controller
     // ============================================================
     public function actualizarCelular(Request $request)
     {
-        $request->validate(['celular' => 'required|string']);
+        $request->validate(['celular' => 'required|regex:/^[0-9]{7,15}$/']);
 
         $proveedor = proveedorActual();
 
@@ -180,7 +184,7 @@ class ProveedorController extends Controller
 
         cache()->forget('proveedor_'.auth()->id());
 
-        return back()->with('ok', 'Celular actualizado');
+        return back()->with('success', 'Celular actualizado');
     }
 
     // ============================================================
@@ -191,9 +195,9 @@ class ProveedorController extends Controller
         $producto = Producto::findOrFail($id);
         $proveedor = proveedorActual();
 
-        if ($producto->proveedor_id !== $proveedor->id) {
-            abort(403);
-        } 
+       if ($producto->proveedor_id !== $proveedor->id) {
+    return back()->with('error', 'No tienes permiso para eliminar este producto');
+}
 
         try {
 
@@ -204,7 +208,7 @@ class ProveedorController extends Controller
 
             $producto->delete();
 
-            return back()->with('ok', 'Producto eliminado');
+            return back()->with('success', 'Producto eliminado');
 
         } catch (\Exception $e) {
             return back()->with('error', 'Error al eliminar producto');
