@@ -9,6 +9,7 @@
 
     <link rel="stylesheet" href="{{ asset('css/base/normalize.css') }}">
     <link rel="stylesheet" href="{{ asset('css/pages/Login.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/pages/Quienes.css') }}">
     <link rel="stylesheet" href="{{ asset('css/Estiloweb.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
