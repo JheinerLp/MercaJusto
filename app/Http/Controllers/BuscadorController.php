@@ -25,7 +25,7 @@ class BuscadorController extends Controller
         }
 
         return view('admin.solicitudes', [
-            'solicitudes' => $solicitudes->latest()->get()
+            'solicitudes' => $solicitudes->latest()->paginate(10)->withQueryString()
         ]);
     }
 
@@ -46,7 +46,7 @@ class BuscadorController extends Controller
         }
 
         return view('admin.historial_solicitudes', [
-            'solicitudes' => $solicitudes->latest()->get()
+            'solicitudes' => $solicitudes->latest()->paginate(10)->withQueryString()
         ]);
     }
 
@@ -66,7 +66,7 @@ class BuscadorController extends Controller
         }
 
         return view('admin.proveedores.lista', [
-            'proveedores' => $proveedores->latest()->get()
+            'proveedores' => $proveedores->latest()->paginate(10)->withQueryString()
         ]);
     }
 
@@ -86,7 +86,7 @@ class BuscadorController extends Controller
         }
 
         return view('admin.productos', [
-            'productos' => $productos->latest()->get()
+             'productos' => $productos->latest()->paginate(10)->withQueryString()
         ]);
     }
 
@@ -109,7 +109,7 @@ class BuscadorController extends Controller
         }
 
         return view('admin.tickets', [
-            'tickets' => $tickets->latest()->get()
+            'tickets' => $tickets->latest()->paginate(10)->withQueryString()
         ]);
     }
 
@@ -130,7 +130,7 @@ class BuscadorController extends Controller
         }
 
         return view('admin.tickets_historial', [
-            'tickets' => $tickets->latest()->get()
+            'tickets' => $tickets->latest()->paginate(10)->withQueryString()
         ]);
     }
 }

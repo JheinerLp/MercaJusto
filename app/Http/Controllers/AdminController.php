@@ -24,7 +24,8 @@ class AdminController extends Controller
     public function dashboard()
 {
     
-    $solicitudesPendientes = SolicitudProveedor::pendientes()->get();
+   $solicitudesPendientes = SolicitudProveedor::pendientes()
+    ->paginate(10);
 
     
     $totalActivos = Proveedor::where('suspendido', false)->count();
@@ -39,23 +40,40 @@ class AdminController extends Controller
     return view('admin.dashboard', compact('solicitudesPendientes', 'totalActivos', 'totalProductos', 'totalTickets'));
 }
 
-public function productos()
+public function productos(Request $request)
 {
-    // Obtener todos los productos con su categoría y proveedor
-    $productos = Producto::with(['categoria', 'proveedor.user'])->get();
+    $query = Producto::with(['categoria', 'proveedor.user']);
 
-    // Contar la cantidad de productos
-    $totalProductos = $productos->count();
+    if ($request->filled('search')) {
+        $query->where('nombre', 'like', "%{$request->search}%");
+    }
+
+    $productos = $query
+        ->paginate(10)
+        ->withQueryString();
+
+    $totalProductos = Producto::count();
 
     return view('admin.productos', compact('productos', 'totalProductos'));
 }
 
-
     // Lista de proveedores
-    public function listaProveedores() {
-        $proveedores = Proveedor::all();
-        return view('admin.proveedores.lista', compact('proveedores'));
+    public function listaProveedores(Request $request)
+{
+    $query = Proveedor::with(['categoria', 'user']);
+
+    // 🔍 búsqueda opcional
+    if ($request->filled('search')) {
+        $query->where('empresa', 'like', "%{$request->search}%")
+              ->orWhere('correo_dueño', 'like', "%{$request->search}%");
     }
+
+    $proveedores = $query
+        ->paginate(10)
+        ->withQueryString();
+
+    return view('admin.proveedores.lista', compact('proveedores'));
+}
 
     // Ver perfil del proveedor
     public function verProveedor($id) {
@@ -121,20 +139,25 @@ public function eliminarProveedor($id)
 }
 
 
-public function tickets()
+public function tickets(Request $request)
 {
-    // Obtener todos los tickets con relación a usuario y proveedor
-    $tickets = Ticket::with(['proveedor', 'user'])->where('estado', '!=', 'finalizado')->get();
+    $query = Ticket::with(['proveedor', 'user'])
+        ->where('estado', '!=', 'finalizado');
+
+    $tickets = $query
+        ->paginate(10)
+        ->withQueryString();
 
     return view('admin.tickets', compact('tickets'));
 }
 
-public function historialTickets()
+public function historialTickets(Request $request)
 {
     $tickets = Ticket::with(['proveedor', 'user'])
         ->where('estado', 'finalizado')
         ->orderBy('updated_at', 'desc')
-        ->get();
+        ->paginate(15)
+        ->withQueryString();
 
     return view('admin.tickets_historial', compact('tickets'));
 }

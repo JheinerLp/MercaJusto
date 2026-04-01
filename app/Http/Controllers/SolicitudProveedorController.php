@@ -72,15 +72,17 @@ class SolicitudProveedorController extends Controller
    public function index()
 {
     // Solo solicitudes pendientes
-    $solicitudes = SolicitudProveedor::pendientes()->orderBy('created_at', 'desc')->get();
+    $solicitudes = SolicitudProveedor::pendientes()
+    ->orderBy('created_at', 'desc')
+    ->paginate(10);
     return view('admin.solicitudes', compact('solicitudes'));
 }
 
 public function historial()
 {
     $solicitudes = SolicitudProveedor::orderBy('updated_at', 'desc')
-                    ->whereIn('estado', ['aprobado', 'rechazado'])
-                    ->get();
+    ->whereIn('estado', ['aprobado', 'rechazado'])
+    ->paginate(15);
     return view('admin.historial_solicitudes', compact('solicitudes'));
 }
 

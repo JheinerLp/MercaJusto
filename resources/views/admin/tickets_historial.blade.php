@@ -129,7 +129,54 @@
 </table>
 </main>
 
+{{ $tickets->appends(request()->query())->links('vendor.pagination.catalogo') }}
+<style>
+/* ===== PAGINACIÓN PERSONALIZADA ===== */
+.paginacion-custom {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+}
 
+.paginacion-custom ul {
+    display: flex;
+    list-style: none;
+    gap: 8px;
+    padding: 0;
+}
+
+.paginacion-custom li a,
+.paginacion-custom li span {
+    min-width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    font-weight: bold;
+    text-decoration: none;
+    border: 1px solid #ddd;
+    color: #007bff;
+    transition: all 0.2s ease;
+}
+
+.paginacion-custom li a:hover {
+    background: #007bff;
+    color: #fff;
+}
+
+.paginacion-custom li span.activo {
+    background: #007bff;
+    color: #fff;
+    border-color: #007bff;
+
+
+
+   
+}
+
+
+    </style>
 <footer class="footer-container">
     @include('components.footer')
 </footer>
