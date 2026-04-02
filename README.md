@@ -48,8 +48,8 @@ Como proveedor puedes:
 
 ## 🖼️ Vista previa
 
-![Dashboard](./docs/dashboard.png)
-![Productos](./docs/productos.png)
+![Dashboard](public/images/Dasboard.JPG)
+![Productos](public/images/Productos.JPG)
 
 ---
 
