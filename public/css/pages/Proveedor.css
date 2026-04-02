@@ -44,10 +44,6 @@
     margin-bottom: 20px;
 }
 
-.texto-informacion {
-    font-size: 16px;
-    color: #333;
-}
 
 /* --- Estilo para cuando la pantalla es pequeña (máximo 768px) --- */
 @media screen and (max-width: 768px) {
