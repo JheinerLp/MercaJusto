@@ -281,7 +281,6 @@
     
 
     
-    </script>
     <script>
         
     function showTab(tabId) {
@@ -295,20 +294,7 @@
         event.target.classList.add('active');
     }
 
-
-    proveedores.forEach(p => {
-        const card = document.createElement("div");
-        card.className = "card-proveedor";
-        card.innerHTML = `
-            <h3>${p.nombre}</h3>
-            <p><strong>Contacto:</strong> ${p.contacto}</p>
-            <p><strong>Email:</strong> ${p.email}</p>
-            <p><strong>Teléfono:</strong> ${p.telefono}</p>
-            <p><strong>Dirección:</strong> ${p.direccion}</p>
-            <p><strong>Categoría:</strong> ${p.categoria}</p>
-        `;
-        contenedor.appendChild(card);
-    });
+   
 
     // Funciones para el modal del carrusel
     function abrirModalCarrusel() {
