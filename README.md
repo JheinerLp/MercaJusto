@@ -4,7 +4,7 @@
 ![Docker](https://img.shields.io/badge/Docker-Enabled-blue)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-blue)
 
-![Banner](./docs/banner.png)
+![Banner](public/images/Banner.png)
 
 > **Calidad y frescura a tu alcance** 🌱  
 > Plataforma web que conecta proveedores locales con clientes de manera rápida, sencilla y directa.
