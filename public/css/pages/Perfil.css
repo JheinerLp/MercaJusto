@@ -149,3 +149,46 @@
     font-size: 14px;
   }
 }
+ /* ============================
+   RESPONSIVE EXTRA 
+============================ */
+
+/* Tablets */
+@media (max-width: 1024px) {
+  .contenedor-perfil {
+    width: 90%;
+  }
+}
+
+/* Móviles pequeños */
+@media (max-width: 480px) {
+
+  .letrero-perfil img {
+    width: 150px;
+  }
+
+  .texto-letrero {
+    font-size: 18px;
+  }
+
+  .img-perfil {
+    width: 100px;
+    height: 100px;
+  }
+
+  .btn-cambiar-foto {
+    font-size: 13px;
+    padding: 5px 10px;
+  }
+
+  .guardar-btn {
+    width: 100%;
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .dato-perfil p {
+    font-size: 13px;
+    padding: 6px 8px;
+  }
+}

@@ -175,4 +175,77 @@
 
 
 
+/* ==============================
+   TABLETS (1024px ↓)
+============================== */
+@media (max-width: 1024px) {
 
+    .carousel-container {
+        flex-wrap: wrap; /* ✅ permite bajar elementos */
+        gap: 30px;
+    }
+
+    .circle-menu {
+        margin-left: 0; /* ❌ quitamos el negativo */
+        padding-right: 0;
+        align-items: center;
+        width: 100%;
+    }
+}
+
+
+/* ==============================
+   MÓVILES (768px ↓)
+============================== */
+@media (max-width: 768px) {
+
+    .contenedor-carrusel-menu {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .carousel-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .carousel {
+        width: 95%;
+        max-width: 100%;
+    }
+
+    .circle-menu {
+        display: flex; /* 👈 importante: que NO desaparezca */
+        flex-direction: column;
+        align-items: center;
+        margin: 0;
+    }
+
+    .circle-item {
+        width: 90%;
+        justify-content: center;
+    }
+}
+
+
+/* ==============================
+   MÓVILES PEQUEÑOS (480px ↓)
+============================== */
+@media (max-width: 480px) {
+
+    .circle-item {
+        font-size: 13px;
+        padding: 8px;
+    }
+
+    .circle-item .arrow {
+        width: 22px;
+        height: 22px;
+        font-size: 12px;
+    }
+
+    .carousel {
+        border-radius: 8px;
+    }
+}

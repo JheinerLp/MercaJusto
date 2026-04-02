@@ -168,6 +168,9 @@ h1 {
     background: red;
 }
 
+
+
+
 /* Mostrar menú cuando está activo */
 .menu.active {
     display: block;
@@ -672,3 +675,4 @@ body > *:not(.footer-container) {
     opacity: 1;
     transform: translateX(0);
 }
+

@@ -260,3 +260,82 @@
         grid-column: span 1;
     }
 }
+
+/* ============================
+   RESPONSIVE MEJORADO
+============================ */
+
+/* Tablets */
+@media (max-width: 1024px) {
+
+    .descripcion {
+        max-width: 100%;
+    }
+
+    .imagen_que_somos img {
+        max-width: 400px;
+    }
+
+    .info-content img {
+        max-width: 350px;
+    }
+
+    .descripcion h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Móviles */
+@media (max-width: 768px) {
+
+    .contenedor,
+    .info-content {
+        gap: 20px;
+    }
+
+    .descripcion p,
+    .info-text p {
+        font-size: 1rem;
+    }
+
+    .descripcion h1 {
+        font-size: 1.5em;
+    }
+
+    .info-text h2 {
+        font-size: 1.4em;
+    }
+
+    /* 🔥 FIX MODAL */
+    .modal-content {
+        padding: 20px;
+    }
+
+    .modal-content input,
+    .modal-content select,
+    .modal-content textarea {
+        width: 100%;
+    }
+}
+
+/* Móviles pequeños */
+@media (max-width: 480px) {
+
+    .imagen_que_somos img,
+    .info-content img {
+        max-width: 100%;
+    }
+
+    .boton-rojo {
+        width: 100%;
+        font-size: 16px;
+    }
+
+    .modal-content {
+        padding: 15px;
+    }
+
+    .modal-content h3 {
+        font-size: 18px;
+    }
+}

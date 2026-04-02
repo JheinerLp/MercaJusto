@@ -106,3 +106,59 @@
 
     
 }
+/* 📱 Tablets y móviles */
+@media (max-width: 768px) {
+    .contenedor {
+        flex-direction: column; 
+        text-align: center;
+        gap: 15px;
+    }
+    
+    .Mapa img {
+        max-width: 95%;
+    }
+
+    .tooltip-area {
+        width: 30px;
+        height: 30px;
+    }
+
+    .tooltip-area .tooltip {
+        font-size: 12px;
+        padding: 6px 10px;
+        top: -40px;
+    }
+
+    .modal-content {
+        width: 90%;
+        padding: 15px;
+    }
+}
+
+/* 📱 Celulares pequeños */
+@media (max-width: 480px) {
+    .Mapa img {
+        max-width: 100%;
+    }
+
+    .tooltip-area {
+        width: 25px;
+        height: 25px;
+    }
+
+    .tooltip-area .tooltip {
+        font-size: 11px;
+        padding: 5px 8px;
+        top: -35px;
+    }
+
+    .modal-content {
+        width: 95%;
+        padding: 12px;
+        font-size: 14px;
+    }
+
+    .close {
+        font-size: 24px;
+    }
+}

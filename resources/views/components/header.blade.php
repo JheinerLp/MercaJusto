@@ -132,7 +132,7 @@
 
                 <!-- Menú Hamburguesa y Navegación Principal -->
                 <div class="Navegacion">
-                    <button class="menu-hamburguesa" onclick="toggleMenu()" aria-label="Abrir menú de navegación" aria-controls="menu" aria-expanded="false">
+                    <button class="menu-hamburguesa" onclick="event.stopPropagation(); toggleMenu()" aria-label="Abrir menú de navegación" aria-controls="menu" aria-expanded="false">
                         <span></span><span></span><span></span>
                     </button>
 
@@ -154,3 +154,17 @@
     </div>
 </header>
 <script src="{{ asset('js/busqueda.js') }}" defer></script>
+
+<script>
+document.addEventListener("click", function(e) {
+    const menu = document.querySelector(".menu");
+    const btn = document.querySelector(".menu-hamburguesa");
+
+    // Si el click NO fue dentro del menú NI del botón
+    if (!menu.contains(e.target) && !btn.contains(e.target)) {
+        menu.classList.remove("active");
+    }
+});
+</script>
+
+

@@ -105,3 +105,66 @@
     }
   }
   
+  /* ============================
+   MEJORAS RESPONSIVE
+============================ */
+
+/* Tablets */
+@media (max-width: 1024px) {
+  .formulario-compra {
+    width: 100%;
+    max-width: 400px;
+  }
+}
+
+/* Móviles */
+@media (max-width: 768px) {
+
+  .seccion-compra {
+    padding: 15px;
+    gap: 20px;
+  }
+
+  .formulario-compra {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .formulario-compra input {
+    padding: 10px; /* mejor tacto */
+  }
+
+  .btn-subir,
+  .btn-finalizar {
+    font-size: 15px;
+    padding: 12px; /* 🔥 mejor UX */
+  }
+
+  .texto-letrero {
+    font-size: 14px;
+    text-align: center;
+    padding: 0 5px;
+  }
+
+  .letrero-producto img {
+    width: 160px;
+  }
+}
+
+/* Pantallas muy pequeñas */
+@media (max-width: 480px) {
+
+  .texto-letrero {
+    font-size: 12px;
+  }
+
+  .btn-subir,
+  .btn-finalizar {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .cuadro-producto {
+    min-height: 120px;
+  }
+}

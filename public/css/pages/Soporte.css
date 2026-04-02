@@ -134,3 +134,34 @@ body {
     border-radius: 12px;
     box-shadow: 0 8px 20px rgba(0,0,0,0.1);
 }
+
+/* Tablets */
+@media (max-width: 1024px) {
+
+    .Soporte img {
+        max-width: 300px;
+    }
+
+    .descripcion h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* Móviles pequeños */
+@media (max-width: 480px) {
+
+    .descripcion h1 {
+        font-size: 1.5em;
+    }
+
+    .botones-contacto {
+        flex-direction: column;
+        width: 100%;
+    }
+
+ 
+
+    .soporte-texto {
+        padding: 20px;
+    }
+}

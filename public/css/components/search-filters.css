@@ -39,3 +39,87 @@
     text-decoration: none;
 }
 
+/* ==============================
+   BASE (mobile first)
+============================== */
+
+.search-box {
+    margin-bottom: 20px;
+}
+
+.search-wrapper {
+    display: flex;
+    flex-direction: column; /* 🔥 móvil */
+    gap: 10px;
+}
+
+/* Inputs */
+.search-input,
+.search-select {
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    width: 100%; /* 🔥 clave */
+}
+
+/* Botones */
+.btn-search,
+.btn-clear {
+    width: 100%; /* 🔥 botones grandes en móvil */
+    padding: 10px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+}
+
+.btn-search {
+    background-color: #007bff;
+    color: white;
+}
+
+.btn-clear {
+    background-color: #6c757d;
+    color: white;
+    text-decoration: none;
+}
+
+
+/* ==============================
+   TABLET
+============================== */
+@media (min-width: 768px) {
+
+    .search-wrapper {
+        flex-direction: row;
+        align-items: center;
+        flex-wrap: wrap; /* 🔥 evita que se rompa */
+    }
+
+    .search-input {
+        flex: 2;
+        min-width: 200px;
+    }
+
+    .search-select {
+        flex: 1;
+        min-width: 160px;
+    }
+
+    .btn-search,
+    .btn-clear {
+        width: auto;
+        padding: 8px 12px;
+    }
+}
+
+
+/* ==============================
+   DESKTOP
+============================== */
+@media (min-width: 1024px) {
+
+    .search-wrapper {
+        flex-wrap: nowrap;
+    }
+}

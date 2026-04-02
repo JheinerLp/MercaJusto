@@ -136,3 +136,77 @@
 }
 
 
+/* ==============================
+   RESPONSIVE EXTRA (MEJORADO)
+============================== */
+
+/* Tablets */
+@media (max-width: 1024px) {
+    .pago-img img {
+        max-width: 400px;
+    }
+
+    .pago-info {
+        font-size: 1rem;
+    }
+
+    .forma-pago h2,
+    .problemas-comprobacion h2 {
+        font-size: 1.6em;
+    }
+}
+
+/* Móviles grandes */
+@media (max-width: 768px) {
+    .forma-pago {
+        padding: 30px 15px;
+    }
+
+    .pago-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+    }
+
+    .pago-img img {
+        max-width: 90%;
+    }
+
+    .pago-info {
+        max-width: 100%;
+    }
+
+    .guia-comprobacion {
+        gap: 20px;
+    }
+
+    .paso {
+        max-width: 100%;
+    }
+}
+
+/* Móviles pequeños */
+@media (max-width: 480px) {
+    .forma-pago h2,
+    .problemas-comprobacion h2 {
+        font-size: 1.4em;
+    }
+
+    .pago-info {
+        font-size: 0.95em;
+    }
+
+    .problemas-comprobacion {
+        padding: 30px 10px;
+    }
+
+    .whatsapp-soporte a {
+        width: 100%;
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .paso p {
+        font-size: 0.9em;
+    }
+}

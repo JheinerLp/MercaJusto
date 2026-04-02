@@ -106,4 +106,69 @@ button:hover {
     display: block;
 }
 
+/* ============================
+   FIX RESPONSIVE LOGIN
+============================ */
+
+/* Tablets */
+@media (max-width: 1024px) {
+  .login-box {
+    width: 90%;
+    max-width: 350px;
+  }
+}
+
+/* Móviles */
+@media (max-width: 768px) {
+
+  /* 🔥 CAMBIO CLAVE: quitar absolute */
+  .login-section {
+    position: static;
+    transform: none;
+    margin: 20px auto;
+    display: flex;
+    justify-content: center;
+  }
+
+  .login-box {
+    width: 90%;
+    max-width: 100%;
+    padding: 20px 15px;
+  }
+
+  .form-logo {
+    width: 70px;
+  }
+
+  input {
+    font-size: 15px;
+    padding: 10px;
+  }
+
+  button {
+    padding: 12px;
+    font-size: 15px;
+  }
+
+  .links {
+    font-size: 13px;
+  }
+}
+
+/* Móviles pequeños */
+@media (max-width: 480px) {
+
+  .login-box {
+    border-radius: 10px;
+    padding: 18px 12px;
+  }
+
+  .form-logo {
+    width: 60px;
+  }
+
+  button {
+    font-size: 14px;
+  }
+}
 

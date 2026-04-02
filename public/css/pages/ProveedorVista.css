@@ -631,3 +631,187 @@ input[type="file"]::file-selector-button:hover{
     background: #b71f1f;
 }
 
+/* ============================
+   RESPONSIVE PROVEEDOR 
+============================ */
+
+/* Tablets */
+@media (max-width: 1024px) {
+
+    .proveedor-banner {
+        height: 250px;
+    }
+
+    .nombre-proveedor {
+        font-size: 22px;
+    }
+
+    .contenedor-productos {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+}
+
+/* Móviles */
+@media (max-width: 768px) {
+
+    .proveedor-vista {
+        padding: 0 15px;
+    }
+
+    .proveedor-banner {
+        height: 200px;
+    }
+
+    .foto-container {
+        width: 120px;
+        height: 120px;
+        margin-top: -60px;
+    }
+
+    .nombre-proveedor {
+        font-size: 20px;
+    }
+
+    .categoria {
+        font-size: 14px;
+    }
+
+    .descripcion-textarea,
+    .input-admin {
+        width: 100%;
+    }
+
+    /* 🔥 FIX IMPORTANTE */
+    .datos-proveedor {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .dato {
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .contenedor-productos {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Móviles pequeños */
+@media (max-width: 480px) {
+
+    .proveedor-banner {
+        height: 160px;
+    }
+
+    .foto-container {
+        width: 100px;
+        height: 100px;
+        margin-top: -50px;
+    }
+
+    .nombre-proveedor {
+        font-size: 18px;
+    }
+
+    .btn-agregar-producto,
+    .btn-guardar {
+        width: 100%;
+    }
+
+    .card-producto {
+        padding: 10px;
+    }
+}
+/* ============================
+   RESPONSIVE PROVEEDOR PRO
+============================ */
+
+/* Tablets */
+@media (max-width: 1024px) {
+
+    .proveedor-banner {
+        height: 250px;
+    }
+
+    .nombre-proveedor {
+        font-size: 22px;
+    }
+
+    .contenedor-productos {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+}
+
+/* Móviles */
+@media (max-width: 768px) {
+
+    .proveedor-vista {
+        padding: 0 15px;
+    }
+
+    .proveedor-banner {
+        height: 200px;
+    }
+
+    .foto-container {
+        width: 120px;
+        height: 120px;
+        margin-top: -60px;
+    }
+
+    .nombre-proveedor {
+        font-size: 20px;
+    }
+
+    .categoria {
+        font-size: 14px;
+    }
+
+    .descripcion-textarea,
+    .input-admin {
+        width: 100%;
+    }
+
+    /* 🔥 FIX IMPORTANTE */
+    .datos-proveedor {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .dato {
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .contenedor-productos {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Móviles pequeños */
+@media (max-width: 480px) {
+
+    .proveedor-banner {
+        height: 160px;
+    }
+
+    .foto-container {
+        width: 100px;
+        height: 100px;
+        margin-top: -50px;
+    }
+
+    .nombre-proveedor {
+        font-size: 18px;
+    }
+
+    .btn-agregar-producto,
+    .btn-guardar {
+        width: 100%;
+    }
+
+    .card-producto {
+        padding: 10px;
+    }
+}

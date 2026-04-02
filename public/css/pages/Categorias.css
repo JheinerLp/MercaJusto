@@ -204,3 +204,66 @@ a {
 a:hover {
   text-decoration: none;
 }
+
+
+/* ============================
+   MEJORAS RESPONSIVE EXTRA
+============================ */
+
+/* Tablets */
+@media (max-width: 1024px) {
+  .producto-link {
+    flex: 0 0 250px;
+  }
+
+  .productos-track {
+    width: auto; /* evita overflow fijo */
+  }
+}
+
+/* Móviles */
+@media (max-width: 768px) {
+
+  /* Letrero */
+  .letrero-texto {
+    font-size: clamp(0.6rem, 4vw, 1.2rem);
+    white-space: normal; /* 🔥 clave */
+  }
+
+  /* Productos */
+  .producto-link {
+    flex: 0 0 80%;
+  }
+
+  .productos-track {
+    gap: 15px;
+  }
+
+  /* Botones slider */
+  .slider-btn {
+    font-size: 18px;
+    padding: 8px;
+  }
+}
+
+/* Pantallas muy pequeñas */
+@media (max-width: 480px) {
+
+  .producto-card {
+    padding: 15px;
+  }
+
+  .producto-card h3 {
+    font-size: 1rem;
+  }
+
+  .producto-card p {
+    font-size: 0.85rem;
+  }
+
+  .producto-imagen {
+    width: 80px;
+    height: 80px;
+  }
+
+}

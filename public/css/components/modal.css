@@ -24,3 +24,61 @@
     font-size: 28px;
     cursor: pointer;
 }
+
+/* ===== BASE (mobile first) ===== */
+
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    padding: 1rem; /* 🔥 evita que pegue a los bordes */
+}
+
+.modal-content {
+    background: #fff;
+    padding: 20px;
+    width: 100%;
+    max-width: 600px;
+    max-height: 90vh; /* 🔥 clave para móvil */
+    overflow-y: auto; /* 🔥 scroll interno */
+    border-radius: 12px;
+    position: relative;
+}
+
+/* Botón cerrar */
+.cerrar {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+
+/* ===== TABLET ===== */
+@media (min-width: 768px) {
+    .modal-content {
+        padding: 25px;
+    }
+
+    .cerrar {
+        font-size: 26px;
+    }
+}
+
+
+/* ===== DESKTOP ===== */
+@media (min-width: 1024px) {
+    .modal-content {
+        max-width: 600px;
+    }
+
+    .cerrar {
+        font-size: 28px;
+    }
+}
