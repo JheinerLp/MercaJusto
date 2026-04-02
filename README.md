@@ -27,6 +27,8 @@
 - 🗂️ Organización por categorías
 - ⚡ Interfaz moderna y rápida
 - 📦 Sistema de inventario básico
+- 📱 Contacto por WhatsApp
+- ⚙ Solicita soporte 
 
 ---
 
@@ -68,3 +70,24 @@ Como proveedor puedes:
 ```bash
 git clone https://github.com/tuusuario/mercajusto.git
 cd mercajusto
+```
+###  ⚙ configurar
+ .env con la informacion suministrada del encargado
+### 🛠 Empezar docker 
+```bash
+docker-compose up --build
+```
+### 📦 Instalar dependencias
+```bash
+docker exec -it laravel_app composer install
+```
+### 🔑 Generar la llave
+```bash
+docker exec -it laravel_app php artisan key:generate
+```
+### 🔹 Ejecutar migraciones
+```bash
+docker exec -it laravel_app php artisan migrate
+```
+en tu navegador :
+http://localhost:8000
