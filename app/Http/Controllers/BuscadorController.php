@@ -114,7 +114,7 @@ class BuscadorController extends Controller
     public function ticketsHistorial(Request $request)
     {
         $tickets = Ticket::query()
-            ->where('estado', 'finalizado');
+            ->where('estado', 'cerrado');
 
         if ($request->filled('q')) {
             $tickets->where(function ($q) use ($request) {

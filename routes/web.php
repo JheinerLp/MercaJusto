@@ -115,6 +115,7 @@ Route::post('/solicitud-proveedor', [SolicitudProveedorController::class, 'store
 
 // Rutas de el buscador o filtro
 
+Route::middleware('admin')->group(function () {
 Route::get('/admin/solicitudes', [BuscadorController::class, 'solicitudes'])
     ->name('admin.solicitudes');
 
@@ -132,6 +133,7 @@ Route::get('/admin/tickets', [BuscadorController::class, 'tickets'])
 
 Route::get('/admin/tickets/historial', [BuscadorController::class, 'ticketsHistorial'])
     ->name('admin.tickets.historial');
+});
 
 Route::get('/proveedor/{proveedor}', [ProveedorController::class, 'show'])
     ->whereNumber('proveedor')
@@ -174,8 +176,6 @@ Route::middleware(['proveedor'])->prefix('proveedor')->group(function () {
     Route::post('/productos', [ProductoController::class, 'store'])
         ->name('proveedor.productos.store');
 
-    Route::get('/productos/editar/{id}', [ProductoController::class, 'edit'])
-        ->name('proveedor.productos.edit');
 
     Route::put('/productos/actualizar/{id}', [ProductoController::class, 'update'])
         ->name('proveedor.productos.update');

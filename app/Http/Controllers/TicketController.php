@@ -59,7 +59,7 @@ class TicketController extends Controller
     {
         $ticket = Ticket::findOrFail($id);
 
-        $ticket->estado = 'finalizado';
+        $ticket->estado = 'cerrado';
         $ticket->save();
 
         return back()->with('success', 'Ticket finalizado y enviado al historial.');

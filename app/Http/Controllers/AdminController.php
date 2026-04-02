@@ -153,7 +153,7 @@ class AdminController extends Controller
     public function tickets(Request $request)
     {
         $query = Ticket::with(['proveedor', 'user'])
-            ->where('estado', '!=', 'finalizado');
+            ->where('estado', '!=', 'cerrado');
 
         $tickets = $query
             ->paginate(10)
@@ -165,7 +165,7 @@ class AdminController extends Controller
     public function historialTickets(Request $request)
     {
         $tickets = Ticket::with(['proveedor', 'user'])
-            ->where('estado', 'finalizado')
+            ->where('estado', 'cerrado')
             ->orderBy('updated_at', 'desc')
             ->paginate(15)
             ->withQueryString();
@@ -176,7 +176,7 @@ class AdminController extends Controller
     public function eliminarHistorial()
     {
         try {
-            Ticket::where('estado', 'finalizado')->delete();
+            Ticket::where('estado', 'cerrado')->delete();
 
             return redirect()->route('admin.tickets.historial')
                 ->with('success', 'Historial de tickets eliminado correctamente.');
