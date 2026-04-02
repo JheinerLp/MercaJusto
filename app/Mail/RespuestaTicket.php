@@ -2,16 +2,17 @@
 
 namespace App\Mail;
 
+use App\Models\Ticket;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use App\Models\Ticket;
 
 class RespuestaTicket extends Mailable
 {
     use Queueable, SerializesModels;
 
     public $ticket;
+
     public $mensaje; // Mensaje de la respuesta
 
     public function __construct(Ticket $ticket, $mensaje)
@@ -23,6 +24,6 @@ class RespuestaTicket extends Mailable
     public function build()
     {
         return $this->subject('Respuesta a tu ticket de soporte')
-                    ->view('emails.respuesta_ticket'); // Creamos esta vista
+            ->view('emails.respuesta_ticket'); // Creamos esta vista
     }
 }

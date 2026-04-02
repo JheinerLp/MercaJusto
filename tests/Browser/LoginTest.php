@@ -2,14 +2,15 @@
 
 namespace Tests\Browser;
 
-use Laravel\Dusk\Browser;
-use Tests\DuskTestCase;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Laravel\Dusk\Browser;
+use Tests\DuskTestCase;
 
 class LoginTest extends DuskTestCase
 {
-     use RefreshDatabase;
+    use RefreshDatabase;
+
     public function test_admin_can_login_and_see_dashboard()
     {
         $this->browse(function (Browser $browser) {
@@ -19,14 +20,13 @@ class LoginTest extends DuskTestCase
                 'password' => '12345678',
                 'role' => 'admin',
             ]);
-            
 
-          $browser->visit('/login')
-    ->type('email', $admin->email)
-    ->type('password', '12345678')
-    ->press('Entrar')
-    ->waitForText('Administración', 10)
-    ->assertSee('Dashboard');
+            $browser->visit('/login')
+                ->type('email', $admin->email)
+                ->type('password', '12345678')
+                ->press('Entrar')
+                ->waitForText('Administración', 10)
+                ->assertSee('Dashboard');
         });
     }
 
@@ -40,20 +40,20 @@ class LoginTest extends DuskTestCase
                 'role' => 'provider',
             ]);
 
-                $browser->visit('/login')
-    ->type('email', $provider->email)
-    ->type('password', '12345678')
-    ->press('Entrar')
-    ->waitForText('Mis Productos', 10)
-    ->assertSee('Dashboard');
+            $browser->visit('/login')
+                ->type('email', $provider->email)
+                ->type('password', '12345678')
+                ->press('Entrar')
+                ->waitForText('Mis Productos', 10)
+                ->assertSee('Dashboard');
         });
     }
-        public function guest_cannot_access_dashboard()
-{
-    $this->browse(function (Browser $browser) {
-        $browser->visit('/dashboard')
+
+    public function guest_cannot_access_dashboard()
+    {
+        $this->browse(function (Browser $browser) {
+            $browser->visit('/dashboard')
                 ->assertPathIs('/login');
-    });
-}
-    
+        });
+    }
 }

@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\SolicitudProveedor;
-use App\Models\Proveedor;
 use App\Models\Producto;
+use App\Models\Proveedor;
+use App\Models\SolicitudProveedor;
 use App\Models\Ticket;
+use Illuminate\Http\Request;
 
 class BuscadorController extends Controller
 {
@@ -20,12 +20,12 @@ class BuscadorController extends Controller
         if ($request->filled('q')) {
             $solicitudes->where(function ($q) use ($request) {
                 $q->where('nombre_empresa', 'ilike', "%{$request->q}%")
-                  ->orWhere('correo', 'ilike', "%{$request->q}%");
+                    ->orWhere('correo', 'ilike', "%{$request->q}%");
             });
         }
 
         return view('admin.solicitudes', [
-            'solicitudes' => $solicitudes->latest()->paginate(10)->withQueryString()
+            'solicitudes' => $solicitudes->latest()->paginate(10)->withQueryString(),
         ]);
     }
 
@@ -37,7 +37,7 @@ class BuscadorController extends Controller
         if ($request->filled('q')) {
             $solicitudes->where(function ($q) use ($request) {
                 $q->where('nombre_empresa', 'ilike', "%{$request->q}%")
-                  ->orWhere('correo', 'ilike', "%{$request->q}%");
+                    ->orWhere('correo', 'ilike', "%{$request->q}%");
             });
         }
 
@@ -46,7 +46,7 @@ class BuscadorController extends Controller
         }
 
         return view('admin.historial_solicitudes', [
-            'solicitudes' => $solicitudes->latest()->paginate(10)->withQueryString()
+            'solicitudes' => $solicitudes->latest()->paginate(10)->withQueryString(),
         ]);
     }
 
@@ -59,14 +59,13 @@ class BuscadorController extends Controller
         if ($request->filled('q')) {
             $proveedores->where(function ($q) use ($request) {
                 $q->where('empresa', 'ilike', "%{$request->q}%")
-                  ->orWhereHas('user', fn($u) =>
-                      $u->where('email', 'ilike', "%{$request->q}%")
-                  );
+                    ->orWhereHas('user', fn ($u) => $u->where('email', 'ilike', "%{$request->q}%")
+                    );
             });
         }
 
         return view('admin.proveedores.lista', [
-            'proveedores' => $proveedores->latest()->paginate(10)->withQueryString()
+            'proveedores' => $proveedores->latest()->paginate(10)->withQueryString(),
         ]);
     }
 
@@ -79,14 +78,13 @@ class BuscadorController extends Controller
         if ($request->filled('q')) {
             $productos->where(function ($q) use ($request) {
                 $q->where('nombre', 'ilike', "%{$request->q}%")
-                  ->orWhereHas('proveedor', fn($p) =>
-                      $p->where('empresa', 'ilike', "%{$request->q}%")
-                  );
+                    ->orWhereHas('proveedor', fn ($p) => $p->where('empresa', 'ilike', "%{$request->q}%")
+                    );
             });
         }
 
         return view('admin.productos', [
-             'productos' => $productos->latest()->paginate(10)->withQueryString()
+            'productos' => $productos->latest()->paginate(10)->withQueryString(),
         ]);
     }
 
@@ -100,7 +98,7 @@ class BuscadorController extends Controller
         if ($request->filled('q')) {
             $tickets->where(function ($q) use ($request) {
                 $q->where('nombre_contacto', 'ilike', "%{$request->q}%")
-                  ->orWhere('correo_contacto', 'ilike', "%{$request->q}%");
+                    ->orWhere('correo_contacto', 'ilike', "%{$request->q}%");
             });
         }
 
@@ -109,7 +107,7 @@ class BuscadorController extends Controller
         }
 
         return view('admin.tickets', [
-            'tickets' => $tickets->latest()->paginate(10)->withQueryString()
+            'tickets' => $tickets->latest()->paginate(10)->withQueryString(),
         ]);
     }
 
@@ -121,7 +119,7 @@ class BuscadorController extends Controller
         if ($request->filled('q')) {
             $tickets->where(function ($q) use ($request) {
                 $q->where('nombre_contacto', 'ilike', "%{$request->q}%")
-                  ->orWhere('correo_contacto', 'ilike', "%{$request->q}%");
+                    ->orWhere('correo_contacto', 'ilike', "%{$request->q}%");
             });
         }
 
@@ -130,7 +128,7 @@ class BuscadorController extends Controller
         }
 
         return view('admin.tickets_historial', [
-            'tickets' => $tickets->latest()->paginate(10)->withQueryString()
+            'tickets' => $tickets->latest()->paginate(10)->withQueryString(),
         ]);
     }
 }

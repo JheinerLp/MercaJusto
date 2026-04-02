@@ -11,7 +11,9 @@ class ProductoEliminado extends Mailable
     use Queueable, SerializesModels;
 
     public $proveedor;
+
     public $producto;
+
     public $motivo;
 
     public function __construct($proveedor, $producto, $motivo)
@@ -24,6 +26,6 @@ class ProductoEliminado extends Mailable
     public function build()
     {
         return $this->subject('Producto Eliminado')
-                    ->view('emails.producto_eliminado');
+            ->view('emails.producto_eliminado');
     }
 }

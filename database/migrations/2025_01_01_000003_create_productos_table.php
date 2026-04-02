@@ -18,9 +18,9 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreign('proveedor_id')
-                  ->references('id')
-                  ->on('proveedores')
-                  ->onDelete('cascade');
+                ->references('id')
+                ->on('proveedores')
+                ->onDelete('cascade');
         });
     }
 

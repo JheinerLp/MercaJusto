@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Ticket;
-use Illuminate\Support\Facades\Mail;
 use App\Mail\NuevoTicketAdmin;
+use App\Mail\RespuestaTicket;
+use App\Models\Ticket;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class TicketController extends Controller
 {
-     public function store(Request $request)
+    public function store(Request $request)
     {
         $request->validate([
             'nombre_contacto' => 'required|string|max:255',
@@ -34,33 +35,33 @@ class TicketController extends Controller
     }
 
     public function responder(Request $request, $id)
-{
-    $request->validate([
-        'mensaje' => 'required|string',
-    ]);
+    {
+        $request->validate([
+            'mensaje' => 'required|string',
+        ]);
 
-    $ticket = Ticket::findOrFail($id);
+        $ticket = Ticket::findOrFail($id);
 
-    // Actualizar estado del ticket si quieres
-    $ticket->estado = 'en_proceso';
-    $ticket->save();
+        // Actualizar estado del ticket si quieres
+        $ticket->estado = 'en_proceso';
+        $ticket->save();
 
-    // Determinar correo destinatario
-    $correo = $ticket->proveedor->user->email ?? $ticket->user->email ?? $ticket->correo_contacto;
+        // Determinar correo destinatario
+        $correo = $ticket->proveedor->user->email ?? $ticket->user->email ?? $ticket->correo_contacto;
 
-    // Enviar correo
-    \Mail::to($correo)->send(new \App\Mail\RespuestaTicket($ticket, $request->mensaje));
+        // Enviar correo
+        \Mail::to($correo)->send(new RespuestaTicket($ticket, $request->mensaje));
 
-    return back()->with('success', 'Respuesta enviada correctamente.');
-}
-public function finalizar($id)
-{
-   $ticket = Ticket::findOrFail($id);
+        return back()->with('success', 'Respuesta enviada correctamente.');
+    }
 
-    $ticket->estado = 'finalizado';
-    $ticket->save();
+    public function finalizar($id)
+    {
+        $ticket = Ticket::findOrFail($id);
 
-    return back()->with('success', 'Ticket finalizado y enviado al historial.');
-}
+        $ticket->estado = 'finalizado';
+        $ticket->save();
 
+        return back()->with('success', 'Ticket finalizado y enviado al historial.');
+    }
 }

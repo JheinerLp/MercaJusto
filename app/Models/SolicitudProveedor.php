@@ -12,7 +12,7 @@ class SolicitudProveedor extends Model
     protected $table = 'solicitudes_proveedor';
 
     protected $fillable = [
-       'nombre',
+        'nombre',
         'correo',
         'telefono',
         'descripcion',
@@ -22,37 +22,32 @@ class SolicitudProveedor extends Model
         'categoria_id',
         'sede_id',
         'estado',
-        'respuesta_admin'
+        'respuesta_admin',
 
     ];
 
-
     public function categoria()
-{
-    return $this->belongsTo(Categoria::class);
-}
+    {
+        return $this->belongsTo(Categoria::class);
+    }
 
-public function sede()
-{
-    return $this->belongsTo(Sede::class);
-}
+    public function sede()
+    {
+        return $this->belongsTo(Sede::class);
+    }
 
-public function scopePendientes($query)
-{
-    return $query->where('estado', 'pendiente');
-}
+    public function scopePendientes($query)
+    {
+        return $query->where('estado', 'pendiente');
+    }
 
-public function scopeAceptadas($query)
-{
-    return $query->where('estado', 'aprobado');
-}
+    public function scopeAceptadas($query)
+    {
+        return $query->where('estado', 'aprobado');
+    }
 
-public function scopeRechazadas($query)
-{
-    return $query->where('estado', 'rechazado');
-}
-
-
-
-
+    public function scopeRechazadas($query)
+    {
+        return $query->where('estado', 'rechazado');
+    }
 }

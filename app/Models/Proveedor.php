@@ -10,7 +10,7 @@ class Proveedor extends Model
 
     protected $fillable = [
         'empresa',
-        'user_id', 
+        'user_id',
         'categoria_id',
         'sede_id',
         'ubicacion',
@@ -33,10 +33,10 @@ class Proveedor extends Model
     }
 
     public function productos()
-{
-    return $this->hasMany(Producto::class)
-        ->select('id','nombre','precio','foto','proveedor_id','categoria_id');
-}
+    {
+        return $this->hasMany(Producto::class)
+            ->select('id', 'nombre', 'precio', 'foto', 'proveedor_id', 'categoria_id');
+    }
 
     public function user()
     {

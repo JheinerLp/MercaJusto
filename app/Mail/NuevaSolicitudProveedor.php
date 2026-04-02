@@ -41,7 +41,7 @@ class NuevaSolicitudProveedor extends Mailable
         return new Content(
             view: 'emails.nueva_solicitud',
             with: [
-                'solicitud' => $this->solicitud
+                'solicitud' => $this->solicitud,
             ]
         );
     }

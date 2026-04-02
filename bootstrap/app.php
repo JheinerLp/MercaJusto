@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Middleware\AdminAuth;
+use App\Http\Middleware\ProveedorAuth;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -13,14 +15,12 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
 
         $middleware->alias([
-            'admin' => \App\Http\Middleware\AdminAuth::class,
-            'proveedor' => \App\Http\Middleware\ProveedorAuth::class,
+            'admin' => AdminAuth::class,
+            'proveedor' => ProveedorAuth::class,
         ]);
-
 
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //
     })
     ->create();
-

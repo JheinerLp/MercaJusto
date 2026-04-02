@@ -2,10 +2,10 @@
 
 namespace App\Mail;
 
+use App\Models\SolicitudProveedor;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use App\Models\SolicitudProveedor;
 
 class SolicitudRechazada extends Mailable
 {
@@ -21,7 +21,6 @@ class SolicitudRechazada extends Mailable
     public function build()
     {
         return $this->subject('Tu solicitud de proveedor ha sido rechazada')
-                    ->view('emails.solicitud_rechazada');
+            ->view('emails.solicitud_rechazada');
     }
 }
-

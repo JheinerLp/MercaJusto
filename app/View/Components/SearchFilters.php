@@ -7,7 +7,9 @@ use Illuminate\View\Component;
 class SearchFilters extends Component
 {
     public $action;
+
     public $placeholder;
+
     public $filters;
 
     public function __construct(

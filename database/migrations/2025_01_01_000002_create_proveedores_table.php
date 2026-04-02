@@ -26,14 +26,14 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
             $table->foreign('categoria_id')
-                  ->references('id')
-                  ->on('categorias')
-                  ->onDelete('cascade');
+                ->references('id')
+                ->on('categorias')
+                ->onDelete('cascade');
 
             $table->foreign('sede_id')
-                  ->references('id')
-                  ->on('sedes')
-                  ->onDelete('cascade');
+                ->references('id')
+                ->on('sedes')
+                ->onDelete('cascade');
         });
     }
 

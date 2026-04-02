@@ -24,7 +24,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('proveedores', function (Blueprint $table) {
-             $table->dropColumn([ 'foto_public_id', 'banner_public_id' ]);
+            $table->dropColumn(['foto_public_id', 'banner_public_id']);
         });
     }
 };

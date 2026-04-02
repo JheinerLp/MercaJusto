@@ -19,4 +19,3 @@ class CategoriaController extends Controller
         return view('proveedor.categoria', compact('categoria', 'productos'));
     }
 }
-

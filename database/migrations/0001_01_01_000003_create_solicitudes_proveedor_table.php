@@ -17,18 +17,14 @@ return new class extends Migration
             $table->string('telefono')->nullable();
             $table->text('descripcion')->nullable();
             $table->text('motivo_rechazo')->nullable();
-            
 
             // Datos de la empresa
-            $table->string('nombre_empresa');    
+            $table->string('nombre_empresa');
             $table->string('direccion')->nullable();
-
-
-
 
             // Estado de la solicitud
             $table->enum('estado', ['pendiente', 'aprobado', 'rechazado'])
-                  ->default('pendiente');
+                ->default('pendiente');
 
             // Respuesta del administrador
             $table->text('respuesta_admin')->nullable();

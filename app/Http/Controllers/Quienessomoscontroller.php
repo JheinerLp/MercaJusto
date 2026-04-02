@@ -26,7 +26,7 @@ class QuienessomosController extends Controller
 
         return view('opciones.QuienesSomos', [
             'tieneSolicitud' => $tieneSolicitud,
-            'esProveedor'    => $esProveedor,
+            'esProveedor' => $esProveedor,
         ]);
     }
 }

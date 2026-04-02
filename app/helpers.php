@@ -1,7 +1,9 @@
 <?php
+
 use Illuminate\Support\Facades\Auth;
 
-function usuarioActual() {
+function usuarioActual()
+{
     return Auth::user();
 }
 
@@ -15,12 +17,12 @@ function proveedorActual()
 
     $user = Auth::user();
 
-    if (!$user || $user->role !== 'provider') {
+    if (! $user || $user->role !== 'provider') {
         return null;
     }
 
     $proveedor = cache()->remember(
-        'proveedor_' . $user->id,
+        'proveedor_'.$user->id,
         now()->addMinutes(10),
         function () use ($user) {
             return $user->proveedor()

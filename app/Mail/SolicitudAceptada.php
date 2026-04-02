@@ -2,16 +2,17 @@
 
 namespace App\Mail;
 
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use App\Models\User;
 
 class SolicitudAceptada extends Mailable
 {
     use Queueable, SerializesModels;
 
     public $user;
+
     public $password;
 
     public function __construct(User $user, $password)
@@ -23,6 +24,6 @@ class SolicitudAceptada extends Mailable
     public function build()
     {
         return $this->subject('Tu solicitud como proveedor ha sido aprobada')
-                    ->view('emails.solicitud_aceptada');
+            ->view('emails.solicitud_aceptada');
     }
 }

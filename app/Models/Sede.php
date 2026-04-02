@@ -11,7 +11,7 @@ class Sede extends Model
     protected $fillable = [
         'nombre',
         'ciudad',
-        'direccion'
+        'direccion',
     ];
 
     public function proveedores()

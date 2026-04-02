@@ -13,6 +13,6 @@ class Admin extends Model
         'correo',
         'password',
         'foto',
-        'banner'
+        'banner',
     ];
 }

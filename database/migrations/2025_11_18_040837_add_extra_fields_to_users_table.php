@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('foto')->nullable()->after('password');
-        $table->string('banner')->nullable()->after('foto');
-        $table->text('descripcion')->nullable()->after('banner');
+            $table->string('banner')->nullable()->after('foto');
+            $table->text('descripcion')->nullable()->after('banner');
         });
     }
 
