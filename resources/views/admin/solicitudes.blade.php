@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Solicitudes de Proveedor</title>
+    @include('components.favicon')
     <link rel="stylesheet" href="{{ asset('css/pages/Gestion.css') }}">
     <link rel="stylesheet" href="{{ asset('css/layout/Menu.css') }}">
     <link rel="stylesheet" href="{{ asset('css/Estiloweb.css') }}">

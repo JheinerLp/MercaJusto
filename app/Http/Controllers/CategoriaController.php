@@ -12,7 +12,7 @@ class CategoriaController extends Controller
         $categoria = Categoria::where('slug', $slug)->firstOrFail();
 
         $productos = Producto::where('categoria_id', $categoria->id)
-            ->with('proveedor')
+            ->with(['proveedor', 'categoria'])
             ->latest()
             ->paginate(10); // paginación lista para usar
 

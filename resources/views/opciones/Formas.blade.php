@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página principal</title>
+    <title>Formas de Pago - MercaJusto</title>
+    @include('components.favicon')
     <link rel="stylesheet" href="{{ asset('css/base/normalize.css') }}">
     <link rel="stylesheet" href="{{ asset('css/pages/Pago.css') }}">
     <link rel="stylesheet" href="{{ asset('css/Estiloweb.css') }}">

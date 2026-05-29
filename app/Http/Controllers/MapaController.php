@@ -27,7 +27,7 @@ class MapaController extends Controller
             ->when($request->categoria, function ($q) use ($request) {
                 $q->where('categoria_id', $request->categoria);
             })
-            ->with('proveedor')
+            ->with(['proveedor', 'categoria'])
             ->paginate(10); // 📦 paginación
 
         $sede = Sede::findOrFail($sede_id);

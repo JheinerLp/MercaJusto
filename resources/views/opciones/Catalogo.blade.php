@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Catálogo de {{ $sede->nombre }}</title>
+@include('components.favicon')
 
 <link rel="stylesheet" href="{{ asset('css/base/normalize.css') }}">
 <link rel="stylesheet" href="{{ asset('css/Estiloweb.css') }}">
@@ -25,164 +26,21 @@
     border: 1px solid #ccc;
 }
 
-/* ===== GRID ===== */
-.grid-productos {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 16px;
-}
-
-/* ===== CARD ===== */
-.card-producto {
-    background: #fff;
-    padding: 12px;
-    border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-.card-producto:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 10px 22px rgba(0,0,0,0.2);
-}
-
-.card-producto img.imagen-producto {
-    width: 100%;
-    height: 150px;
-    object-fit: cover;
-    border-radius: 6px;
-    margin-bottom: 8px;
-    transition: transform 0.3s ease;
-}
-
-.card-producto:hover img {
-    transform: scale(1.05);
-}
-
-/* ===== BOTONES ===== */
-.botones-producto {
-    display: flex;
-    gap: 8px;
-    margin-top: 8px;
-}
-
-.btn-contacto, .btn-detalles {
-    flex: 1;
-    padding: 6px 12px;
-    border-radius: 6px;
-    font-weight: bold;
-    text-align: center;
-    text-decoration: none;
-    cursor: pointer;
-    border: none;
-}
-
-.btn-contacto {
-    background-color: #25D366;
-    color: #fff;
-}
-
-.btn-detalles {
-    background-color: #007bff;
-    color: #fff;
-}
-
-/* ===== PAGINACIÓN ===== */
-.paginacion {
-    margin-top: 30px;
-    display: flex;
-    justify-content: center;
-}
-/* ===== MODAL MEJORADO ===== */
-.modal {
-    display: none; /* 👈 oculto por defecto */
-    position: fixed;
-    inset: 0;
-    background-color: rgba(0,0,0,0.6);
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    z-index: 2000;
-}
-
-.modal-content {
-    background: #fff;
-    width: 100%;
-    max-width: 520px;
-    max-height: 90vh;
-    overflow-y: auto;
-    border-radius: 12px;
-    padding: 25px;
-    position: relative;
-    animation: fadeIn 0.2s ease;
-}
-
-.modal-body {
-    display: flex;
-    gap: 16px;
-    align-items: flex-start;
-}
-
-.modal-imagen img {
-    width: 180px;
-    height: 180px;
-    object-fit: cover;
-    border-radius: 8px;
-}
-
-.modal-info {
-    flex: 1;
-}
-
-.modal .close-btn {
-    position: absolute;
-    top: 12px;
-    right: 15px;
-    font-size: 22px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: scale(0.95);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-/* ===== RESPONSIVE ===== */
-@media (max-width: 768px) {
-    .modal-body {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-
-    .modal-imagen img {
-        width: 100%;
-        height: auto;
-    }
-}
-
-
 .letrero-categoria{
     background-image: url('/images/LetreroMercajustoMadera.png');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
 
-    width: 201px;
-    height: 200px;
+    width: 260px;
+    height: 180px;
 
-    margin: 0px 0;
+    margin: -3px auto 15px auto; /* Centrado y subido para que las cuerdas toquen lo rojo */
 
     display: flex;
     align-items: center;
     justify-content: center;
+    box-sizing: border-box;
 }
 
 .texto-letrero{
@@ -191,7 +49,22 @@
     font-size: 18px;
     text-align: center;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+    padding-top: 30px; /* Centrado vertical en la madera del letrero */
+    padding-left: 15px;
+    padding-right: 15px;
 }
+
+/* Responsivo para el letrero */
+@media (max-width: 768px) {
+    .letrero-categoria {
+        width: 200px;
+        height: 140px;
+        margin: -3px auto 10px auto;
+    }
+    .texto-letrero {
+        font-size: 14px;
+        padding-top: 20px;
+    }
 }
 </style>
 </head>
@@ -228,50 +101,7 @@
     <!-- 📦 PRODUCTOS -->
     <div class="grid-productos">
         @foreach ($productos as $p)
-        <div class="card-producto" onclick="window.location='{{ route('proveedor.perfil', $p->proveedor->id) }}'">
-             
-            <img src="{{ $p->foto ?? asset('Images/no-image.png') }}"
-     alt="{{ $p->nombre }}"
-     class="imagen-producto">
-
-            <h3>{{ $p->nombre }}</h3>
-            <p>Proveedor: {{ $p->proveedor->empresa ?? 'Desconocido' }}</p>
-            <p>Precio: ${{ number_format($p->precio ?? 0, 0, ',', '.') }}</p>
-
-            <div class="botones-producto">
-                <a href="https://wa.me/{{ $p->proveedor->whatsapp ?? '' }}"
-                   class="btn-contacto"> Contactar</a>
-
-               <button class="btn-detalles"
-                onclick="event.stopPropagation(); abrirModal('modal-{{ $p->id }}')">
-                 Detalles
-                </button>
-            </div>
-        </div>
-
-        <!-- MODAL -->
-        <div class="modal" id="modal-{{ $p->id }}">
-            <div class="modal-content">
-                <span class="close-btn"
-                      onclick="cerrarModal('modal-{{ $p->id }}')">&times;</span>
-
-                <div class="modal-body">
-                    <div class="modal-imagen">
-                       <img src="{{ $p->foto ?? asset('Images/no-image.png') }}">
-                    </div>
-
-                    <div class="modal-info">
-                        <h2>{{ $p->nombre }}</h2>
-                        <p><strong>Proveedor:</strong> {{ $p->proveedor->empresa }}</p>
-                        <p><strong>Precio:</strong> ${{ number_format($p->precio ?? 0, 0, ',', '.') }}</p>
-                        <p><strong>Descripción:</strong> {{ $p->descripcion ?? 'Sin descripción' }}</p>
-
-                        <a href="https://wa.me/{{ $p->proveedor->whatsapp ?? '' }}"
-                           class="btn-contacto">💬 Contactar</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+            @include('components.card-producto', ['p' => $p, 'mostrarPerfil' => true])
         @endforeach
     </div>
 
@@ -335,19 +165,6 @@
     @include('components.footer')
 </footer>
 
-<script>
-function abrirModal(id) {
-    document.getElementById(id).style.display = 'block';
-}
-function cerrarModal(id) {
-    document.getElementById(id).style.display = 'none';
-}
-window.onclick = function(event) {
-    document.querySelectorAll('.modal').forEach(modal => {
-        if (event.target === modal) modal.style.display = 'none';
-    });
-}
-</script>
 
 <script src="{{ asset('Js/Generalidades.js') }}"></script>
 </body>

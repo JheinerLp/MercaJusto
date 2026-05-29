@@ -133,14 +133,14 @@
 
 /* Botón principal (para acciones destacadas) */
 .btn-primary {
-    background-color: #007bff;
+    background-color: #df0f0f;
     color: #fff;
-    border: 1px solid #007bff;
+    border: 1px solid #df0f0f;
 }
 
 .btn-primary:hover {
-    background-color: #0056b3;
-    border-color: #0056b3;
+    background-color: #b50c0c;
+    border-color: #b50c0c;
     transform: translateY(-2px);
 }
 

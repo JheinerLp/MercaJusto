@@ -14,7 +14,7 @@ class BuscadorController extends Controller
 
     public function solicitudes(Request $request)
     {
-        $solicitudes = SolicitudProveedor::query()
+        $solicitudes = SolicitudProveedor::with(['categoria', 'sede'])
             ->where('estado', 'pendiente');
 
         if ($request->filled('q')) {
@@ -31,7 +31,7 @@ class BuscadorController extends Controller
 
     public function solicitudesHistorial(Request $request)
     {
-        $solicitudes = SolicitudProveedor::query()
+        $solicitudes = SolicitudProveedor::with(['categoria', 'sede'])
             ->whereIn('estado', ['aprobado', 'rechazado']);
 
         if ($request->filled('q')) {
@@ -54,7 +54,7 @@ class BuscadorController extends Controller
 
     public function proveedores(Request $request)
     {
-        $proveedores = Proveedor::query();
+        $proveedores = Proveedor::with(['user', 'categoria']);
 
         if ($request->filled('q')) {
             $proveedores->where(function ($q) use ($request) {
@@ -73,7 +73,7 @@ class BuscadorController extends Controller
 
     public function productos(Request $request)
     {
-        $productos = Producto::query();
+        $productos = Producto::with(['categoria', 'proveedor']);
 
         if ($request->filled('q')) {
             $productos->where(function ($q) use ($request) {
@@ -92,7 +92,7 @@ class BuscadorController extends Controller
 
     public function tickets(Request $request)
     {
-        $tickets = Ticket::query()
+        $tickets = Ticket::with(['proveedor.user', 'user'])
             ->whereIn('estado', ['abierto', 'en_proceso']);
 
         if ($request->filled('q')) {
@@ -113,7 +113,7 @@ class BuscadorController extends Controller
 
     public function ticketsHistorial(Request $request)
     {
-        $tickets = Ticket::query()
+        $tickets = Ticket::with(['proveedor.user', 'user'])
             ->where('estado', 'cerrado');
 
         if ($request->filled('q')) {

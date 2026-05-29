@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Productos</title>
+    @include('components.favicon')
     <link rel="stylesheet" href="{{ asset('css/pages/Gestion.css') }}">
     <link rel="stylesheet" href="{{ asset('css/layout/Menu.css') }}">
     <link rel="stylesheet" href="{{ asset('css/Estiloweb.css') }}">
@@ -127,12 +128,21 @@
 <div id="modalEliminar" class="modal">
     <div class="modal-content">
         <span class="close" onclick="cerrarModal()">&times;</span>
-        <h3>Eliminar Producto</h3>
+        <h3 style="font-size: 1.3rem; font-weight: 700; color: #2c3e50; margin-bottom: 10px;">Eliminar Producto</h3>
+        <p style="font-size: 0.85rem; color: #555; margin-bottom: 15px; line-height: 1.4;">
+            Por favor, indica la razón de la eliminación. Este motivo se incluirá en la notificación por correo electrónico que se le enviará automáticamente al proveedor del producto.
+        </p>
         <form id="formEliminar" method="POST">
             @csrf
-            <label for="motivo">Motivo de eliminación:</label>
-            <textarea name="motivo" id="motivo" rows="4" required style="width:100%; padding:5px;"></textarea>
-            <button type="submit" class="btn-rechazar" style="margin-top:10px;">Confirmar</button>
+            <div class="form-group-modal">
+                <label for="motivo">Motivo de eliminación <span class="required-star">*</span></label>
+                <textarea name="motivo" id="motivo" placeholder="Ej: El producto infringe las normas de la plataforma o contiene información falsa." rows="4" required></textarea>
+                <span class="help-text">Sé lo más específico posible para orientar al proveedor.</span>
+            </div>
+            <div style="display: flex; gap: 10px; margin-top: 15px;">
+                <button type="button" class="btn-finalizar" onclick="cerrarModal()" style="flex: 1; background-color: #7f8c8d; color: white;">Cancelar</button>
+                <button type="submit" class="btn-rechazar" style="flex: 1; margin-top: 0; background-color: #df0f0f;">Eliminar Producto</button>
+            </div>
         </form>
     </div>
 </div>

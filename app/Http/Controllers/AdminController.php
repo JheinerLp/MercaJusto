@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
@@ -29,41 +30,6 @@ class AdminController extends Controller
         $totalTickets = Ticket::where('estado', '!=', 'finalizado')->count();
 
         return view('admin.dashboard', compact('solicitudesPendientes', 'totalActivos', 'totalProductos', 'totalTickets'));
-    }
-
-    public function productos(Request $request)
-    {
-        $query = Producto::with(['categoria', 'proveedor.user']);
-
-        if ($request->filled('search')) {
-            $query->where('nombre', 'like', "%{$request->search}%");
-        }
-
-        $productos = $query
-            ->paginate(10)
-            ->withQueryString();
-
-        $totalProductos = Producto::count();
-
-        return view('admin.productos', compact('productos', 'totalProductos'));
-    }
-
-    // Lista de proveedores
-    public function listaProveedores(Request $request)
-    {
-        $query = Proveedor::with(['categoria', 'user']);
-
-        // 🔍 búsqueda opcional
-        if ($request->filled('search')) {
-            $query->where('empresa', 'like', "%{$request->search}%")
-                ->orWhere('correo_dueño', 'like', "%{$request->search}%");
-        }
-
-        $proveedores = $query
-            ->paginate(10)
-            ->withQueryString();
-
-        return view('admin.proveedores.lista', compact('proveedores'));
     }
 
     // Ver perfil del proveedor
@@ -150,28 +116,6 @@ class AdminController extends Controller
         }
     }
 
-    public function tickets(Request $request)
-    {
-        $query = Ticket::with(['proveedor', 'user'])
-            ->where('estado', '!=', 'cerrado');
-
-        $tickets = $query
-            ->paginate(10)
-            ->withQueryString();
-
-        return view('admin.tickets', compact('tickets'));
-    }
-
-    public function historialTickets(Request $request)
-    {
-        $tickets = Ticket::with(['proveedor', 'user'])
-            ->where('estado', 'cerrado')
-            ->orderBy('updated_at', 'desc')
-            ->paginate(15)
-            ->withQueryString();
-
-        return view('admin.tickets_historial', compact('tickets'));
-    }
 
     public function eliminarHistorial()
     {

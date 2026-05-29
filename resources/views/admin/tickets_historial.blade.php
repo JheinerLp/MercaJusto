@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Historial de Tickets</title>
+    @include('components.favicon')
 
     <link rel="stylesheet" href="{{ asset('css/pages/Gestion.css') }}">
     <link rel="stylesheet" href="{{ asset('css/layout/Menu.css') }}">
@@ -54,6 +55,91 @@
             transform: translateY(-2px);
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
+
+        /* ===== MODAL DE CONFIRMACIÓN PERSONALIZADO ===== */
+        .modal-confirm {
+            position: fixed;
+            z-index: 10000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(4px);
+            transition: all 0.3s ease;
+        }
+
+        .modal-confirm-content {
+            background-color: #fff;
+            border-radius: 12px;
+            padding: 25px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+            text-align: center;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-confirm.show {
+            display: flex;
+        }
+
+        .modal-confirm.show .modal-confirm-content {
+            transform: scale(1);
+        }
+
+        .modal-confirm h3 {
+            margin-top: 0;
+            color: #d40f0f;
+            font-size: 1.35rem;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+
+        .modal-confirm p {
+            color: #555;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 25px;
+        }
+
+        .modal-confirm-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .btn-confirm-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+
+        .btn-confirm-btn.btn-danger {
+            background-color: #d40f0f;
+            color: white;
+        }
+
+        .btn-confirm-btn.btn-danger:hover {
+            background-color: #b30c0c;
+        }
+
+        .btn-confirm-btn.btn-secondary {
+            background-color: #e0e0e0;
+            color: #333;
+        }
+
+        .btn-confirm-btn.btn-secondary:hover {
+            background-color: #cccccc;
+        }
     </style>
 </head>
 <body>
@@ -72,11 +158,10 @@
             Volver
         </button>
 
-        <form action="{{ route('admin.tickets.historial.eliminar') }}" method="POST"
-              onsubmit="return confirm('⚠ ¿Eliminar TODO el historial de tickets?')">
+        <form id="formEliminarHistorial" action="{{ route('admin.tickets.historial.eliminar') }}" method="POST">
             @csrf
             @method('DELETE')
-            <button class="btn-rechazar">
+            <button type="button" class="btn-rechazar" onclick="mostrarConfirmacion()">
                 Eliminar historial
             </button>
         </form>
@@ -182,4 +267,39 @@
 </footer>
 
 <script src="{{ asset('js/Generalidades.js') }}"></script>
-    </body>
+
+<!-- Modal de Confirmación Personalizado -->
+<div id="modalConfirmar" class="modal-confirm">
+    <div class="modal-confirm-content">
+        <h3>¿Estás seguro?</h3>
+        <p>Esta acción es irreversible y eliminará de forma permanente todo el historial de tickets finalizados.</p>
+        <div class="modal-confirm-buttons">
+            <button id="btnConfirmarAceptar" class="btn-confirm-btn btn-danger">Eliminar</button>
+            <button id="btnConfirmarCancelar" class="btn-confirm-btn btn-secondary">Cancelar</button>
+        </div>
+    </div>
+</div>
+
+<script>
+function mostrarConfirmacion() {
+    const modal = document.getElementById('modalConfirmar');
+    modal.style.display = 'flex';
+    setTimeout(() => {
+        modal.classList.add('show');
+    }, 10);
+}
+
+function cerrarConfirmacion() {
+    const modal = document.getElementById('modalConfirmar');
+    modal.classList.remove('show');
+    setTimeout(() => {
+        modal.style.display = 'none';
+    }, 300);
+}
+
+document.getElementById('btnConfirmarCancelar').addEventListener('click', cerrarConfirmacion);
+document.getElementById('btnConfirmarAceptar').addEventListener('click', function() {
+    document.getElementById('formEliminarHistorial').submit();
+});
+</script>
+</body>

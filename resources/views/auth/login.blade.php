@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar sesión - Universidad del Valle</title>
+    @include('components.favicon')
 
     <meta name="description" content="Portal de inicio de sesión de la Universidad del Valle para administradores y proveedores de la Muestra Agroindustrial, Artesanal y de Servicios.">
 

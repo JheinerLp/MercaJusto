@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Tickets de Soporte</title>
+    @include('components.favicon')
     <link rel="stylesheet" href="{{ asset('css/pages/Gestion.css') }}">
     <link rel="stylesheet" href="{{ asset('css/layout/Menu.css') }}">
     <link rel="stylesheet" href="{{ asset('css/Estiloweb.css') }}">
@@ -192,12 +193,21 @@
 <div id="modalResponder" class="modal">
     <div class="modal-content">
         <span class="close" onclick="cerrarModal()">&times;</span>
-        <h3>Responder Ticket</h3>
+        <h3 style="font-size: 1.3rem; font-weight: 700; color: #2c3e50; margin-bottom: 10px;">Responder Ticket de Soporte</h3>
+        <p style="font-size: 0.85rem; color: #555; margin-bottom: 15px; line-height: 1.4;">
+            Ingresa la respuesta formal para el usuario. Esta respuesta le será enviada por correo electrónico automáticamente de forma inmediata.
+        </p>
         <form id="formResponder" method="POST" action="">
             @csrf
-            <label for="mensaje">Mensaje:</label>
-            <textarea name="mensaje" id="mensaje" rows="4" required style="width:100%; padding:5px;"></textarea>
-            <button type="submit" class="btn-rechazar" style="margin-top:10px;">Enviar</button>
+            <div class="form-group-modal">
+                <label for="mensaje">Respuesta Oficial <span class="required-star">*</span></label>
+                <textarea name="mensaje" id="mensaje" placeholder="Escribe aquí tu respuesta detallada, instrucciones o solución al problema reportado..." rows="5" required></textarea>
+                <span class="help-text">Asegúrate de ser claro y respetuoso. El ticket cambiará de estado automáticamente.</span>
+            </div>
+            <div style="display: flex; gap: 10px; margin-top: 15px;">
+                <button type="button" class="btn-rechazar" onclick="cerrarModal()" style="flex: 1; background-color: #7f8c8d; color: white; display: inline-block;">Cancelar</button>
+                <button type="submit" class="btn-finalizar" style="flex: 1; margin-top: 0; background-color: #28a745; display: inline-block;">Enviar Respuesta</button>
+            </div>
         </form>
     </div>
 </div>

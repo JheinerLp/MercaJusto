@@ -43,15 +43,9 @@ Route::view('/ayuda', 'opciones.Soporte')->name('soporte');
 // Tickets de soporte
 Route::post('/tickets', [TicketController::class, 'store'])
     ->name('tickets.store');
-Route::post('/tickets/responder/{id}', [TicketController::class, 'responder'])->name('tickets.responder');
-
-Route::patch('/tickets/finalizar/{id}', [TicketController::class, 'finalizar'])->name('tickets.finalizar');
 
 // mapa
 Route::get('/mapa', [MapaController::class, 'index'])->name('mapa.index');
-
-// Mostrar producto individual
-Route::get('/producto/{id}', [ProductoController::class, 'show'])->name('productos.show');
 
 // Catálogo completo por sede
 Route::get('/sede/{sede_id}/productos', [MapaController::class, 'catalogo'])->name('productos.catalogo');
@@ -60,80 +54,44 @@ Route::get('/categoria/{slug}', [CategoriaController::class, 'show'])
     ->name('categoria.show');
 
 // Panel admin
-// Los productos  que le llegan al admin
-// Ruta para eliminar los porductos que no cumplan las normas
-// Aceptar una solicitud
-// Rechazar una solicitud
-// Lista de proveedores
-// Perfil de proveedor
-// Suspender proveedor
-// Historial
-// Tickets de soporte
-// Solicitudes que envian al admin
 Route::middleware('admin')->group(function () {
+    // Dashboard
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-    Route::post('/admin/enviar-codigo', [AdminController::class, 'enviarCodigo'])
-        ->name('admin.enviar.codigo');
-    Route::get('/admin/productos', [AdminController::class, 'productos'])->name('admin.productos');
-    Route::post('/admin/productos/eliminar/{id}', [AdminController::class, 'eliminarProducto'])
-        ->name('admin.producto.eliminar');
-    Route::post('/admin/solicitudes/aceptar/{id}', [SolicitudProveedorController::class, 'aceptar'])
-        ->name('admin.solicitudes.aceptar');
-    Route::post('/admin/solicitudes/rechazar/{id}', [SolicitudProveedorController::class, 'rechazar'])
-        ->name('admin.solicitudes.rechazar');
-    Route::get('/admin/proveedores', [AdminController::class, 'listaProveedores'])->name('admin.proveedores');
+    Route::post('/admin/enviar-codigo', [AdminController::class, 'enviarCodigo'])->name('admin.enviar.codigo');
+    Route::post('/admin/credenciales/actualizar', [AdminController::class, 'actualizarCredenciales'])->name('admin.credenciales.actualizar');
+    
+    // Gestión de Carrusel
+    Route::post('/admin/carrusel/actualizar', [AdminController::class, 'actualizarCarrusel'])->name('admin.carrusel.actualizar');
+
+    // Gestión de Proveedores
+    Route::get('/admin/proveedores', [BuscadorController::class, 'proveedores'])->name('admin.proveedores');
     Route::get('/admin/proveedor/{id}', [AdminController::class, 'verProveedor'])->name('admin.proveedor.ver');
     Route::post('/admin/proveedor/{id}/suspender', [AdminController::class, 'suspenderProveedor'])->name('admin.proveedor.suspender');
-    Route::get('/admin/solicitudes/historial',
-        [SolicitudProveedorController::class, 'historial']
-    )->name('admin.solicitudes.historial');
-    Route::delete('/admin/solicitudes/historial/eliminar',
-        [SolicitudProveedorController::class, 'eliminarHistorial'])->name('admin.solicitudes.historial.eliminar');
-    Route::get('/admin/tickets', [AdminController::class, 'tickets'])->name('admin.tickets');
-    Route::get('/admin/tickets/historial', [AdminController::class, 'historialTickets'])
-        ->name('admin.tickets.historial');
-    Route::delete('/admin/tickets/historial', [AdminController::class, 'eliminarHistorial'])
-        ->name('admin.tickets.historial.eliminar');
-    Route::get('/admin/solicitudes', [SolicitudProveedorController::class, 'index'])
-        ->name('admin.solicitudes');
+    Route::post('/admin/proveedor/{id}/reactivar', [AdminController::class, 'reactivarProveedor'])->name('admin.proveedor.reactivar');
+    Route::delete('/admin/proveedor/{id}', [AdminController::class, 'eliminarProveedor'])->name('admin.proveedor.eliminar');
 
-    Route::post('/admin/proveedor/{id}/reactivar', [AdminController::class, 'reactivarProveedor'])
-        ->name('admin.proveedor.reactivar');
+    // Gestión de Productos
+    Route::get('/admin/productos', [BuscadorController::class, 'productos'])->name('admin.productos');
+    Route::post('/admin/productos/eliminar/{id}', [AdminController::class, 'eliminarProducto'])->name('admin.producto.eliminar');
 
-    Route::delete('/admin/proveedor/{id}', [AdminController::class, 'eliminarProveedor'])
-        ->name('admin.proveedor.eliminar');
+    // Gestión de Solicitudes
+    Route::get('/admin/solicitudes', [BuscadorController::class, 'solicitudes'])->name('admin.solicitudes');
+    Route::post('/admin/solicitudes/aceptar/{id}', [SolicitudProveedorController::class, 'aceptar'])->name('admin.solicitudes.aceptar');
+    Route::post('/admin/solicitudes/rechazar/{id}', [SolicitudProveedorController::class, 'rechazar'])->name('admin.solicitudes.rechazar');
+    Route::get('/admin/solicitudes/historial', [BuscadorController::class, 'solicitudesHistorial'])->name('admin.solicitudes.historial');
+    Route::delete('/admin/solicitudes/historial/eliminar', [SolicitudProveedorController::class, 'eliminarHistorial'])->name('admin.solicitudes.historial.eliminar');
 
-    Route::post('/admin/carrusel/actualizar', [AdminController::class, 'actualizarCarrusel'])->name('admin.carrusel.actualizar');
-    Route::post('/admin/credenciales/actualizar', [AdminController::class, 'actualizarCredenciales'])->name('admin.credenciales.actualizar');
-
+    // Gestión de Tickets de Soporte
+    Route::get('/admin/tickets', [BuscadorController::class, 'tickets'])->name('admin.tickets');
+    Route::get('/admin/tickets/historial', [BuscadorController::class, 'ticketsHistorial'])->name('admin.tickets.historial');
+    Route::post('/tickets/responder/{id}', [TicketController::class, 'responder'])->name('tickets.responder');
+    Route::patch('/tickets/finalizar/{id}', [TicketController::class, 'finalizar'])->name('tickets.finalizar');
+    Route::delete('/admin/tickets/historial', [AdminController::class, 'eliminarHistorial'])->name('admin.tickets.historial.eliminar');
 });
 
 // Solicitudes Publicas
-
 Route::post('/solicitud-proveedor', [SolicitudProveedorController::class, 'store'])
     ->name('solicitud.proveedor.store');
-
-// Rutas de el buscador o filtro
-
-Route::middleware('admin')->group(function () {
-Route::get('/admin/solicitudes', [BuscadorController::class, 'solicitudes'])
-    ->name('admin.solicitudes');
-
-Route::get('/admin/solicitudes/historial', [BuscadorController::class, 'solicitudesHistorial'])
-    ->name('admin.solicitudes.historial');
-
-Route::get('/admin/proveedores', [BuscadorController::class, 'proveedores'])
-    ->name('admin.proveedores');
-
-Route::get('/admin/productos', [BuscadorController::class, 'productos'])
-    ->name('admin.productos');
-
-Route::get('/admin/tickets', [BuscadorController::class, 'tickets'])
-    ->name('admin.tickets');
-
-Route::get('/admin/tickets/historial', [BuscadorController::class, 'ticketsHistorial'])
-    ->name('admin.tickets.historial');
-});
 
 Route::get('/proveedor/{proveedor}', [ProveedorController::class, 'show'])
     ->whereNumber('proveedor')

@@ -61,7 +61,7 @@
 }
 
 .tabs-busqueda .tab.active {
-    background: #007bff;
+    background: #df0f0f;
     color: #fff;
 }
 
@@ -70,7 +70,7 @@
     width: 40px;
     height: 40px;
     border: 4px solid #ddd;
-    border-top-color: #007bff;
+    border-top-color: #df0f0f;
     border-radius: 50%;
     margin: 30px auto;
     animation: spin 1s linear infinite;
@@ -145,7 +145,7 @@
 }
 
 .btn-detalles {
-    background: #333;
+    background: #df0f0f;
     color: white;
     padding: 8px 14px;
     border-radius: 6px;
@@ -156,7 +156,7 @@
 }
 
 .btn-detalles:hover {
-    background: #000;
+    background: #b50c0c;
 }
 
 

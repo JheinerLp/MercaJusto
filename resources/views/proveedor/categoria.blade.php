@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{{ $categoria->nombre }}</title>
+@include('components.favicon')
 
 <link rel="stylesheet" href="{{ asset('css/base/normalize.css') }}">
 <link rel="stylesheet" href="{{ asset('css/Estiloweb.css') }}">
@@ -41,26 +42,43 @@
     background-repeat: no-repeat;
     background-position: center;
     
-    width: 200px;
-    height: 200px;
+    width: 260px;
+    height: 180px;
 
-    margin: 0 0 0 0; /* reduce espacio debajo */
+    margin: -3px auto 15px auto; /* Centrado y subido para que las cuerdas toquen lo rojo */
 
     display: flex;
     align-items: center;
     justify-content: center;
+    box-sizing: border-box;
 }
 
 .letrero-categoria h2{
     color: white;
-    font-size: 28px;
+    font-size: 24px;
     font-weight: bold;
     text-align: center;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.7); /* para que resalte sobre la madera */
     margin: 0;
+    padding-top: 30px; /* Centrado vertical en la madera del letrero */
+    padding-left: 15px;
+    padding-right: 15px;
 }
 .contenedor{
     position: relative;
+}
+
+/* Responsivo para el letrero */
+@media (max-width: 768px) {
+    .letrero-categoria {
+        width: 200px;
+        height: 140px;
+        margin: -3px auto 10px auto;
+    }
+    .letrero-categoria h2 {
+        font-size: 18px;
+        padding-top: 20px;
+    }
 }
 
 /* ===== PAGINACIÓN PERSONALIZADA ===== */

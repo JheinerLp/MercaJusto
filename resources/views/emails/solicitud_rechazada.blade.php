@@ -7,6 +7,11 @@
 <body style="font-family: Arial, sans-serif; background:#f8f8f8; padding:20px;">
     <div style="max-width:600px; margin:auto; background:white; padding:25px; border-radius:10px;">
         
+        <!-- Banner del Correo -->
+        <div style="text-align: center; margin-bottom: 25px;">
+            <img src="{{ $message->embed(public_path('images/Banneremail.JPG')) }}" alt="MercaJusto Banner" style="width: 100%; max-width: 600px; height: auto; border-radius: 8px;">
+        </div>
+        
         <h2 style="color:#dc3545;">Solicitud Rechazada</h2>
 
         <p>Hola <strong>{{ $solicitud->nombre }}</strong>,</p>
