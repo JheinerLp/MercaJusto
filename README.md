@@ -138,14 +138,9 @@ Una vez que Docker y Vite estén corriendo, puedes acceder a la aplicación en:
 - 💻 **Aplicación Web:** [http://localhost:8000](http://localhost:8000)
 - 🗄️ **Base de datos:** PostgreSQL corriendo en el puerto `5432` con las credenciales de tu `.env`.
 
----
 
-## 🔒 Seguridad en producción y control de versiones
 
-- 🚫 **Nunca** subas archivos `.env` al repositorio de Git público, ya que contienen llaves API y contraseñas.
-- 🚫 Los archivos de respaldo de la base de datos (como `merca.sql` o archivos `.sql`, `.dump`, `.backup`) están excluidos en el archivo `.gitignore` para prevenir fugas de información.
 
----
 
 ## 👥 Créditos y Colaboradores
 
